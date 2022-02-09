@@ -1,0 +1,43 @@
+{
+    "configurations": [
+        {
+            "type": "node",
+            "name": "vscode-jest-tests",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "disableOptimisticBPs": true,
+            "cwd": "${workspaceFolder}",
+            "runtimeExecutable": "npm",
+            "args": [
+                "run",
+                "jest",
+                "--",
+                "--runInBand",
+                "--watchAll=false"
+            ]
+        },
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "module supported",
+			"program": "${workspaceFolder}/src/engine/index.ts",
+			"preLaunchTask": "tsc: build - tsconfig.json",
+			"outFiles": [
+				"${workspaceFolder}/built/lib/**/*.js"
+			]
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "current file",
+			"program": "${workspaceFolder}/src/baccaratology/subject/ant.moving.into.new.ts",//src/baccaratology/subject/
+			"preLaunchTask": "tsc: build - tsconfig.json",
+			"outFiles": [
+				"${workspaceFolder}/built/lib/**/*.js"
+			]
+		}
+    ]
+}
+
+//src/

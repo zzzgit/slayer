@@ -1,0 +1,76 @@
+{
+  "name": "slayer",
+  "version": "0.1.0",
+  "type": "commonjs",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zzzgit/slayer.git"
+  },
+  "main": "built/lib/index.js",
+  "types": "built/t/index.d.ts",
+  "scripts": {
+    "test": "npm run lint && jest",
+    "build": "npm run test && npm run clean && npm run rollup",
+    "release": "standard-version",
+    "clean": "rimraf coverage .nyc_output .rts2_cache",
+    "rollup": "cross-env NODE_ENV=production rollup -c",
+    "lint": "eslint './src/**' '-c=.eslintrc.yml'",
+    "jest": "jest 'test/*'"
+  },
+  "bugs": {
+    "url": "https://github.com/zzzgit/slayer/issues"
+  },
+  "keywords": [
+    "card",
+    "poker",
+    "baccarat",
+    "blackjack"
+  ],
+  "license": "LGPL-3.0-or-later",
+  "engines": {
+    "npm": ">=6.9.0",
+    "node": ">=10.0"
+  },
+  "author": "jonkee",
+  "dependencies": {
+    "asciichart": "^1.5.25",
+    "cardation": "^0.1.8",
+    "chart.js": "^3.6.0",
+    "chartjs-node-canvas": "^4.1.4",
+    "cli-table3": "^0.6.0",
+    "colors": "^1.4.0",
+    "kaze": "^0.0.55",
+    "marga": "^0.1.0",
+    "samael": "^1.0.30",
+    "ts-custom-error": "^3.2.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^13.2.1",
+    "@commitlint/config-conventional": "^13.2.0",
+    "@rollup/plugin-replace": "^3.0.0",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.11.6",
+    "@typescript-eslint/eslint-plugin": "^5.3.0",
+    "@typescript-eslint/parser": "^5.3.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.32.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-janus": "^1.1.22",
+    "eslint-plugin-array-func": "^3.1.7",
+    "eslint-plugin-jest": "^25.2.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.1",
+    "eslint-plugin-security": "^1.4.0",
+    "eslint-plugin-unicorn": "^37.0.1",
+    "husky": "^7.0.4",
+    "jest": "^27.3.1",
+    "jest-progress-bar-reporter": "^1.0.21",
+    "rollup": "^2.59.0",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "standard-version": "^9.3.2",
+    "ts-jest": "^27.0.7",
+    "typescript": "^4.4.4"
+  },
+  "homepage": "https://github.com/zzzgit/slayer#readme"
+}
