@@ -8,7 +8,7 @@ import tool from "../../tool/tool"
 
 const samael = require("samael")
 const date = new Date()
-const path = "/Users/luochao/Desktop/projects/cardation/src/baccaratology/reportCache/mm.txt"
+const path = "/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt"
 let prom = samael.writeToFile(path, `${date.toLocaleString()}\n  \n`).catch((e: Error) => console.log("錯誤", e))
 
 class CardCountingStrategy extends Strategy {

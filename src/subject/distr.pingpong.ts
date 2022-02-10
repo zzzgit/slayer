@@ -41,7 +41,7 @@ const testCase = {
 			reserved: new CounterMap<number>(),
 		}
 		const date = new Date()
-		const path = "/Users/luochao/Desktop/projects/cardation/src/baccaratology/reportCache/mm.txt"
+		const path = "/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt"
 		let prom = samael.writeToFile(path, `${date.toLocaleString()}\n  \n`).catch((e: Error) => console.log("錯誤", e))
 		for (let i = 0; i < shoeAmount; i++) {
 			const shoeComeout: ShoeOutcome = engine.playOneShoe()
