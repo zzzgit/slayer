@@ -25,3 +25,4 @@ test
 *.config.js
 permission.sh
 .eslintrc.yml
+tsconfig.*
