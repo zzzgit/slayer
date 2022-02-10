@@ -62,6 +62,7 @@ const testCase = {
 	},
 	showRoad(shoeComeout:ShoeOutcome) {
 		const road: BigRoad = shoeComeout.getBigRoad()
+		road.getPingpongIterator()
 		let streak = road.getFirstStreak()
 		// 遍歷streak,忽略最後一個
 		while (streak?.getNextStreak()) {
