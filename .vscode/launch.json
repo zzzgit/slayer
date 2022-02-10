@@ -31,7 +31,7 @@
 			"type": "node",
 			"request": "launch",
 			"name": "current file",
-			"program": "${workspaceFolder}/src/baccaratology/subject/ant.moving.into.new.ts",//src/baccaratology/subject/
+			"program": "${workspaceFolder}/src/subject/distr.pingpong.ts",//sr /
 			"preLaunchTask": "tsc: build - tsconfig.json",
 			"outFiles": [
 				"${workspaceFolder}/built/lib/**/*.js"

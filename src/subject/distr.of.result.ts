@@ -7,8 +7,9 @@ import util from "../tool/util"
 const conf:Config = {
 	shouldShuffleWhileCollectBankerHand: false,
 }
+console.log(conf)
 const engine = new Engine()
-engine.config(conf)
+// engine.config(conf)///////////////////////////////////////////////////////////////////////
 const shoeAmount = 5000
 const round = 3
 const table = new CliTable({

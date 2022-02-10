@@ -9,7 +9,7 @@ import util from "../tool/util"
 
 const engine = new Engine()
 const samael = require('samael')
-const shoeAmount = 3000
+const shoeAmount = 10000
 const round = 1
 const table = new CliTable({
 	head: ['total', 'B', 'P', 'tie'],
@@ -17,13 +17,13 @@ const table = new CliTable({
 	style: {"compact": false, 'padding-left': 1},
 })
 
-let result: { tie: number; banker: number; player: number; streakAfterPingpong: number[]; reserved: CounterMap<number> } = {
+let result: { tie: number; banker: number; player: number; streakAfterPingpong: number[]; reserved: CounterMap<number>; pingpongLen: number[] } = {
 	tie: 0,
 	banker: 0,
 	player: 0,
 	streakAfterPingpong: [],
 	reserved: new CounterMap<number>(),
-
+	pingpongLen: [],
 }
 
 
@@ -39,6 +39,7 @@ const testCase = {
 			player: 0,
 			streakAfterPingpong: [],
 			reserved: new CounterMap<number>(),
+			pingpongLen: [],
 		}
 		const date = new Date()
 		const path = "/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt"
@@ -62,7 +63,7 @@ const testCase = {
 	},
 	showRoad(shoeComeout:ShoeOutcome) {
 		const road: BigRoad = shoeComeout.getBigRoad()
-		road.getPingpongIterator()
+		// 舊API
 		let streak = road.getFirstStreak()
 		// 遍歷streak,忽略最後一個
 		while (streak?.getNextStreak()) {
@@ -79,6 +80,13 @@ const testCase = {
 			}
 			streak = streak.getNextStreak()
 		}
+		// 新的API
+		const gen = road.getPingpongIterator()
+		let next = gen.next()
+		while (!next.done) {
+			result.pingpongLen.push(next.value.length)
+			next = gen.next()
+		}
 	},
 	run() {
 		for (let i = 0; i < round; i++) {
@@ -89,7 +97,10 @@ const testCase = {
 	report() {
 		table.print(`莊閒分佈： `)
 		const totalStreak = result.streakAfterPingpong.reduce((a, b)=>a + b)
-		console.log(`平均長度：`, totalStreak / result.streakAfterPingpong.length)
+		const total_pingpong_length = result.pingpongLen.reduce((a, b)=>a + b)
+		console.log(`單挑之後的龍，平均長度：`, totalStreak / result.streakAfterPingpong.length)
+		console.log(`單跳平均長度：`, total_pingpong_length / result.pingpongLen.length)
+		console.log(`單跳最長：`, Math.max(...result.pingpongLen))
 	},
 }
 
@@ -99,5 +110,6 @@ testCase.report()
 
 /**
  * 1. 單挑之後的第一個龍，平均長度： 2.97，沒有bias
-
+ * 2. 單跳本身的平均長度：1.97左右，跟龍的平均長度一致
+ * 3. 單跳極限值：20
  */
