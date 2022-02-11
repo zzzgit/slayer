@@ -3,7 +3,7 @@
 // import massiveTestConfig from "../config/massiveTestConfig"
 // import {BigRoad, Streak, BeadRoad, BankerBigEntity, GreenBeadEntity, RedBeadEntity, BeadEntity} from "marga"
 // // eslint-disable-next-line node/no-extraneous-import
-// import {Engine, ShoeOutcome} from "baccarat-engine"
+// import {Engine, ShoeOutcome} from "bac-motor"
 // import CliTable from "../report/Table"
 
 // const engine = new Engine()

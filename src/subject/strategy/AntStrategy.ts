@@ -2,7 +2,7 @@
 import Strategy from "../../model/strategy/Strategy"
 import BetOrUndefined from "../../model/strategy/type/BetOrUndefined"
 // eslint-disable-next-line node/no-extraneous-import
-import {Bet, FreeMun as Free, BankerMun as Banker, PlayerMun as Player, HandOutcome} from "baccarat-engine"
+import {Bet, FreeMun as Free, BankerMun as Banker, PlayerMun as Player, HandOutcome} from "bac-motor"
 
 const samael = require("samael")
 

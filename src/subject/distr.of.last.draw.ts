@@ -1,6 +1,6 @@
 
 // eslint-disable-next-line node/no-extraneous-import
-import {Engine, HandOutcome} from "baccarat-engine"
+import {Engine, HandOutcome} from "bac-motor"
 import CliTable from "../report/Table"
 import CounterMap from "./collection/CounterMap"
 

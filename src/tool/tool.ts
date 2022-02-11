@@ -1,7 +1,7 @@
 import {Card} from "cardation"
 
 // eslint-disable-next-line node/no-extraneous-import
-import {HandResult, HandOutcome} from "baccarat-engine"
+import {HandResult, HandOutcome} from "bac-motor"
 const tool = {
 	countHandScore(handResult: HandOutcome | undefined):number {
 		let result = 0

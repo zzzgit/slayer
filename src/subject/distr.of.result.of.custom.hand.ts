@@ -2,7 +2,7 @@
 
 import {Heart, NumberCard, FaceCard, Card, AceCard} from "cardation"
 // eslint-disable-next-line node/no-extraneous-import
-import {Engine, Config} from "baccarat-engine"
+import {Engine, Config} from "bac-motor"
 import CliTable from "../report/Table"
 import util from "../tool/util"
 

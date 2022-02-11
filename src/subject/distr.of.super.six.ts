@@ -2,7 +2,7 @@
 import CounterMap from "./collection/CounterMap"
 
 // eslint-disable-next-line node/no-extraneous-import
-import {Engine, SuperSix, HandResult, HandOutcome} from "baccarat-engine"
+import {Engine, SuperSix, HandResult, HandOutcome} from "bac-motor"
 import CliTable from "../report/Table"
 import util from "../tool/util"
 

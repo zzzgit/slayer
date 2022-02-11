@@ -1,7 +1,7 @@
 
 // import Strategy from "../../model/strategy/Strategy"
 // // eslint-disable-next-line node/no-extraneous-import
-// import {Bet, FreeMun as Free, PlayerMun as Player, HandOutcome, HandResult} from "baccarat-engine"
+// import {Bet, FreeMun as Free, PlayerMun as Player, HandOutcome, HandResult} from "bac-motor"
 
 // class TribeadBBPStrategy extends Strategy {
 // 	// 根本不完善，以後要改成用三株路

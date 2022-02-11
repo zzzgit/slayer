@@ -34,6 +34,7 @@
   "author": "jonkee",
   "dependencies": {
     "asciichart": "^1.5.25",
+    "bac-motor": "^0.0.3",
     "bacsim": "^0.0.2",
     "cardation": "^0.1.23",
     "chart.js": "^3.7.0",
