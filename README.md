@@ -7,4 +7,3 @@ something
 # install
 
 `npm i slayer`
- 
