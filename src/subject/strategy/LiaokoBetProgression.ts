@@ -1,8 +1,8 @@
-import BetSequence from "../../model/strategy/BetSequence"
+import Progression from "../../model/strategy/Progression"
 import Instruct from "../../model/strategy/generator/Instruct"
 
 
-class LiaokoBetSequence extends BetSequence {
+class LiaokoBetProgression extends Progression {
 	private _seed:number[]
 
 	constructor(seed: number[]) {
@@ -30,4 +30,4 @@ class LiaokoBetSequence extends BetSequence {
 	}
 }
 
-export default LiaokoBetSequence
+export default LiaokoBetProgression

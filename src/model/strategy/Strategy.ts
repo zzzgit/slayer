@@ -1,15 +1,15 @@
 import {Bet} from "bac-motor"
-import BetSequence from "./BetSequence"
+import Progression from "./Progression"
 import ResetableGenerator from "./generator/ResetableGenerator"
 import BetOrUndefined from "./type/BetOrUndefined"
 import HandOutcomeOrUndefined from "./type/HandOutcomeOrUndefined"
 
 abstract class Strategy {
-	private readonly _sequence: BetSequence
+	private readonly _sequence: Progression
 
 	abstract figureOutBet(lastBet: BetOrUndefined, lastHandComeout: HandOutcomeOrUndefined): Bet
 
-	constructor(sequence: BetSequence) {
+	constructor(sequence: Progression) {
 		this._sequence = sequence
 	}
 

@@ -1,7 +1,7 @@
 
 import HandOutcomeOrUndefined from "../model/strategy/type/HandOutcomeOrUndefined"
 import BetOrUndefined from "../model/strategy/type/BetOrUndefined"
-import MartingaleBetSequence from "./strategy/MartingaleBetSequence"
+import MartingaleBetProgression from "./strategy/MartingaleBetProgression"
 import CardCountingStrategy from "./strategy/CardCountingStrategy"
 import {Engine, HandOutcome, HandResult, Bet, FreeMun as Free, BankerMun as Banker, PlayerMun as Player} from "bac-motor"
 import CliTable from "../report/Table"
@@ -51,7 +51,7 @@ const testCase = {
 		}
 		for (let i = 0; i < shoeAmount; i++) {
 			// 不斷create，導致取到的amount為初始值
-			const seq = new MartingaleBetSequence(1, 10)
+			const seq = new MartingaleBetProgression(1, 10)
 			const system = new CardCountingStrategy(seq)
 			let bet: Bet
 			const beforePlay = (prevBet: BetOrUndefined, prevComeout: HandOutcomeOrUndefined): Bet => {

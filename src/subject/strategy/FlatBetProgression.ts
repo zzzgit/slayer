@@ -1,6 +1,6 @@
-import BetSequence from "../../model/strategy/BetSequence"
+import Progression from "../../model/strategy/Progression"
 
-class FlatBetSequence extends BetSequence {
+class FlatBetProgression extends Progression {
 	private _wager:number
 
 	constructor(wager: number) {
@@ -18,4 +18,4 @@ class FlatBetSequence extends BetSequence {
 	}
 }
 
-export default FlatBetSequence
+export default FlatBetProgression

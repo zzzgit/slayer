@@ -1,8 +1,8 @@
-import BetSequence from "../../model/strategy/BetSequence"
+import Progression from "../../model/strategy/Progression"
 import Instruct from "../../model/strategy/generator/Instruct"
 
 
-class MartingaleBetSequence extends BetSequence {
+class MartingaleBetProgression extends Progression {
 	private _seed:number
 
 	private _steps:number
@@ -32,4 +32,4 @@ class MartingaleBetSequence extends BetSequence {
 	}
 }
 
-export default MartingaleBetSequence
+export default MartingaleBetProgression

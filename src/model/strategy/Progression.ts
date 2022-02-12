@@ -4,8 +4,8 @@ import ResetableGenerator from "./generator/ResetableGenerator"
 
 
 // 跟纜相關的東西，輸贏，只有輸贏，但是纜本身不需要知道輸贏，所以還是外界傳入比較合適
-abstract class BetSequence {
-	private readonly _context: Context ={instruct: Instruct.DoNothing}
+abstract class Progression {
+	private readonly _context: Context = {instruct: Instruct.DoNothing}
 
 	private _generator: ResetableGenerator<number, void, boolean> | undefined
 
@@ -27,4 +27,4 @@ abstract class BetSequence {
 	abstract _getGen():Generator<number, void, boolean>
 }
 
-export default BetSequence
+export default Progression

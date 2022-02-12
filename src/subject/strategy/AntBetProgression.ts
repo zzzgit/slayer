@@ -1,7 +1,7 @@
-import BetSequence from "../../model/strategy/BetSequence"
+import Progression from "../../model/strategy/Progression"
 
 
-class AntBetSequence extends BetSequence {
+class AntBetProgression extends Progression {
 	private _stepLength:number
 
 	constructor(stepLenth: number = 1) {
@@ -50,4 +50,4 @@ class AntBetSequence extends BetSequence {
 	}
 }
 
-export default AntBetSequence
+export default AntBetProgression

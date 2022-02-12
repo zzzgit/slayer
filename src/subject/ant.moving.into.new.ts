@@ -1,6 +1,6 @@
 import HandOutcomeOrUndefined from "../model/strategy/type/HandOutcomeOrUndefined"
 import BetOrUndefined from "../model/strategy/type/BetOrUndefined"
-import AntBetSequence from "./strategy/AntBetSequence"
+import AntBetProgression from "./strategy/AntBetProgression"
 import AntStrategy from "./strategy/AntStrategy"
 import {Engine, HandOutcome, Bet, FreeMun as Free, SuperSixMun as SuperSix, BankerMun as Banker} from "bac-motor"
 import CliTable from "../report/Table"
@@ -35,7 +35,7 @@ const testCase = {
 	run() {
 		for (let i = 0; i < shoeAmount; i++) {
 			let isFree = false
-			const seq = new AntBetSequence()
+			const seq = new AntBetProgression()
 			const system = new AntStrategy(seq)
 			let bet: Bet
 			const beforePlay = (prevBet: BetOrUndefined, prevComeout: HandOutcomeOrUndefined): Bet => {
