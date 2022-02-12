@@ -1,6 +1,5 @@
 import {Card} from "cardation"
 
-// eslint-disable-next-line node/no-extraneous-import
 import {Engine, HandOutcome, HandResult} from "bac-motor"
 import CounterMap from "./collection/CounterMap"
 import CliTable from "../report/Table"

@@ -1,6 +1,5 @@
 
 import CounterMap from "./collection/CounterMap"
-// eslint-disable-next-line node/no-extraneous-import
 import {Engine, HandResult, HandOutcome} from "bac-motor"
 import CliTable from "../report/Table"
 import util from "../tool/util"

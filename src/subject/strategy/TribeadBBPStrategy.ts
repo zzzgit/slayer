@@ -1,6 +1,5 @@
 
 // import Strategy from "../../model/strategy/Strategy"
-// // eslint-disable-next-line node/no-extraneous-import
 // import {Bet, FreeMun as Free, PlayerMun as Player, HandOutcome, HandResult} from "bac-motor"
 
 // class TribeadBBPStrategy extends Strategy {

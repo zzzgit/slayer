@@ -2,8 +2,7 @@ import HandOutcomeOrUndefined from "../model/strategy/type/HandOutcomeOrUndefine
 import BetOrUndefined from "../model/strategy/type/BetOrUndefined"
 import AntBetSequence from "./strategy/AntBetSequence"
 import AntStrategy from "./strategy/AntStrategy"
-// eslint-disable-next-line node/no-extraneous-import
-import {Engine, HandOutcome, Bet, FreeMun as Free, SuperSixMun as SuperSix, BankerMun as Banker} from "baccarat-engine"
+import {Engine, HandOutcome, Bet, FreeMun as Free, SuperSixMun as SuperSix, BankerMun as Banker} from "bac-motor"
 import CliTable from "../report/Table"
 
 const engine = new Engine()

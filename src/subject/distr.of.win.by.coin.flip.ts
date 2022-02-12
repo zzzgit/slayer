@@ -1,6 +1,3 @@
-
-
-// eslint-disable-next-line node/no-extraneous-import
 import {Engine, HandOutcome, HandResult} from "bac-motor"
 import CliTable from "../report/Table"
 import util from "../tool/util"

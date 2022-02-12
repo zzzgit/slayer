@@ -1,5 +1,4 @@
-// eslint-disable-next-line node/no-extraneous-import
-import {HandOutcome} from "baccarat-engine"
+import {HandOutcome} from "bac-motor"
 type HandOutcomeOrUndefined = HandOutcome | undefined
 
 export default HandOutcomeOrUndefined

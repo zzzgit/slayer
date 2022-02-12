@@ -1,6 +1,4 @@
-
-// eslint-disable-next-line node/no-extraneous-import
-import {Bet} from "baccarat-engine"
+import {Bet} from "bac-motor"
 type BetOrUndefined = Bet | undefined
 
 export default BetOrUndefined

@@ -3,8 +3,7 @@ import HandOutcomeOrUndefined from "../model/strategy/type/HandOutcomeOrUndefine
 import BetOrUndefined from "../model/strategy/type/BetOrUndefined"
 import MartingaleBetSequence from "./strategy/MartingaleBetSequence"
 import CardCountingStrategy from "./strategy/CardCountingStrategy"
-// eslint-disable-next-line node/no-extraneous-import
-import {Engine, HandOutcome, HandResult, Bet, FreeMun as Free, BankerMun as Banker, PlayerMun as Player} from "baccarat-engine"
+import {Engine, HandOutcome, HandResult, Bet, FreeMun as Free, BankerMun as Banker, PlayerMun as Player} from "bac-motor"
 import CliTable from "../report/Table"
 
 const engine = new Engine()

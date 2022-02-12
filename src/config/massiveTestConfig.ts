@@ -1,5 +1,4 @@
-// eslint-disable-next-line node/no-extraneous-import
-import {Config} from "baccarat-engine"
+import {Config} from "bac-motor"
 const massiveTestConfig:Config = {
 	shouldCutShoe: false,
 	shouldDetectShoe: false,

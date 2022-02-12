@@ -2,7 +2,6 @@
 import {BigRoad} from "marga"
 import massiveTestConfig from "../config/massiveTestConfig"
 import CounterMap from "./collection/CounterMap"
-// eslint-disable-next-line node/no-extraneous-import
 import {Engine, ShoeOutcome} from "bac-motor"
 import CliTable from "../report/Table"
 import util from "../tool/util"

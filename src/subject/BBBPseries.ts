@@ -1,6 +1,5 @@
 // import {Hand} from "cardation"
 // import util from "../tool/util"
-// // eslint-disable-next-line node/no-extraneous-import
 // import {Engine, HandOutcome, HandResult} from "baccarat-engine"
 // import CliTable from "../report/Table"
 
