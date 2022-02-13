@@ -7,7 +7,7 @@ import CliTable from "../report/Table"
 import util from "../tool/util"
 
 const engine = new Engine()
-const shoeAmount = 2000
+const shoeAmount = 20000
 
 const tableDistribution = new CliTable({
 	head: ['total', 'P win', 'tie', 'B win'],
@@ -66,6 +66,6 @@ testCase.run()
 testCase.report()
 
 /**
- * 1.
+ * 1. 閒莊的點數9：0，然後買閒，勝率高於50%，可能只是因為閒本來就比較多
  * 2.
  */
