@@ -63,7 +63,6 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-unicorn": "^40.1.0",
-    "husky": "^7.0.4",
     "jest": "^27.5.1",
     "jest-progress-bar-reporter": "^1.0.21",
     "rollup": "^2.67.2",
