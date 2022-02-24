@@ -13,7 +13,7 @@ abstract class Strategy {
 		this._sequence = sequence
 	}
 
-	getSequenceGenerator(): ResetableGenerator<number, void, boolean> {
+	getProgressionGenerator(): ResetableGenerator<number, void, boolean> {
 		return this._sequence.getGenerator()
 	}
 }

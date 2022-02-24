@@ -20,7 +20,7 @@ class CardCountingStrategy extends Strategy {
 		}
 
 		const freeGame = new Bet(new Free(), 0)
-		const gen = this.getSequenceGenerator()
+		const gen = this.getProgressionGenerator()
 		const score = tool.countHandScore(lastComeout)
 		// if (lastBet?.gotTie()) {
 		// 	return lastBet
