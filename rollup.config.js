@@ -1,18 +1,18 @@
 /* eslint-env node */
 const path = require("path")
 // const babel = require("rollup-plugin-babel")
-const replace = require("rollup-plugin-replace")
-import typescript from "rollup-plugin-typescript2"
 const pkg = require("./package.json")
+const replace = require("@rollup/plugin-replace")
+const typescript = require("@rollup/plugin-typescript")
 
 module.exports = {
 	input: path.resolve(__dirname, "./src/index.ts"),
 	output: {
 		file: path.resolve(__dirname, pkg.main),
 		format: "cjs",
-		name: "cardation",
+		name: "slayer",
 		banner: "/* eslint-disable */",
-		sourcemap: true,
+		// sourcemap: true,
 	},
 	plugins: [
 		// babel({
@@ -22,10 +22,8 @@ module.exports = {
 			NODE_ENV: JSON.stringify(process.env.NODE_ENV === "production" ? "production" : "develop"),
 		}),
 		typescript({
-			cacheRoot: "./.rts2_cache",
-			verbosity: 3,
-			useTsconfigDeclarationDir: true,
-			clean: false,
+			cacheDir: "./.rts2_cache",
+			compilerOptions: {"module": "ESNext"},
 		}),
 	],
 
