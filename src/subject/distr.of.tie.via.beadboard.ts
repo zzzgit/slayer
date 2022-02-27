@@ -3,9 +3,9 @@ import {IEntity, BlueBeadEntity, RedBeadEntity, BeadRoad} from "marga"
 import {Engine, ShoeOutcome} from "bac-motor"
 import CliTable from "../report/Table"
 import util from "../tool/util"
+import samael from "samael"
 
 const engine = new Engine()
-const samael = require('samael')
 const shoeAmount = 12
 const round = 1
 const table = new CliTable({

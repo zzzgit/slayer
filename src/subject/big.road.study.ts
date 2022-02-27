@@ -6,10 +6,9 @@ import CounterMap from "./collection/CounterMap"
 import {Card} from "cardation"
 import CliTable from "../report/Table"
 import util from "../tool/util"
-
+import samael from "samael"
 
 const engine = new Engine()
-const samael = require('samael')
 const shoeAmount = 30000
 const round = 1
 const table = new CliTable({

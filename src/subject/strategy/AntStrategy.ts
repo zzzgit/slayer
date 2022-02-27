@@ -2,8 +2,7 @@
 import Strategy from "../../model/strategy/Strategy"
 import BetOrUndefined from "../../model/strategy/type/BetOrUndefined"
 import {Bet, FreeMun as Free, BankerMun as Banker, PlayerMun as Player, HandOutcome} from "bac-motor"
-
-const samael = require("samael")
+import samael from "samael"
 
 class AntStrategy extends Strategy {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars

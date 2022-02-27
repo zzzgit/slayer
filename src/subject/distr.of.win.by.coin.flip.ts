@@ -2,8 +2,7 @@ import {Engine, HandOutcome, HandResult} from "bac-motor"
 import CliTable from "../report/Table"
 import util from "../tool/util"
 import CounterMap from "./collection/CounterMap"
-
-const samael = require('samael')
+import samael from "samael"
 
 
 const engine = new Engine()

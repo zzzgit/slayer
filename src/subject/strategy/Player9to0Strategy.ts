@@ -2,8 +2,8 @@ import Strategy from "../../model/strategy/Strategy"
 import BetOrUndefined from "../../model/strategy/type/BetOrUndefined"
 import HandOutcomeOrUndefined from "../../model/strategy/type/HandOutcomeOrUndefined"
 import {Bet, FreeMun as Free, PlayerMun as Player} from "bac-motor"
+// import samael from "samael"
 
-// const samael = require("samael")
 // const date = new Date()
 // const path = "/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt"
 // let prom = samael.writeToFile(path, `${date.toLocaleString()}\n  \n`).catch((e: Error) => console.log("錯誤", e))

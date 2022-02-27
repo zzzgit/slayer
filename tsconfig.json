@@ -10,6 +10,7 @@
 		"strictNullChecks": true,
 		"removeComments": true,
 		"declaration": true,
+		"esModuleInterop": true,
 		"outDir": "./built/lib/",
 		"declarationDir": "./built/t/",
 		"declarationMap": false,

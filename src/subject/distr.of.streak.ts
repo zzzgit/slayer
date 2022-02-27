@@ -14,7 +14,7 @@ const table = new CliTable({
 	style: {"compact": false, 'padding-left': 1},
 })
 
-const result:{[key: string]: CounterMap<number>} = {
+const result: { [key: string]: CounterMap<number> } = {
 	bstreak: new CounterMap<number>(),
 	pstreak: new CounterMap<number>(),
 	firstStreak: new CounterMap<number>(),
@@ -30,7 +30,7 @@ const testCase = {
 		const mapP = result.pstreak
 		const mapfirst = result.firstStreak
 		for (let i = 0; i < shoeAmount; i++) {
-			const shoeoutcome:ShoeOutcome = engine.playOneShoe(undefined, undefined)
+			const shoeoutcome: ShoeOutcome = engine.playOneShoe(undefined, undefined)
 			const road = shoeoutcome.getBigRoad()
 			let streak = road.getFirstStreak()
 			// first streak
@@ -69,9 +69,9 @@ const testCase = {
 		// result.bstreak.forEach((item)=>{totalB = totalB + item})
 		// result.pstreak.forEach((item)=>{totalP = totalP + item})
 		// console.log("莊、閒的條數：", totalB, totalP)
-		util.getAbyss(result.bstreak.getSortedEntities().map(item=>item.value))
+		util.getAbyss(result.bstreak.getSortedEntities().map(item => item.value))
 		console.log("----上面是莊，下面是閒---------")
-		util.getAbyss(result.pstreak.getSortedEntities().map(item=>item.value))
+		util.getAbyss(result.pstreak.getSortedEntities().map(item => item.value))
 		console.log("----下面是閒第一列---------")
 		util.getAbyss(result.firstStreak.getSortedEntities().map(item => item.value))
 	},
