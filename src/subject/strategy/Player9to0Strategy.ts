@@ -1,7 +1,7 @@
 import Strategy from "../../model/strategy/Strategy"
 import BetOrUndefined from "../../model/strategy/type/BetOrUndefined"
 import HandOutcomeOrUndefined from "../../model/strategy/type/HandOutcomeOrUndefined"
-import {Bet, FreeMun as Free, PlayerMun as Player} from "bac-motor"
+import {Bet, FreeMun as Free, PuntoMun as Player} from "bac-motor"
 // import samael from "samael"
 
 // const date = new Date()

@@ -2,7 +2,7 @@
 import Strategy from "../../model/strategy/Strategy"
 import BetOrUndefined from "../../model/strategy/type/BetOrUndefined"
 import HandOutcomeOrUndefined from "../../model/strategy/type/HandOutcomeOrUndefined"
-import {Bet, BankerMun as Banker, FreeMun as Free, PlayerMun as Player} from "bac-motor"
+import {Bet, BancoMun as Banker, FreeMun as Free, PuntoMun as Player} from "bac-motor"
 import tool from "../../tool/tool"
 import samael from "samael"
 

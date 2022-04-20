@@ -2,7 +2,7 @@ import HandOutcomeOrUndefined from "../model/strategy/type/HandOutcomeOrUndefine
 import BetOrUndefined from "../model/strategy/type/BetOrUndefined"
 import AntBetProgression from "./strategy/AntBetProgression"
 import AntStrategy from "./strategy/AntStrategy"
-import {Engine, HandOutcome, Bet, FreeMun as Free, SuperSixMun as SuperSix, BankerMun as Banker} from "bac-motor"
+import {Engine, HandOutcome, Bet, FreeMun as Free, SuperSixMun as SuperSix, BancoMun as Banker} from "bac-motor"
 import CliTable from "../report/Table"
 
 const engine = new Engine()

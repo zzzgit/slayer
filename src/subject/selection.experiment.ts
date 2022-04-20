@@ -1,5 +1,5 @@
 import HandOutcomeOrUndefined from "../model/strategy/type/HandOutcomeOrUndefined"
-import {Engine, HandOutcome, Bet, FreeMun as Free, HandResult, BankerMun as Banker, PlayerMun as Player} from "bac-motor"
+import {Engine, HandOutcome, Bet, FreeMun as Free, HandResult, BancoMun as Banker, PuntoMun as Player} from "bac-motor"
 import BetOrUndefined from "../model/strategy/type/BetOrUndefined"
 import FlatBetProgression from "./strategy/FlatBetProgression"
 import PiStrategy from "./strategy/PiStrategy"

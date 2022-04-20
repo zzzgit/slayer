@@ -1,7 +1,7 @@
 
 import Strategy from "../../model/strategy/Strategy"
 import BetOrUndefined from "../../model/strategy/type/BetOrUndefined"
-import {Bet, FreeMun as Free, BankerMun as Banker, PlayerMun as Player, HandOutcome} from "bac-motor"
+import {Bet, FreeMun as Free, BancoMun as Banker, PuntoMun as Player, HandOutcome} from "bac-motor"
 import samael from "samael"
 
 class AntStrategy extends Strategy {

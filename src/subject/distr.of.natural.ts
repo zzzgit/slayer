@@ -1,5 +1,5 @@
 
-import {Engine, HandOutcome, Natural, BankerNatural} from "bac-motor"
+import {Engine, HandOutcome, Natural, BancoNatural} from "bac-motor"
 import CliTable from "../report/Table"
 import CounterMap from "./collection/CounterMap"
 
@@ -47,7 +47,7 @@ const testCase = {
 					tags.forEach((tag) => {
 						const bHand = handComeout.bancoHand.getDuplicatedCardArray()
 						const pHand = handComeout.puntoHand.getDuplicatedCardArray()
-						if (tag instanceof BankerNatural) {
+						if (tag instanceof BancoNatural) {
 							if (tag.score === 8) {
 								result.banker8++
 							} else {

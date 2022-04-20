@@ -1,6 +1,6 @@
 
 // import Strategy from "../../model/strategy/Strategy"
-// import {Bet, FreeMun as Free, PlayerMun as Player, HandOutcome, HandResult} from "bac-motor"
+// import {Bet, FreeMun as Free, PuntoMun as Player, HandOutcome, HandResult} from "bac-motor"
 
 // class TribeadBBPStrategy extends Strategy {
 // 	// 根本不完善，以後要改成用三株路
