@@ -43,7 +43,7 @@ const testCase = {
 			let str = `${shoeComeout.getShoeIndex()}\t${info.banker}\t${info.player}\t${info.tie}\n`
 			str = ""
 			prom = prom.then(() => samael.appendToFile(path, str))
-			let first = shoeComeout.getFirstHandComeout()
+			let first = shoeComeout.getFirstHandOutcome()
 			while (first?.result == HandResult.Tie) {
 				first = first.getNextHandOutcome()
 			}
@@ -85,8 +85,7 @@ testCase.run()
 testCase.report()
 
 /**
- * 1. 第一手，莊閒都沒有優勢，隨機性很大
- * 2. 第一手，跟總體上莊多還是閒多也沒有關係
+ * 1. 第一手，跟宏觀數據以致（宏觀上的莊閒比例）
  * 3.
  *
  */

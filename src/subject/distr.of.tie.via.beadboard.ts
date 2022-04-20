@@ -6,7 +6,7 @@ import util from "../tool/util"
 import samael from "samael"
 
 const engine = new Engine()
-const shoeAmount = 12
+const shoeAmount = 1200
 const round = 1
 const table = new CliTable({
 	head: ['total', 'B', 'P', 'tie'],
@@ -82,5 +82,5 @@ testCase.report()
 
 /**
  * 1. 和局幾率9.5%
- * 2. 閒家贏比莊家贏略高
+ * 2.
  */

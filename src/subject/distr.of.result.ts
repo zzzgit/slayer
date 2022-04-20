@@ -4,11 +4,12 @@ import util from "../tool/util"
 
 const conf:Config = {
 	shouldShuffleWhileCollectBankerHand: false,
+	shouldCutShoe: false,
+	shouldBurnCard: false,
 }
 console.log(conf)
 const engine = new Engine()
-// engine.config(conf)///////////////////////////////////////////////////////////////////////
-const shoeAmount = 5000
+const shoeAmount = 1000
 const round = 3
 const table = new CliTable({
 	head: ['total', 'B', 'P', 'tie'],
@@ -25,7 +26,7 @@ const result = {
 
 const testCase = {
 	init() {
-		engine.powerOn()
+		engine.powerOn(conf)
 	},
 	work() {
 		result.tie = 0
@@ -61,5 +62,5 @@ testCase.report()
 
 /**
  * 1. 和局幾率9.5%
- * 2. 閒家贏比莊家贏略高
+ * 2. 莊家贏比閒家贏略高
  */
