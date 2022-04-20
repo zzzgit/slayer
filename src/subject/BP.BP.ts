@@ -45,14 +45,14 @@ const testCase = {
 		for (let i = 0; i < shoeAmount; i++) {
 			const shoeOutcome: ShoeOutcome = engine.playOneShoe()
 			const info = shoeOutcome.getStatisticInfo()
-			let str = `${shoeOutcome.getShoeIndex()}\t${info.banker}\t${info.player}\t${info.tie}\n`
+			let str = `${shoeOutcome.getShoeIndex()}\t${info.banco}\t${info.punto}\t${info.tie}\n`
 			str = ""
 			prom = prom.then(() => samael.appendToFile(path, str))
 			const road: BigRoad = shoeOutcome.getBigRoad()
 			let streak = road.getFirstStreak()
 			const originalCapital = capital
 			while (streak) {
-				if (streak.getFirstEntity()?.isBanker) {
+				if (streak.getFirstEntity()?.isBanco) {
 					if (streak.getLength() > 1) {
 						capital--
 					} else {
@@ -66,24 +66,24 @@ const testCase = {
 			const profit = capital - originalCapital
 			if (profit < 0) {
 				// this.printArray(shoeOutcome.getBigRoad().print() as string[][])
-				// console.log(`${info.banker}:\t${info.player}`)
+				// console.log(`${info.banco}:\t${info.punto}`)
 				// this.statistics(shoeOutcome.getBigRoad())
 			}
 			// console.log(`shoe${shoeOutcome.getShoeIndex()}:\t${capital}`)
-			result.banker += info.banker
-			result.player += info.player
+			result.banco += info.banco
+			result.punto += info.punto
 			result.tie += info.tie
 		}
-		const totalResult: number = result.tie + result.banker + result.player
-		table.push([totalResult, result.banker, result.player, result.tie],
-			[`100 %`, util.percentize(result.banker / totalResult) + " %",
-				util.percentize(result.player / totalResult) + " %", util.percentize(result.tie / totalResult) + " %"])
+		const totalResult: number = result.tie + result.banco + result.punto
+		table.push([totalResult, result.banco, result.punto, result.tie],
+			[`100 %`, util.percentize(result.banco / totalResult) + " %",
+				util.percentize(result.punto / totalResult) + " %", util.percentize(result.tie / totalResult) + " %"])
 	},
 	statistics(road: BigRoad) {
 		const arr = []
 		let streak = road.getFirstStreak() as Streak
 		while (streak) {
-			if (streak.getFirstEntity()?.isBanker) {
+			if (streak.getFirstEntity()?.isBanco) {
 				arr.push(streak.getLength())
 			}
 			streak = streak.getNextStreak() as Streak

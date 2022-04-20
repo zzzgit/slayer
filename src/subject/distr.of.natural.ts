@@ -45,8 +45,8 @@ const testCase = {
 				}) as Natural[]
 				if (tags.length) {
 					tags.forEach((tag) => {
-						const bHand = handComeout.bankerHand.getDuplicatedCardArray()
-						const pHand = handComeout.playerHand.getDuplicatedCardArray()
+						const bHand = handComeout.bancoHand.getDuplicatedCardArray()
+						const pHand = handComeout.puntoHand.getDuplicatedCardArray()
 						if (tag instanceof BankerNatural) {
 							if (tag.score === 8) {
 								result.banker8++
@@ -55,8 +55,8 @@ const testCase = {
 							}
 							const [first, second] = bHand
 							const bMap = cardMap.b
-							bMap.count(first.getCardScore())
-							bMap.count(second.getCardScore())
+							bMap.count(first.getPoint())
+							bMap.count(second.getPoint())
 						} else {
 							if (tag.score === 8) {
 								result.player8++
@@ -65,8 +65,8 @@ const testCase = {
 							}
 							const [first, second] = pHand
 							const pMap = cardMap.p
-							pMap.count(first.getCardScore())
-							pMap.count(second.getCardScore())
+							pMap.count(first.getPoint())
+							pMap.count(second.getPoint())
 						}
 					})
 				}

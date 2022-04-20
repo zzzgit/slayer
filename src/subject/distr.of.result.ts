@@ -3,7 +3,7 @@ import CliTable from "../report/Table"
 import util from "../tool/util"
 
 const conf:Config = {
-	shouldShuffleWhileCollectBankerHand: false,
+	shouldShuffleWhileCollectBancoHand: false,
 	shouldCutShoe: false,
 	shouldBurnCard: false,
 }
@@ -35,15 +35,15 @@ const testCase = {
 		for (let i = 0; i < shoeAmount; i++) {
 			const shoeComeout = engine.playOneShoe()
 			const info = shoeComeout.getStatisticInfo()
-			result.banker = result.banker + info.banker
-			result.player = result.player + info.player
+			result.banker = result.banker + info.banco
+			result.player = result.player + info.punto
 			result.tie = result.tie + info.tie
 			//
 		}
 
 		const totalResult: number = result.tie + result.banker + result.player
 		table.push([totalResult, result.banker, result.player, result.tie], [`100 %`, util.percentize(result.banker / totalResult) + " %", util.percentize(result.player / totalResult) + " %", util.percentize(result.tie / totalResult) + " %"])
-		// table.push([100, util.percentize(result.banker / totalResult), util.percentize(result.player / totalResult), util.percentize(result.tie / totalResult)])
+		// table.push([100, util.percentize(result.banco / totalResult), util.percentize(result.punto / totalResult), util.percentize(result.tie / totalResult)])
 	},
 	run() {
 		for (let i = 0; i < round; i++) {

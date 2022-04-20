@@ -35,12 +35,12 @@
 // 		if (hcomeout.handIndex % 4 !== 3) {
 // 			return false
 // 		}
-// 		if (hcomeout.result != HandResult.BankerWins) {
+// 		if (hcomeout.result != HandResult.BancoWins) {
 // 			return false
 // 		}
 // 		let redBead = 1
 // 		let prev = hcomeout.getPreviousHandComeout()
-// 		while (prev && prev.result != HandResult.PlayerWins && redBead < 3) {
+// 		while (prev && prev.result != HandResult.PuntoWins && redBead < 3) {
 // 			if (prev.result != HandResult.Tie) {
 // 				redBead++
 // 			}
@@ -62,7 +62,7 @@
 // 					engine.playOneHand()
 // 					continue
 // 				}
-// 				const tempHand = Hand.from(...[prev.bankerHand, prev.playerHand])
+// 				const tempHand = Hand.from(...[prev.bancoHand, prev.puntoHand])
 // 				const score = util.countScore(tempHand.getCardArray())
 // 				if (score > -2) {
 // 					// engine.playOneHand()
@@ -71,12 +71,12 @@
 // 				const shouldBetOnP = this._checkbbbpPattern(prev)
 // 				handResult = engine.playOneHand()
 // 				if (shouldBetOnP) {
-// 					if (handResult.result == HandResult.PlayerWins) {
+// 					if (handResult.result == HandResult.PuntoWins) {
 // 						result.win++
 // 						result.arrlosingStreak[losingStreak] = result.arrlosingStreak[losingStreak] + 1
 // 						losingStreak = 0
 // 					}
-// 					if (handResult.result == HandResult.BankerWins) {
+// 					if (handResult.result == HandResult.BancoWins) {
 // 						result.loss++
 // 						losingStreak++
 // 					}

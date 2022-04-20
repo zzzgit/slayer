@@ -29,17 +29,17 @@ const creatCard = (score:number): Card=>{
 }
 
 const getResult = (handResult: HandOutcome): number[]=>{
-	const banco = handResult.bankerHand
-	const punto = handResult.playerHand
-	const bancoScore = banco.getScore()
-	const puntoScore = punto.getScore()
+	const banco = handResult.bancoHand
+	const punto = handResult.puntoHand
+	const bancoScore = banco.getPoint()
+	const puntoScore = punto.getPoint()
 	const result = [bancoScore, puntoScore, -1]
 	banco.getDuplicatedCardArray().forEach((ele) => {
-		result.push(ele.getCardScore())
+		result.push(ele.getPoint())
 	})
 	result.push(-1)
 	punto.getDuplicatedCardArray().forEach((ele) => {
-		result.push(ele.getCardScore())
+		result.push(ele.getPoint())
 	})
 	return result
 }
@@ -64,7 +64,7 @@ const testCase = {
 			shouldCutShoe: false,
 			shouldUseBlackCard: false,
 			shouldShuffle: false,
-			shouldShuffleWhileCollectBankerHand: false,
+			shouldShuffleWhileCollectBancoHand: false,
 		}
 		engine.powerOn(config)
 	},
@@ -88,15 +88,15 @@ const testCase = {
 			})
 
 			const info = shoeComeout.getStatisticInfo()
-			result.banker = result.banker + info.banker
-			result.player = result.player + info.player
+			result.banker = result.banker + info.banco
+			result.player = result.player + info.punto
 			result.tie = result.tie + info.tie
 			//
 		}
 
 		const totalResult: number = result.tie + result.banker + result.player
 		table.push([totalResult, result.banker, result.player, result.tie], [`100 %`, util.percentize(result.banker / totalResult) + " %", util.percentize(result.player / totalResult) + " %", util.percentize(result.tie / totalResult) + " %"])
-		// table.push([100, util.percentize(result.banker / totalResult), util.percentize(result.player / totalResult), util.percentize(result.tie / totalResult)])
+		// table.push([100, util.percentize(result.banker / totalResult), util.percentize(result.punto / totalResult), util.percentize(result.tie / totalResult)])
 	},
 	run() {
 		for (let i = 0; i < round; i++) {

@@ -3,7 +3,7 @@ import HandOutcomeOrUndefined from "../model/strategy/type/HandOutcomeOrUndefine
 import BetOrUndefined from "../model/strategy/type/BetOrUndefined"
 import MartingaleBetProgression from "./strategy/MartingaleBetProgression"
 import CardCountingStrategy from "./strategy/CardCountingStrategy"
-import {Engine, HandOutcome, HandResult, Bet, FreeMun as Free, BankerMun as Banker, PlayerMun as Player} from "bac-motor"
+import {Engine, HandOutcome, HandResult, Bet, FreeMun as Free, BancoMun as Banker, PuntoMun as Player} from "bac-motor"
 import CliTable from "../report/Table"
 
 const engine = new Engine()
@@ -65,9 +65,9 @@ const testCase = {
 				}
 				if (bet.getMun() instanceof Banker) {
 					const bResult = result.banker
-					if (handResult.result == HandResult.BankerWins) {
+					if (handResult.result == HandResult.BancoWins) {
 						bResult.win = bResult.win + 1
-					} else if (handResult.result == HandResult.PlayerWins) {
+					} else if (handResult.result == HandResult.PuntoWins) {
 						bResult.lose = bResult.lose + 1
 					} else if (handResult.result == HandResult.Tie) {
 						bResult.tie = bResult.tie + 1
@@ -75,9 +75,9 @@ const testCase = {
 				}
 				if (bet.getMun() instanceof Player) {
 					const pResult = result.player
-					if (handResult.result == HandResult.BankerWins) {
+					if (handResult.result == HandResult.BancoWins) {
 						pResult.lose = pResult.lose + 1
-					} else if (handResult.result == HandResult.PlayerWins) {
+					} else if (handResult.result == HandResult.PuntoWins) {
 						pResult.win = pResult.win + 1
 					} else if (handResult.result == HandResult.Tie) {
 						pResult.tie = pResult.tie + 1

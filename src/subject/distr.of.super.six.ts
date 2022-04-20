@@ -50,18 +50,18 @@ const testCase = {
 						two++
 					}
 					// 沒有剔除幸運六本身
-					if (outcome.getPreviousHandOutcome()?.result == HandResult.BankerWins) {
+					if (outcome.getPreviousHandOutcome()?.result == HandResult.BancoWins) {
 						result.prevB++
-					} else if (outcome.getPreviousHandOutcome()?.result == HandResult.PlayerWins) {
+					} else if (outcome.getPreviousHandOutcome()?.result == HandResult.PuntoWins) {
 						result.prevP++
 					} else {
 						// 包括了第一手就是幸運六
 						result.tie++
 					}
 				}
-				if (outcome.result == HandResult.BankerWins) {
+				if (outcome.result == HandResult.BancoWins) {
 					result.allB++
-				} else if (outcome.result == HandResult.PlayerWins) {
+				} else if (outcome.result == HandResult.PuntoWins) {
 					result.allP++
 				}
 			})

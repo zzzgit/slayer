@@ -41,9 +41,9 @@ const testCase = {
 				if (isFree) {
 					return undefined
 				}
-				if (handResult.result == HandResult.PlayerWins) {
+				if (handResult.result == HandResult.PuntoWins) {
 					result.p++
-				} else if (handResult.result == HandResult.BankerWins) {
+				} else if (handResult.result == HandResult.BancoWins) {
 					result.b++
 				} else {
 					result.tie++

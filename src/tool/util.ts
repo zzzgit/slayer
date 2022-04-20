@@ -81,7 +81,7 @@ const util = {
 	countScore(cards: Card[]): number {
 		let totalScore = 0
 		cards.forEach((card: Card) => {
-			const cardScore = card.getCardScore()
+			const cardScore = card.getPoint()
 			if (0 < cardScore && cardScore < 3) {
 				totalScore += 1
 			} else if (cardScore === 3) {

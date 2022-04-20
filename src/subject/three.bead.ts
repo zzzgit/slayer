@@ -59,14 +59,14 @@
 // 				first = first.getNextEntity()
 // 			}
 // 			// console.log(`shoe${shoeOutcome.getShoeIndex()}:\t${capital}`)
-// 			result.banker += info.banker
-// 			result.player += info.player
+// 			result.banco += info.banco
+// 			result.punto += info.punto
 // 			result.tie += info.tie
 // 		}
-// 		const totalResult: number = result.tie + result.banker + result.player
-// 		table.push([totalResult, result.banker, result.player, result.tie],
-// 			[`100 %`, util.percentize(result.banker / totalResult) + " %",
-// 				util.percentize(result.player / totalResult) + " %", util.percentize(result.tie / totalResult) + " %"])
+// 		const totalResult: number = result.tie + result.banco + result.punto
+// 		table.push([totalResult, result.banco, result.punto, result.tie],
+// 			[`100 %`, util.percentize(result.banco / totalResult) + " %",
+// 				util.percentize(result.punto / totalResult) + " %", util.percentize(result.tie / totalResult) + " %"])
 // 	},
 // 	bbbbbbbbb(entity:BeadEntity) :string {
 // 		if (entity instanceof RedBeadEntity) {

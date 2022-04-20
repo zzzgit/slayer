@@ -46,13 +46,13 @@ const testCase = {
 		for (let i = 0; i < shoeAmount; i++) {
 			const shoeComeout: ShoeOutcome = engine.playOneShoe()
 			const info = shoeComeout.getStatisticInfo()
-			let str = `${shoeComeout.getShoeIndex()}\t${info.banker}\t${info.player}\t${info.tie}\n`
+			let str = `${shoeComeout.getShoeIndex()}\t${info.banco}\t${info.punto}\t${info.tie}\n`
 			str = ""
 			prom = prom.then(() => samael.appendToFile(path, str))
 			this.showRoad(shoeComeout)
 
-			result.banker += info.banker
-			result.player += info.player
+			result.banker += info.banco
+			result.player += info.punto
 			result.tie += info.tie
 		}
 		const totalResult: number = result.tie + result.banker + result.player
@@ -73,7 +73,7 @@ const testCase = {
 					length++
 					prev = prev.getPreviousStreak()
 				}
-				if (length > 9) {
+				if (length > 6) {
 					result.streakAfterPingpong.push(streak.getLength())
 				}
 			}

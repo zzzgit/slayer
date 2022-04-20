@@ -27,8 +27,8 @@ const testCase = {
 		result.three = 0
 		for (let i = 0; i < shoeAmount; i++) {
 			engine.playOneShoe(undefined, (handResult: HandOutcome)=>{
-				if (handResult.result == HandResult.PlayerWins) {
-					if (handResult.playerHand.getDuplicatedCardArray().length === 2) {
+				if (handResult.result == HandResult.PuntoWins) {
+					if (handResult.puntoHand.getDuplicatedCardArray().length === 2) {
 						result.two++
 					} else {
 						result.three++

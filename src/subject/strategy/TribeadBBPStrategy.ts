@@ -12,17 +12,17 @@
 // 		if (lastComeout.handIndex % 3 !== 1) {
 // 			return freeGame
 // 		}
-// 		if (lastComeout.result === HandResult.PlayerWins) {
+// 		if (lastComeout.result === HandResult.PuntoWins) {
 // 			return freeGame
 // 		}
 // 		const prev = lastComeout.getPreviousHandOutcome()
-// 		if (prev && prev.result === HandResult.PlayerWins) {
+// 		if (prev && prev.result === HandResult.PuntoWins) {
 // 			return freeGame
 // 		}
 // 		// 輸了兩次，先停一手
-// 		if (lastBet.getOutcome().result === HandResult.BankerWins) {
+// 		if (lastBet.getOutcome().result === HandResult.BancoWins) {
 // 			const prev = lastBet.getPreviousBet()
-// 			if (prev && prev.getOutcome().result === HandResult.BankerWins) {
+// 			if (prev && prev.getOutcome().result === HandResult.BancoWins) {
 // 				return freeGame
 // 			}
 // 		}

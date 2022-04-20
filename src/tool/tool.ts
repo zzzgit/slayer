@@ -3,7 +3,7 @@ import {HandResult, HandOutcome} from "bac-motor"
 const tool = {
 	countHandScore(handResult: HandOutcome | undefined):number {
 		let result = 0
-		if (!handResult || handResult.result == HandResult.BankerWins) {
+		if (!handResult || handResult.result == HandResult.BancoWins) {
 			return 0
 		}
 		let score = this._countScore(handResult)
@@ -12,7 +12,7 @@ const tool = {
 		}
 		result += score
 		const prev = handResult.getPreviousHandOutcome()
-		if (!prev || handResult.result == HandResult.BankerWins) {
+		if (!prev || handResult.result == HandResult.BancoWins) {
 			return 0
 		}
 		score = this._countScore(prev)
@@ -21,7 +21,7 @@ const tool = {
 		}
 		result += score
 		// prev = prev.getPreviousHandOutcome()
-		// if (!prev || handResult.result == HandResult.PlayerWins) {
+		// if (!prev || handResult.result == HandResult.PuntoWins) {
 		// 	return 0
 		// }
 		// score = this._countScore(prev)
@@ -32,13 +32,13 @@ const tool = {
 		return result
 	},
 	_countScore(handResult: HandOutcome):number {
-		const bhand = handResult.bankerHand
-		const phand = handResult.playerHand
+		const bhand = handResult.bancoHand
+		const phand = handResult.puntoHand
 		const cards: Card[] = [...bhand.getDuplicatedCardArray(), ...phand.getDuplicatedCardArray()]
 		let result = 0
 		cards.forEach((card) => {
 			let delta = 0
-			const score = card.getCardScore()
+			const score = card.getPoint()
 			if (0 < score && score < 4) {
 				delta = -1
 			} else if (score === 4) {

@@ -39,7 +39,7 @@ const testCase = {
 				result.all++
 				if (handResult.result === HandResult.Tie) {
 					result.tie++
-					const score = handResult.bankerHand.getScore()
+					const score = handResult.bancoHand.getPoint()
 					result.point[score] = (result.point[score] || 0) + 1
 					result.indexMap.count(handResult.handIndex)
 				}

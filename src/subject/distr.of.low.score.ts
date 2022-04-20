@@ -29,35 +29,35 @@ const testCase = {
 	},
 	work() {
 		result.tie = 0
-		result.banker = 0
-		result.player = 0
+		result.banco = 0
+		result.punto = 0
 		for (let i = 0; i < shoeAmount; i++) {
 			engine.playOneShoe(undefined, (handResult: HandOutcome)=>{
-				const bScore = handResult.bankerHand.getScore()
-				const pScore = handResult.playerHand.getScore()
+				const bScore = handResult.bancoHand.getPoint()
+				const pScore = handResult.puntoHand.getPoint()
 				if (bScore < 4 && pScore < 4) {
 					if (handResult.result === HandResult.Tie) {
 						result.tie++
-					} else if (handResult.result === HandResult.BankerWins) {
-						result.banker++
+					} else if (handResult.result === HandResult.BancoWins) {
+						result.banco++
 					} else {
-						result.player++
+						result.punto++
 					}
-					handResult.bankerHand.getDuplicatedCardArray().forEach((card: Card) => {
-						const point = card.getCardPoint()
+					handResult.bancoHand.getDuplicatedCardArray().forEach((card: Card) => {
+						const point = card.getRank()
 						result.cardPoint.count(point)
 					})
-					handResult.playerHand.getDuplicatedCardArray().forEach((card: Card) => {
-						const point = card.getCardPoint()
+					handResult.puntoHand.getDuplicatedCardArray().forEach((card: Card) => {
+						const point = card.getRank()
 						result.cardPoint.count(point)
 					})
 				}
 			})
 		}
-		const totalResult: number = result.tie + result.banker + result.player
-		table.push([totalResult, result.banker, result.player, result.tie],
-			[`100 %`, util.percentize(result.banker / totalResult) + " %", util.percentize(result.player / totalResult) + " %", util.percentize(result.tie / totalResult) + " %"])
-		// table.push([100, util.percentize(result.banker / totalResult), util.percentize(result.player / totalResult), util.percentize(result.tie / totalResult)])
+		const totalResult: number = result.tie + result.banco + result.punto
+		table.push([totalResult, result.banco, result.punto, result.tie],
+			[`100 %`, util.percentize(result.banco / totalResult) + " %", util.percentize(result.punto / totalResult) + " %", util.percentize(result.tie / totalResult) + " %"])
+		// table.push([100, util.percentize(result.banco / totalResult), util.percentize(result.punto / totalResult), util.percentize(result.tie / totalResult)])
 	},
 	run() {
 		for (let i = 0; i < round; i++) {

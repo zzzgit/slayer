@@ -39,12 +39,12 @@ const testCase = {
 				if (!prev) {
 					return undefined
 				}
-				const bHand = prev.bankerHand.getScore()
-				const pHand = prev.playerHand.getScore()
+				const bHand = prev.bancoHand.getPoint()
+				const pHand = prev.puntoHand.getPoint()
 				if (bHand < 8 && bHand > 5 && pHand < 8 && pHand > 5) {
 					if (handResult.result == HandResult.Tie) {
 						result.allMap.count("tie")
-					} else if (handResult.result == HandResult.BankerWins) {
+					} else if (handResult.result == HandResult.BancoWins) {
 						result.allMap.count("banker")
 					} else {
 						result.allMap.count("player")

@@ -33,19 +33,19 @@ const testCase = {
 		}
 		for (let i = 0; i < shoeAmount; i++) {
 			const afterPlay = (handResult: HandOutcome): void => {
-				const bHand = handResult.bankerHand.getDuplicatedCardArray()
-				const pHand = handResult.playerHand.getDuplicatedCardArray()
+				const bHand = handResult.bancoHand.getDuplicatedCardArray()
+				const pHand = handResult.puntoHand.getDuplicatedCardArray()
 				const cardAmount = bHand.length + pHand.length
 				if (cardAmount === 5) {
 					if (pHand.length === 3) {
-						const lastCardScore = pHand[2].getCardScore()
+						const lastCardScore = pHand[2].getPoint()
 						result.fivePlayerMap.count(lastCardScore)
 					} else {
-						const lastCardScore = bHand[2].getCardScore()
+						const lastCardScore = bHand[2].getPoint()
 						result.fiveBankerMap.count(lastCardScore)
 					}
 				} else if (cardAmount === 6) {
-					const lastCardScore = bHand[2].getCardScore()
+					const lastCardScore = bHand[2].getPoint()
 					result.sixMap.count(lastCardScore)
 				}
 			}

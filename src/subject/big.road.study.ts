@@ -65,13 +65,13 @@ const testCase = {
 		for (let i = 0; i < shoeAmount; i++) {
 			const shoeComeout: ShoeOutcome = engine.playOneShoe()
 			const info = shoeComeout.getStatisticInfo()
-			let str = `${shoeComeout.getShoeIndex()}\t${info.banker}\t${info.player}\t${info.tie}\n`
+			let str = `${shoeComeout.getShoeIndex()}\t${info.banco}\t${info.punto}\t${info.tie}\n`
 			str = ""
 			prom = prom.then(() => samael.appendToFile(path, str))
 			this.showRoad(shoeComeout)
 
-			result.banker += info.banker
-			result.player += info.player
+			result.banker += info.banco
+			result.player += info.punto
 			result.tie += info.tie
 		}
 		const totalResult: number = result.tie + result.banker + result.player
@@ -83,47 +83,47 @@ const testCase = {
 		const road: BigRoad = shoeComeout.getBigRoad()
 		let streak = road.getFirstStreak()
 		// 統計龍頭和龍尾的牌，不統計最後一列
-		if (streak?.getNextStreak() && streak?.getFirstEntity()?.isBanker) {
+		if (streak?.getNextStreak() && streak?.getFirstEntity()?.isBanco) {
 			// 龍尾
 			let gameid = streak?.getLastEntity()?.getIndex()
 			let comeout = shoeComeout.getOutcomeMap().get(gameid as number)
-			let bhand = comeout?.bankerHand.getDuplicatedCardArray() as Card[]
+			let bhand = comeout?.bancoHand.getDuplicatedCardArray() as Card[]
 			let [first, second, three] = bhand
-			result.lastBankB.count(first.getCardScore())
-			result.lastBankB.count(second.getCardScore())
+			result.lastBankB.count(first.getPoint())
+			result.lastBankB.count(second.getPoint())
 			if (three) {
-				result.lastBankB.count(first.getCardScore())
+				result.lastBankB.count(first.getPoint())
 			}
-			let phand = comeout?.playerHand.getDuplicatedCardArray() as Card[]
+			let phand = comeout?.puntoHand.getDuplicatedCardArray() as Card[]
 			[first, second, three] = phand
-			result.lastBankB.count(first.getCardScore())
-			result.lastBankB.count(second.getCardScore())
+			result.lastBankB.count(first.getPoint())
+			result.lastBankB.count(second.getPoint())
 			if (three) {
-				result.lastBankB.count(first.getCardScore())
+				result.lastBankB.count(first.getPoint())
 			}
 			// 龍頭
 			gameid = streak?.getFirstEntity()?.getIndex()
 			comeout = shoeComeout.getOutcomeMap().get(gameid as number)
-			bhand = comeout?.bankerHand.getDuplicatedCardArray() as Card[]
+			bhand = comeout?.bancoHand.getDuplicatedCardArray() as Card[]
 			[first, second, three] = bhand
-			result.firstBankB.count(first.getCardScore())
-			result.firstBankB.count(second.getCardScore())
+			result.firstBankB.count(first.getPoint())
+			result.firstBankB.count(second.getPoint())
 			if (three) {
-				result.firstBankB.count(first.getCardScore())
+				result.firstBankB.count(first.getPoint())
 			}
-			phand = comeout?.bankerHand.getDuplicatedCardArray() as Card[]
+			phand = comeout?.bancoHand.getDuplicatedCardArray() as Card[]
 			[first, second, three] = phand
-			result.firstBankB.count(first.getCardScore())
-			result.firstBankB.count(second.getCardScore())
+			result.firstBankB.count(first.getPoint())
+			result.firstBankB.count(second.getPoint())
 			if (three) {
-				result.firstBankB.count(first.getCardScore())
+				result.firstBankB.count(first.getPoint())
 			}
 		}
 		// 研究第一列
 		const resultFirstStreak = result.firstStreak
 		const length = streak?.getLength()
 		resultFirstStreak.allarray.push(length)
-		if (streak?.getFirstEntity()?.isBanker) {
+		if (streak?.getFirstEntity()?.isBanco) {
 			resultFirstStreak.barray.push(length)
 		} else {
 			resultFirstStreak.parray.push(length)
@@ -132,7 +132,7 @@ const testCase = {
 		while (streak?.getNextStreak()) {
 			const longStreak = 9
 			const len = streak.getLength()
-			if (streak.getFirstEntity()?.isBanker) {
+			if (streak.getFirstEntity()?.isBanco) {
 				result.bStreakLen.push(len)
 			} else {
 				result.pStreakLen.push(len)

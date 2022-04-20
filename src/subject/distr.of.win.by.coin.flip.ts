@@ -39,7 +39,7 @@ const testCase = {
 		}
 		for (let i = 0; i < shoeAmount; i++) {
 			engine.playOneShoe(undefined, (handResult: HandOutcome)=>{
-				const expectWinner = samael.flipCoin() ? HandResult.PlayerWins : HandResult.BankerWins
+				const expectWinner = samael.flipCoin() ? HandResult.PuntoWins : HandResult.BancoWins
 				if (handResult.result == expectWinner) {
 					result.loss++
 					losingStreakLength++

@@ -40,23 +40,23 @@ const testCase = {
 		for (let i = 0; i < shoeAmount; i++) {
 			const shoeComeout: ShoeOutcome = engine.playOneShoe()
 			const info = shoeComeout.getStatisticInfo()
-			let str = `${shoeComeout.getShoeIndex()}\t${info.banker}\t${info.player}\t${info.tie}\n`
+			let str = `${shoeComeout.getShoeIndex()}\t${info.banco}\t${info.punto}\t${info.tie}\n`
 			str = ""
 			prom = prom.then(() => samael.appendToFile(path, str))
 			let first = shoeComeout.getFirstHandOutcome()
 			while (first?.result == HandResult.Tie) {
 				first = first.getNextHandOutcome()
 			}
-			const isBankerWin = first?.result == HandResult.BankerWins
-			const isPlayerWin = first?.result == HandResult.PlayerWins
+			const isBankerWin = first?.result == HandResult.BancoWins
+			const isPlayerWin = first?.result == HandResult.PuntoWins
 			if (isBankerWin) {
 				result.firstHand.count("B")
 			}
 			if (isPlayerWin) {
 				result.firstHand.count("P")
 			}
-			result.banker += info.banker
-			result.player += info.player
+			result.banker += info.banco
+			result.player += info.punto
 		}
 		const totalResult: number = result.banker + result.player
 		const firstB = result.firstHand.get("B") as number

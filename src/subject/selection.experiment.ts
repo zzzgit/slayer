@@ -49,9 +49,9 @@ const testCase = {
 				}
 				// 押莊
 				if (bet.getMun() instanceof Banker) {
-					if (hOutcome.result == HandResult.PlayerWins) {
+					if (hOutcome.result == HandResult.PuntoWins) {
 						result.b.lose++
-					} else if (hOutcome.result == HandResult.BankerWins) {
+					} else if (hOutcome.result == HandResult.BancoWins) {
 						result.b.win++
 					} else {
 						result.b.tie++
@@ -59,9 +59,9 @@ const testCase = {
 				}
 				// 押閒
 				if (bet.getMun() instanceof Player) {
-					if (hOutcome.result == HandResult.PlayerWins) {
+					if (hOutcome.result == HandResult.PuntoWins) {
 						result.p.win++
-					} else if (hOutcome.result == HandResult.BankerWins) {
+					} else if (hOutcome.result == HandResult.BancoWins) {
 						result.p.lose++
 					} else {
 						result.p.tie++

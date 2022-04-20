@@ -34,13 +34,13 @@ const testCase = {
 			const road = shoeoutcome.getBigRoad()
 			let streak = road.getFirstStreak()
 			// first streak
-			// if (streak?.getFirstEntity()?.isBanker) {
+			// if (streak?.getFirstEntity()?.isBanco) {
 			// }
 			mapfirst.count(streak?.getLength() || 0)
 			// 所有
 			while (streak) {
 				const first = streak.getFirstEntity()
-				if (first?.isBanker) {
+				if (first?.isBanco) {
 					mapB.count(streak.getLength())
 				} else {
 					mapP.count(streak.getLength())

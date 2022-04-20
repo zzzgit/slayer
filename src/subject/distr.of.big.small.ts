@@ -45,40 +45,40 @@ const testCase = {
 		for (let i = 0; i < shoeAmount; i++) {
 			naturalStreak = 0
 			const afterPlay = (handResult: HandOutcome): void => {
-				const bHand = handResult.bankerHand.getDuplicatedCardArray()
-				const pHand = handResult.playerHand.getDuplicatedCardArray()
+				const bHand = handResult.bancoHand.getDuplicatedCardArray()
+				const pHand = handResult.puntoHand.getDuplicatedCardArray()
 				const cardAmount = bHand.length + pHand.length
 				result.totalMap.count(cardAmount)
 				if (handResult.result == HandResult.Tie) {
 					result.tieMap.count(cardAmount)
-				} else if (handResult.result == HandResult.BankerWins) {
+				} else if (handResult.result == HandResult.BancoWins) {
 					result.bMap.count(cardAmount)
-				} else if (handResult.result == HandResult.PlayerWins) {
+				} else if (handResult.result == HandResult.PuntoWins) {
 					result.pMap.count(cardAmount)
 				}
 				if (cardAmount === 4) {
 					const map = result.fourCardMap
-					let cardScore = bHand[0].getCardScore()
+					let cardScore = bHand[0].getPoint()
 					map.count(cardScore)
-					cardScore = bHand[1].getCardScore()
+					cardScore = bHand[1].getPoint()
 					map.count(cardScore)
-					cardScore = pHand[0].getCardScore()
+					cardScore = pHand[0].getPoint()
 					map.count(cardScore)
-					cardScore = pHand[1].getCardScore()
+					cardScore = pHand[1].getPoint()
 					map.count(cardScore)
 					//
 					naturalStreak++
 				} else if (cardAmount === 5) {
 					const map = result.fiveCardMap
-					let cardScore = bHand[0].getCardScore()
+					let cardScore = bHand[0].getPoint()
 					map.count(cardScore)
-					cardScore = bHand[1].getCardScore()
+					cardScore = bHand[1].getPoint()
 					map.count(cardScore)
-					cardScore = pHand[0].getCardScore()
+					cardScore = pHand[0].getPoint()
 					map.count(cardScore)
-					cardScore = pHand[1].getCardScore()
+					cardScore = pHand[1].getPoint()
 					map.count(cardScore)
-					cardScore = (pHand[2] || bHand[2]).getCardScore()
+					cardScore = (pHand[2] || bHand[2]).getPoint()
 					map.count(cardScore)
 
 					if (naturalStreak != 0) {
@@ -87,17 +87,17 @@ const testCase = {
 					}
 				} else {
 					const map = result.sixCardMap
-					let cardScore = bHand[0].getCardScore()
+					let cardScore = bHand[0].getPoint()
 					map.count(cardScore)
-					cardScore = bHand[1].getCardScore()
+					cardScore = bHand[1].getPoint()
 					map.count(cardScore)
 					map.count(cardScore)
-					cardScore = bHand[2].getCardScore()
-					cardScore = pHand[0].getCardScore()
+					cardScore = bHand[2].getPoint()
+					cardScore = pHand[0].getPoint()
 					map.count(cardScore)
-					cardScore = pHand[1].getCardScore()
+					cardScore = pHand[1].getPoint()
 					map.count(cardScore)
-					cardScore = pHand[2].getCardScore()
+					cardScore = pHand[2].getPoint()
 					map.count(cardScore)
 					if (naturalStreak != 0) {
 						result.naturalMap.count(naturalStreak)
