@@ -72,7 +72,7 @@ const testCase = {
 		util.getAbyss(result.bstreak.getSortedEntities().map(item => item.value))
 		console.log("----上面是莊，下面是閒---------")
 		util.getAbyss(result.pstreak.getSortedEntities().map(item => item.value))
-		console.log("----下面是閒第一列---------")
+		console.log("----下面是閒第一列，不論莊閒---------")
 		util.getAbyss(result.firstStreak.getSortedEntities().map(item => item.value))
 	},
 }
@@ -84,10 +84,10 @@ testCase.report()
 /**
  * 1. 莊和閒的分佈，1000靴的樣例就夠了
  * 2. 電腦性能足夠的情況下，可以測試長龍的長度的極限，目前測試到的極限是22
- * 3. 莊的streak個數和閒的，幾乎一樣
+ * 3. 莊、閒的條數，完全一樣，萬分之1以下的區別
  * 4. 硬件和軟件條件滿足時，可以統計長龍時出現的牌
- * 5. 在一莊二莊處，斬龍，都可行，比在閒的地方斬龍划算
- * 6. 莊、閒的條數，完全一樣，萬分之1以下的區別
- * 7. 斬龍可以贏一點點，因為長度為n的龍，多餘長度大於n的龍的總和
- * 8. 第一列，比較特殊，儘管平均長度比總體的平均長度長一點，但是第一手之後，還是不適宜跟龍，第二手之後，可以跟龍，第三手之後，也可以跟龍
+ * 5. 由於，莊多閒少，導致，對閒進行斬龍比較划算
+ * 6. 莊，不穩定，不宜斬龍
+ * 7.
+ * 8. 第一列，不穩定，不宜戰龍
  */

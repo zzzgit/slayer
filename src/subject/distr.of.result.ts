@@ -9,8 +9,8 @@ const conf:Config = {
 }
 console.log(conf)
 const engine = new Engine()
-const shoeAmount = 1000
-const round = 3
+const shoeAmount = 4000
+const round = 1
 const table = new CliTable({
 	head: ['total', 'B', 'P', 'tie'],
 	colWidths: [20, 20, 20, 20],
@@ -26,7 +26,7 @@ const result = {
 
 const testCase = {
 	init() {
-		engine.powerOn(conf)
+		engine.powerOn()
 	},
 	work() {
 		result.tie = 0
@@ -63,4 +63,5 @@ testCase.report()
 /**
  * 1. 和局幾率9.5%
  * 2. 莊家贏比閒家贏略高
+ * 3. 1000 shoe 足以反映理論比例
  */

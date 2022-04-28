@@ -128,20 +128,25 @@ const testCase = {
 		} else {
 			resultFirstStreak.parray.push(length)
 		}
-		// 遍歷streak,忽略最後一個
+
 		while (streak?.getNextStreak()) {
 			const longStreak = 9
 			const len = streak.getLength()
-			if (streak.getFirstEntity()?.isBanco) {
-				result.bStreakLen.push(len)
-			} else {
-				result.pStreakLen.push(len)
+			//  忽略最後一個
+			if (streak.getNextStreak()) {
+				if (streak.getFirstEntity()?.isBanco) {
+					result.bStreakLen.push(len)
+				} else {
+					result.pStreakLen.push(len)
+				}
+				result.allStreakLen.push(len)
 			}
-			result.allStreakLen.push(len)
+
 			const prev = streak.getPreviousStreak()
 			if (prev && prev.getLength() > longStreak) {
 				result.longStreak.push(streak.getLength())
 			}
+
 			streak = streak.getNextStreak()
 		}
 	},
@@ -175,10 +180,10 @@ testCase.report()
 
 /**
  * 1. 平均長度： 1.970(不知有何用處？)
- * 2. 莊平均長度： 1.999 （原因是莊多閒少）
- * 3. 閒平均長度： 1.943
- * 4. 閒之所以短，是因為閒出現的次數少，而不是因為閒的條子少
+ * 2. 莊平均長度： 1.995 （原因是莊多閒少）
+ * 3. 閒平均長度： 1.945
+ * 4. 閒之所以短，是因為閒出現的次數少
  * 5. 長龍之後的streak，似乎並沒有bias
- * 6. 第一列，比平均長度長
+ * 6. 第一列，比平均長度長在2.0以上（相對於總體的平均長度，還是有千分之幾的優勢，原因不明）
  * 7. 最後一列，對於平均長度有負面影響
  */

@@ -1,13 +1,15 @@
-
 import HandOutcomeOrUndefined from "../model/strategy/type/HandOutcomeOrUndefined"
 import BetOrUndefined from "../model/strategy/type/BetOrUndefined"
 import MartingaleBetProgression from "./strategy/MartingaleBetProgression"
 import CardCountingStrategy from "./strategy/CardCountingStrategy"
 import {Engine, HandOutcome, HandResult, Bet, FreeMun as Free, BancoMun as Banker, PuntoMun as Player} from "bac-motor"
 import CliTable from "../report/Table"
+import util from "../tool/util"
+import tool from "../tool/tool"
+import massiveTestConfig from "../config/massiveTestConfig"
 
 const engine = new Engine()
-const shoeAmount = 6000
+const shoeAmount = 3000
 
 const tableDistribution = new CliTable({
 	head: ['bet/result', 'win', 'loss', 'tie'],
@@ -33,7 +35,8 @@ let result = {
 
 const testCase = {
 	init() {
-		engine.powerOn()
+		const config = Object.assign({}, massiveTestConfig, {shouldGenerateRoad: false, shouldCutShoe: true})
+		engine.powerOn(config)
 	},
 	run() {
 		result = {
@@ -59,6 +62,29 @@ const testCase = {
 				return bet
 			}
 			const afterPlay = (handResult: HandOutcome): void => {
+				const pointValue = tool.countHandScore(handResult)
+				// console.log(pointValue)
+				if (pointValue > 2500) {
+					if (handResult.result == HandResult.BancoWins) {
+						result.banker.win++
+					} else if (handResult.result == HandResult.PuntoWins) {
+						result.banker.lose++
+					} else {
+						result.banker.tie++
+					}
+				}
+				if (pointValue < -2500) {
+					if (handResult.result == HandResult.BancoWins) {
+						result.player.lose++
+					} else if (handResult.result == HandResult.PuntoWins) {
+						result.player.win++
+					} else {
+						result.player.tie++
+					}
+				}
+				if ("slsl".length > 0) {
+					return
+				}
 				result.total++
 				if (bet.getMun() instanceof Free) {
 					return undefined
@@ -87,11 +113,11 @@ const testCase = {
 			engine.playOneShoe(beforePlay, afterPlay)
 			// const info = shoeresult.getStatisticInfo()
 		}
-		const bResult = result.player
-		const pResult = result.banker
-		tableDistribution.push(["bet on B", bResult.win, bResult.lose, bResult.tie],
-			["bet on P", pResult.win, pResult.lose, pResult.tie],
-			["total", bResult.win + pResult.win, bResult.lose + pResult.lose, bResult.tie + pResult.tie],
+		const pResult = result.player
+		const bResult = result.banker
+		tableDistribution.push(["bet on P", pResult.win, pResult.lose, pResult.tie],
+			["bet on B", bResult.win, bResult.lose, bResult.tie],
+			["total", pResult.win + bResult.win, pResult.lose + bResult.lose, pResult.tie + bResult.tie],
 
 		)
 		// [100 + "%", util.percentize(result.bankerTimes / totalHands) + "%", util.percentize(result.playerTimes / totalHands) + "%", util.percentize(result.tieTiems / totalHands) + "%"],
@@ -101,6 +127,9 @@ const testCase = {
 	},
 	report() {
 		tableDistribution.print(`三千靴牌，大小牌算牌法，輸贏：`)
+		// 百家樂理論值：1.02767525608，想要贏錢：1.05254515599
+		console.log("買莊， W/L:", util.percentize(result.banker.win / result.banker.lose, 2))
+		console.log("買閒， W/L:", util.percentize(result.player.win / result.player.lose, 2))
 	},
 }
 
@@ -110,6 +139,6 @@ testCase.report()
 
 /**
  * 1. 算牌幾乎無用，有時表現比拋硬幣還差
- * 2.
+ * 2. 大小牌的研究，更新了，結合其結論，製作新的策略，在此處驗證
  */
 

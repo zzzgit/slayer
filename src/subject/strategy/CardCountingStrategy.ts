@@ -1,8 +1,7 @@
-
 import Strategy from "../../model/strategy/Strategy"
 import BetOrUndefined from "../../model/strategy/type/BetOrUndefined"
 import HandOutcomeOrUndefined from "../../model/strategy/type/HandOutcomeOrUndefined"
-import {Bet, BancoMun as Banker, FreeMun as Free, PuntoMun as Player} from "bac-motor"
+import {Bet, BancoMun as Banker, FreeMun as Free, PuntoMun as Player, HandResult} from "bac-motor"
 import tool from "../../tool/tool"
 import samael from "samael"
 
@@ -12,7 +11,7 @@ const path = "/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCac
 let prom = samael.writeToFile(path, `${date.toLocaleString()}\n  \n`).catch((e: Error) => console.log("錯誤", e))
 
 class CardCountingStrategy extends Strategy {
-	figureOutBet(lastBet: BetOrUndefined, lastComeout: HandOutcomeOrUndefined): Bet {
+	figureOutBet(lastBet: BetOrUndefined, lastOutcome: HandOutcomeOrUndefined): Bet {
 		if (lastBet) {
 			if (!(lastBet.getMun() instanceof Free) && !lastBet.gotTie() && "".length === 3) {
 				const str = `${lastBet.getOutcome()?.getShoeIndex()}	${lastBet.getStr()}`
@@ -21,19 +20,23 @@ class CardCountingStrategy extends Strategy {
 		}
 
 		const freeGame = new Bet(new Free(), 0)
+		// ////////////////////////////////////////////////
+
+		if ("".length == 0) {
+			return freeGame
+		}
+		// /////////////////////////////////////////////
 		const gen = this.getProgressionGenerator()
-		const score = tool.countHandScore(lastComeout)
-		// if (lastBet?.gotTie()) {
-		// 	return lastBet
-		// }
+		const score = tool.countHandScore(lastOutcome)
+
 		if (lastBet?.gotWon()) {
 			gen.reset()
 		}
-		if (score < -3) {
-			return new Bet(new Player(), gen.next().value as number)
+		if (score < -3 && lastOutcome?.result == HandResult.PuntoWins) {
+			return new Bet(new Banker(), gen.next().value as number)
 		}
 		if (score > 3) {
-			return new Bet(new Banker(), gen.next().value as number)
+			return new Bet(new Player(), gen.next().value as number)
 		}
 		return freeGame
 	}

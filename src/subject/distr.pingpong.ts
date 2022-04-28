@@ -97,7 +97,7 @@ const testCase = {
 		table.print(`莊閒分佈： `)
 		const totalStreak = result.streakAfterPingpong.reduce((a, b)=>a + b)
 		const total_pingpong_length = result.pingpongLen.reduce((a, b)=>a + b)
-		console.log(`單挑之後的龍，平均長度：`, totalStreak / result.streakAfterPingpong.length)
+		console.log(`單跳之後的龍，平均長度：`, totalStreak / result.streakAfterPingpong.length)
 		console.log(`單跳平均長度：`, total_pingpong_length / result.pingpongLen.length)
 		console.log(`單跳最長：`, Math.max(...result.pingpongLen))
 	},
@@ -108,7 +108,8 @@ testCase.run()
 testCase.report()
 
 /**
- * 1. 單跳之後的第一個龍，平均長度： 2.97，沒有bias(修復了補牌的bug之後，277，有bias)
+ * 1. 單跳之後的第一個龍，平均長度： 2.97，沒有bias( )
  * 2. 單跳本身的平均長度：1.97左右，跟龍的平均長度一致
  * 3. 單跳極限值：20
+ * 4. 這項研究看起來沒有利用價值
  */

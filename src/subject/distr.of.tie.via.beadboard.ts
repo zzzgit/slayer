@@ -63,7 +63,8 @@ const testCase = {
 			}
 			last = last.getPreviousEntity() as IEntity
 		}
-		console.log(`第${road.getShoeIndex()}靴: ${result}`)
+		return result
+		// console.log(`第${road.getShoeIndex()}靴: ${result}`)
 	},
 	run() {
 		for (let i = 0; i < round; i++) {
@@ -82,5 +83,5 @@ testCase.report()
 
 /**
  * 1. 和局幾率9.5%
- * 2.
+ * 2. 這個文件的目的，是打印珠盤數據
  */

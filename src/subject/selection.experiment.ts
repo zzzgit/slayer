@@ -88,6 +88,6 @@ testCase.run()
 testCase.report()
 
 /**
- * 1.
+ * 1. 理論上，概率應該跟拋硬幣一樣
  * 2.
  */

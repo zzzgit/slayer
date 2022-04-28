@@ -1,39 +1,24 @@
 import {Card} from "cardation"
-import {HandResult, HandOutcome} from "bac-motor"
+import {HandOutcome} from "bac-motor"
 const tool = {
 	countHandScore(handResult: HandOutcome | undefined):number {
 		let result = 0
-		if (!handResult || handResult.result == HandResult.BancoWins) {
+		if (!handResult) {
 			return 0
 		}
-		let score = this._countScore(handResult)
-		if (score < 3) {
-			return 0
-		}
-		result += score
-		const prev = handResult.getPreviousHandOutcome()
-		if (!prev || handResult.result == HandResult.BancoWins) {
-			return 0
-		}
-		score = this._countScore(prev)
-		if (score < 3) {
-			return 0
-		}
-		result += score
-		// prev = prev.getPreviousHandOutcome()
-		// if (!prev || handResult.result == HandResult.PuntoWins) {
-		// 	return 0
+		const score = this.countNew(handResult)
+		// const prev = handResult.getPreviousHandOutcome()
+		// let preScore = 0
+		// if (prev) {
+		// 	preScore = this.countNew(prev)
 		// }
-		// score = this._countScore(prev)
-		// if (score > -2) {
-		// 	return 0
-		// }
-		// result += score
+		result = score * 1
+		// result = score + preScore
 		return result
 	},
-	_countScore(handResult: HandOutcome):number {
-		const bhand = handResult.bancoHand
-		const phand = handResult.puntoHand
+	_countScore(handOutcome: HandOutcome):number {
+		const bhand = handOutcome.bancoHand
+		const phand = handOutcome.puntoHand
 		const cards: Card[] = [...bhand.getDuplicatedCardArray(), ...phand.getDuplicatedCardArray()]
 		let result = 0
 		cards.forEach((card) => {
@@ -54,6 +39,23 @@ const tool = {
 		})
 		return result
 	},
+	countNew(handOutcome: HandOutcome): number {
+		const bhand = handOutcome.bancoHand
+		const phand = handOutcome.puntoHand
+		const cards: Card[] = [...bhand.getDuplicatedCardArray(), ...phand.getDuplicatedCardArray()]
+		let result = 0
+		cards.forEach((card) => {
+			let delta = 0
+			const pointValue = card.getPoint()
+			delta = bankerArr[pointValue]
+			result = result + delta
+		})
+		return result
+	},
 }
 
 export default tool
+
+const bankerArr = [-188, -440, -522, -649, -1157, 827, 1132, 827, 502, 231]
+// const playerarr = [178, 448, 543, 672, 119, -841, -1128, -817, -533, -249]
+// const tiara = [-5129, -1293, 2392, 2141, 2924, 2644, 11595, 10914, -6543, -4260]

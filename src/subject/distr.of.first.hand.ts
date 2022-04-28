@@ -1,5 +1,3 @@
-
-
 import massiveTestConfig from "../config/massiveTestConfig"
 import CounterMap from "./collection/CounterMap"
 import {Engine, HandResult, ShoeOutcome} from "bac-motor"
@@ -25,7 +23,7 @@ let result: { firstHand: CounterMap<string>;banker: number;player:number } = {
 
 const testCase = {
 	init() {
-		const config = Object.assign({}, massiveTestConfig, {shouldGenerateRoad: true, shouldCutShoe: true})
+		const config = Object.assign({}, massiveTestConfig, {shouldGenerateRoad: false, shouldCutShoe: true})
 		engine.powerOn(config)
 	},
 	work() {
@@ -85,7 +83,7 @@ testCase.run()
 testCase.report()
 
 /**
- * 1. 第一手，跟宏觀數據以致（宏觀上的莊閒比例）
- * 3.
+ * 1. 第一手，沒有bias
+ *
  *
  */

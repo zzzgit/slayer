@@ -68,7 +68,7 @@ const testCase = {
 		engine.shutdown()
 	},
 	report() {
-		tableDistribution.print(`distribution of the score of last draw：`)
+		tableDistribution.print(`distribution of the point value of last draw：`)
 	},
 }
 
@@ -77,7 +77,9 @@ testCase.run()
 testCase.report()
 
 /**
- * 1. 最後一張補牌，幾乎是隨機，幾乎是機會均等，除了0點（對閒家不適用，只適用莊家，這是補牌的bug修復之後發現的）
- * 2. 五張牌的情況，閒家鋪牌次數比莊家多，說明補牌對閒家有利（補不同的點數，結論相反，這是補牌的bug修復之後發現的）
+ * 1. 最後一張補牌，莊家一方，除了0點之外，幾乎是隨機，機會均等
+ * 2. 最後一張補牌，閒家一方，除了0點之外，8點最多，9點1點次之，2點3點次之，4點5點次之，6點7點次之
+ * 3. 最後一張補牌，如果雙方都補牌，除了0點之外，幾乎是隨機，機會均等
+ * 2. 這項研究可以用來預測邊註（大小），而大小，可以用來預測莊閒
  */
 
