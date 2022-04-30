@@ -27,7 +27,7 @@ class CardCountingStrategy extends Strategy {
 		}
 		// /////////////////////////////////////////////
 		const gen = this.getProgressionGenerator()
-		const score = tool.countHandScore(lastOutcome)
+		const score = tool.countNextHandScore(lastOutcome)
 
 		if (lastBet?.gotWon()) {
 			gen.reset()

@@ -1,5 +1,3 @@
-
-
 describe("game", () => {
 	test("index", () => {
 		// demo.run()

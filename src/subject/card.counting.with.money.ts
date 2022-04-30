@@ -5,11 +5,10 @@ import CardCountingStrategy from "./strategy/CardCountingStrategy"
 import {Engine, HandOutcome, HandResult, Bet, FreeMun as Free, BancoMun as Banker, PuntoMun as Player} from "bac-motor"
 import CliTable from "../report/Table"
 import util from "../tool/util"
-import tool from "../tool/tool"
 import massiveTestConfig from "../config/massiveTestConfig"
 
 const engine = new Engine()
-const shoeAmount = 3000
+const shoeAmount = 6000
 
 const tableDistribution = new CliTable({
 	head: ['bet/result', 'win', 'loss', 'tie'],
@@ -62,29 +61,6 @@ const testCase = {
 				return bet
 			}
 			const afterPlay = (handResult: HandOutcome): void => {
-				const pointValue = tool.countHandScore(handResult)
-				// console.log(pointValue)
-				if (pointValue > 2500) {
-					if (handResult.result == HandResult.BancoWins) {
-						result.banker.win++
-					} else if (handResult.result == HandResult.PuntoWins) {
-						result.banker.lose++
-					} else {
-						result.banker.tie++
-					}
-				}
-				if (pointValue < -2500) {
-					if (handResult.result == HandResult.BancoWins) {
-						result.player.lose++
-					} else if (handResult.result == HandResult.PuntoWins) {
-						result.player.win++
-					} else {
-						result.player.tie++
-					}
-				}
-				if ("slsl".length > 0) {
-					return
-				}
 				result.total++
 				if (bet.getMun() instanceof Free) {
 					return undefined
@@ -111,7 +87,6 @@ const testCase = {
 				}
 			}
 			engine.playOneShoe(beforePlay, afterPlay)
-			// const info = shoeresult.getStatisticInfo()
 		}
 		const pResult = result.player
 		const bResult = result.banker
@@ -138,7 +113,6 @@ testCase.run()
 testCase.report()
 
 /**
- * 1. 算牌幾乎無用，有時表現比拋硬幣還差
- * 2. 大小牌的研究，更新了，結合其結論，製作新的策略，在此處驗證
+ * 1.
+ * 2.
  */
-

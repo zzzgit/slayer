@@ -1,10 +1,12 @@
-import {Heart, NumberCard, FaceCard, Card, AceCard} from "cardation"
 import {Engine, Config, HandOutcome} from "bac-motor"
+import {Card} from "cardation"
 import CliTable from "../report/Table"
 import util from "../tool/util"
+import CardMagazine from "./cardMagazine/CardMagazine"
 
 const engine = new Engine()
-const shoeAmount = 1
+const shoeAmount = 1000
+let cardsAmount = 0
 const round = 1
 const table = new CliTable({
 	head: ['total', 'B', 'P', 'tie'],
@@ -16,16 +18,6 @@ const result = {
 	tie: 0,
 	banker: 0,
 	player: 0,
-}
-
-const creatCard = (score:number): Card=>{
-	if (score == 1) {
-		return new AceCard(new Heart())
-	}
-	if (score == 0) {
-		return new FaceCard(new Heart(), 11, 0)
-	}
-	return new NumberCard(new Heart(), score)
 }
 
 const getResult = (handResult: HandOutcome): number[]=>{
@@ -46,24 +38,13 @@ const getResult = (handResult: HandOutcome): number[]=>{
 
 const testCase = {
 	init() {
-		const cards:Card[] = []
-		cards.push(new AceCard(new Heart(), 1))
-
-		const pie = "314157926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679"
-		for (const element of pie) {
-			cards.push(creatCard(+element))
-		}
-		const eip = [...pie].reverse()
-			.join('')
-		for (const element of eip) {
-			cards.push(creatCard(+element))
-		}
-
+		const cards: Card[] = CardMagazine.getCardsFollow123456()
+		cardsAmount = cards.length
 		const config:Config = {
 			customizedShoe: cards,
 			shouldCutShoe: false,
 			shouldUseBlackCard: false,
-			shouldShuffle: false,
+			shouldShuffle: true,
 			shouldShuffleWhileCollectBancoHand: false,
 		}
 		engine.powerOn(config)
@@ -72,26 +53,25 @@ const testCase = {
 		result.tie = 0
 		result.banker = 0
 		result.player = 0
-		for (let i = 0; i < shoeAmount; i++) {
-			const shoeComeout = engine.playOneShoe(undefined, (handResult: HandOutcome): void => {
-				// getResult(handResult)
-				const kkkk = getResult(handResult)
-				let str = ""
-				kkkk.forEach((ele)=>{
-					if (ele == -1) {
-						str += "\t"
-					} else {
-						str += ele
-					}
-				})
-				console.log(str)
+		const afterPlay = (handResult: HandOutcome): void => {
+			const detail = getResult(handResult)
+			let str = ""
+			detail.forEach((ele) => {
+				if (ele == -1) {
+					str += "\t"
+				} else {
+					str += ele
+				}
 			})
-
+			console.log(str)
+		}
+		console.log(!!afterPlay)
+		for (let i = 0; i < shoeAmount; i++) {
+			const shoeComeout = engine.playOneShoe(undefined, undefined)
 			const info = shoeComeout.getStatisticInfo()
 			result.banker = result.banker + info.banco
 			result.player = result.player + info.punto
 			result.tie = result.tie + info.tie
-			//
 		}
 
 		const totalResult: number = result.tie + result.banker + result.player
@@ -105,15 +85,18 @@ const testCase = {
 		engine.shutdown()
 	},
 	report() {
+		console.log(`cards in shoe: ${cardsAmount}`)
 		table.print(`莊閒分佈：`)
 	},
 }
+
 
 testCase.init()
 testCase.run()
 testCase.report()
 
+
 /**
- * 1. card張數超過10，基本上就沒有什麼意義，超過20，則完全沒有bias
- * 2. 其他指標，有待研究，殘局中的對子，天牌，打和
+ * 1.
+ * 2. shoe 這個類裡面，因為是數組，可以
  */
