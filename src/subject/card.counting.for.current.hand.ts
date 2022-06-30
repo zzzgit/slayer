@@ -72,19 +72,24 @@ const testCase = {
 			}
 			engine.playOneShoe(undefined, afterPlay)
 		}
-		const pResult = result.player
 		const bResult = result.banker
+		const pResult = result.player
+		const bTotal = result.banker.win + result.banker.lose + result.banker.tie
+		const pTotal = result.player.win + result.player.lose + result.player.tie
 		tableDistribution.push(
-			["bet on P", pResult.win, pResult.lose, pResult.tie],
 			["bet on B", bResult.win, bResult.lose, bResult.tie],
+			["bet on B-%", util.percentize(bResult.win / bTotal), util.percentize(bResult.lose / bTotal), util.percentize(bResult.tie / bTotal)],
+			["bet on P", pResult.win, pResult.lose, pResult.tie],
+			["bet on P-%", util.percentize(pResult.win / pTotal), util.percentize(pResult.lose / pTotal), util.percentize(pResult.tie / pTotal)],
 			["total", pResult.win + bResult.win, pResult.lose + bResult.lose, pResult.tie + bResult.tie],
+			// ["total", util.percentize(pResult.win / pTotal), util.percentize(pResult.lose / pTotal), util.percentize(pResult.tie / pTotal)],
 
 		)
 
 		engine.shutdown()
 	},
 	report() {
-		tableDistribution.print(`三千靴牌，大小牌算牌法，輸贏：`)
+		tableDistribution.print(`六千靴牌，大小牌算牌法，輸贏：`)
 		// 百家樂理論值：1.02767525608，想要贏錢：1.05254515599
 		console.log("買莊， W/L:", util.percentize(result.banker.win / result.banker.lose, 2))
 		console.log("買閒， W/L:", util.percentize(result.player.win / result.player.lose, 2))

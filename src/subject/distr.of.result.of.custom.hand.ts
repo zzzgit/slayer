@@ -38,7 +38,7 @@ const getResult = (handResult: HandOutcome): number[]=>{
 
 const testCase = {
 	init() {
-		const cards: Card[] = CardMagazine.getCardsFollow123456()
+		const cards: Card[] = CardMagazine.getCards66666667777777()
 		cardsAmount = cards.length
 		const config:Config = {
 			customizedShoe: cards,

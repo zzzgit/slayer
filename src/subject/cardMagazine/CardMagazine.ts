@@ -46,6 +46,15 @@ class CardMagazine {
 		}
 		return cards
 	}
+
+	static getCards66666667777777(): Card[] {
+		const cards: Card[] = []
+		for (let i = 0; i < 7; i++) {
+			cards.push(creatCard(6))
+			cards.push(creatCard(7))
+		}
+		return cards
+	}
 }
 
 const creatCard = (score: number): Card => {

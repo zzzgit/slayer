@@ -21,7 +21,7 @@ const tool = {
 		if (!handResult) {
 			return 0
 		}
-		result = this._countScoreNew(handResult, false)
+		result = this._countScoreByWait(handResult, false)
 		return result
 	},
 	countBankerScore(handResult: HandOutcome | undefined):number {
@@ -29,7 +29,7 @@ const tool = {
 		if (!handResult) {
 			return 0
 		}
-		result = this._countScoreNew(handResult, true)
+		result = this._countScoreByWait(handResult, true)
 		return result
 	},
 	_countScore(handOutcome: HandOutcome):number {
@@ -55,15 +55,14 @@ const tool = {
 		})
 		return result
 	},
-	_countScoreNew(handOutcome: HandOutcome, isForBanker: boolean = true): number {
+	_countScoreByWait(handOutcome: HandOutcome, isForBanker: boolean = true): number {
 		const bhand = handOutcome.bancoHand
 		const phand = handOutcome.puntoHand
 		const cards: Card[] = [...bhand.getDuplicatedCardArray(), ...phand.getDuplicatedCardArray()]
 		let result = 0
 		const scorArray = isForBanker ? bankerArr : playerarr
 		cards.forEach((card) => {
-			const delta = scorArray[card.getPoint()]
-			result = result + delta
+			result = result + scorArray[card.getPoint()]
 		})
 		return result
 	},
