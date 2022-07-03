@@ -28,12 +28,12 @@
 	],
 	"license": "LGPL-3.0-or-later",
 	"engines": {
-		"npm": ">=6.9.0",
-		"node": ">=10.0"
+		"npm": ">=8.6.0",
+		"node": ">=18.0"
 	},
 	"author": "jonkee",
 	"dependencies": {
-		"@zzznpm/orphan": "^0.2.18",
+		"@zzznpm/orphan": "^0.2.25",
 		"@zzznpm/samsara": "^0.0.13",
 		"asciichart": "^1.5.25",
 		"bac-motor": "^0.0.20",

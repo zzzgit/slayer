@@ -1,10 +1,10 @@
-import {LosingEntity, Road, WinningEntity} from "@zzznpm/orphan"
+import {Blackhole, LosingEntity, WinningEntity} from "@zzznpm/orphan"
 import Engine from "bac-motor"
 
 const engine = new Engine()
-const shoeAmount = 300
+const shoeAmount = 500
 const round = 1
-const road = new Road()
+const bhole = new Blackhole
 
 const testCase = {
 	init() {
@@ -16,6 +16,7 @@ const testCase = {
 			const bigRoad = outcome.getBigRoad()
 			let streak = bigRoad.getFirstStreak()
 			while (streak) {
+				// 斬莊還是斬閒
 				if (streak.getFirstEntity()?.isBanco) {
 					streak = streak.getNextStreak()
 					continue
@@ -27,26 +28,29 @@ const testCase = {
 				}
 				if (streak.getNextStreak()) {
 					if (length === 4) {
-						road.addEntity(new WinningEntity(true))
-					} else if (length === 5) {
-						road.addEntity(new WinningEntity(true))
-					} else if (length === 6) {
-						road.addEntity(new LosingEntity(true))
-						road.addEntity(new WinningEntity(true))
+						bhole.addEntity(new WinningEntity(true))
 					} else {
-						road.addEntity(new LosingEntity(true))
-						road.addEntity(new LosingEntity(true))
+						bhole.addEntity(new LosingEntity(true))
+						if (length === 5) {
+							// 必須存在這一行，不然邏輯有誤
+						} else if (length === 6) {
+							bhole.addEntity(new WinningEntity(true))
+						} else {
+							bhole.addEntity(new LosingEntity(true))
+						}
 					}
 				} else {	// the last treak
 					if (length === 4) {
-						// road.addEntity(new WinningEntity(true))
-					} else if (length === 5) {
-						road.addEntity(new LosingEntity(true))
-					} else if (length === 6) {
-						road.addEntity(new LosingEntity(true))
+						//
 					} else {
-						road.addEntity(new LosingEntity(true))
-						road.addEntity(new LosingEntity(true))
+						bhole.addEntity(new LosingEntity(true))
+						if (length === 5) {
+							//
+						} else if (length === 6) {
+							//
+						} else {
+							bhole.addEntity(new LosingEntity(true))
+						}
 					}
 				}
 				streak = streak.getNextStreak()
@@ -60,9 +64,10 @@ const testCase = {
 		engine.shutdown()
 	},
 	report() {
-		const info = road.getOutcome()
+		const info = bhole.getOutcome()
 		console.log(info.bet)
 		console.log(info.statistics)
+		console.log(info.strategy)
 	},
 }
 
@@ -72,6 +77,6 @@ testCase.report()
 
 
 /**
- * 1.
- * 2.
+ * 1. 斬閒龍，必輸，w2l低於105%，也就是說扣除佣金後，沒有利潤
+ * 2. 斬莊還是斬閒，都是輸
  */
