@@ -2,7 +2,7 @@ import {Blackhole, LosingEntity, WinningEntity} from "@zzznpm/orphan"
 import Engine from "bac-motor"
 
 const engine = new Engine()
-const shoeAmount = 500
+const shoeAmount = 200
 const round = 1
 const bhole = new Blackhole
 

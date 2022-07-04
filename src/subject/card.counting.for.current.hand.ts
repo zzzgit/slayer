@@ -51,6 +51,9 @@ const testCase = {
 		for (let i = 0; i < shoeAmount; i++) {
 			const afterPlay = (handResult: HandOutcome): void => {
 				const pointValue = tool.countBankerScore(handResult)
+				/**
+				 * 3200好像是最優值，對於莊來說，4200和2200，都會讓命中率降低
+				 */
 				if (pointValue > 3200) { // 2500..3000c
 					if (handResult.result == HandResult.BancoWins) {
 						result.banker.win++

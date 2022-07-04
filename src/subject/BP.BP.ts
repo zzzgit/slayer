@@ -14,7 +14,7 @@ const table = new CliTable({
 	colWidths: [20, 20, 20, 20],
 	style: {"compact": false, 'padding-left': 1},
 })
-let capital = 0
+
 const bhole = new Blackhole()
 
 let result: { tie: number; banker: number; player: number } = {
@@ -86,20 +86,6 @@ const testCase = {
 				}
 				streak = streak.getNextStreak()
 			}
-			// 分析遇閒打莊
-			streak = bigroad.getFirstStreak()
-			while (streak) {
-				if (streak.getFirstEntity()?.isPunto) {
-					if (streak.getLength() > 1) {
-						capital--
-					} else {
-						if (streak.getNextStreak()) {
-							capital += 0.95
-						}
-					}
-				}
-				streak = streak.getNextStreak()
-			}
 
 			result.banker += info.banco
 			result.player += info.punto
@@ -119,7 +105,6 @@ const testCase = {
 	report() {
 		table.print(`莊閒分佈：`)
 		console.log()
-		console.log("買莊，扣除佣金之後的餘額：", Math.round(capital))
 		console.log()
 		const info = bhole.getOutcome()
 		console.log(info.bet)

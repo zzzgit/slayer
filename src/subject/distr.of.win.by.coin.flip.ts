@@ -6,7 +6,7 @@ import samael from "samael"
 
 
 const engine = new Engine()
-const shoeAmount = 3000
+const shoeAmount = 40000
 let losingStreakLength = 0
 
 const tableDistribution = new CliTable({
@@ -40,14 +40,18 @@ const testCase = {
 		for (let i = 0; i < shoeAmount; i++) {
 			engine.playOneShoe(undefined, (handResult: HandOutcome)=>{
 				const expectWinner = samael.flipCoin() ? HandResult.PuntoWins : HandResult.BancoWins
+				if (handResult.result == HandResult.Tie) {
+					return undefined
+				}
 				if (handResult.result == expectWinner) {
 					result.loss++
 					losingStreakLength++
-				} else if (handResult.result !== HandResult.Tie) {
+				} else {
 					result.win++
 					result.losingStreak.count(losingStreakLength)
 					losingStreakLength = 0
 				}
+				return undefined
 			})
 		}
 		const totalBet: number = result.win + result.loss
