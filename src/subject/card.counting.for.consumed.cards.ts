@@ -8,7 +8,7 @@ import {Card} from "cardation"
 
 
 const engine = new Engine()
-const shoeAmount = 10000
+const shoeAmount = 1000
 const road = new Blackhole()
 // let bscore = 0
 let pscore = 0
@@ -110,7 +110,7 @@ const testCase = {
 		engine.shutdown()
 	},
 	report() {
-		const info = road.getOutcome()
+		const info = road.getOutcome(false)
 		tableDistribution.print(`三千靴牌，大小牌算牌法，輸贏：`)
 
 		console.log(info.statistics)

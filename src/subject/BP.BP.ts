@@ -106,7 +106,7 @@ const testCase = {
 		table.print(`莊閒分佈：`)
 		console.log()
 		console.log()
-		const info = bhole.getOutcome()
+		const info = bhole.getOutcome(true)
 		console.log(info.bet)
 		console.log(info.statistics)
 		console.log(info.strategy)

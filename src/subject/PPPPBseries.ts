@@ -64,7 +64,7 @@ const testCase = {
 		engine.shutdown()
 	},
 	report() {
-		const info = bhole.getOutcome()
+		const info = bhole.getOutcome(true)
 		console.log(info.bet)
 		console.log(info.statistics)
 		console.log(info.strategy)
