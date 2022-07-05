@@ -1,12 +1,14 @@
 /* eslint-disable no-constant-condition */
-import CliTable from "../report/Table"
-import tool from "../tool/tool"
+import {LosingEntity, Blackhole, WinningEntity} from "@zzznpm/orphan"
 import massiveTestConfig from "../config/massiveTestConfig"
 import Engine, {HandOutcome, HandResult} from "bac-motor"
-import {LosingEntity, Blackhole, WinningEntity} from "@zzznpm/orphan"
+import CliTable from "../report/Table"
+import tool from "../tool/tool"
+import {Card} from "cardation"
+
 
 const engine = new Engine()
-const shoeAmount = 50000
+const shoeAmount = 10000
 const road = new Blackhole()
 // let bscore = 0
 let pscore = 0
@@ -54,8 +56,8 @@ const testCase = {
 		}
 		const afterPlay = (hOutcome: HandOutcome): void => {
 			const actualScore = pscore / ((416 - drawCards_int) / 416)
-			const threshold = 3000
-			if (actualScore > 30000) {		// 30000，相當於每10手打一手，2000，相當於沒5手打一手
+			const threshold = 2500
+			if (actualScore > 25000) {		// 30000，相當於每10手打一手，2000，相當於沒5手打一手
 				if (lastHandScore > threshold) {
 					result.total++
 					if (hOutcome.result === HandResult.BancoWins) {
@@ -85,15 +87,18 @@ const testCase = {
 			drawCards_int += [...hOutcome.bancoHand.getDuplicatedCardArray(), ...hOutcome.puntoHand.getDuplicatedCardArray()].length
 			// console.log(bscore, pscore, drawCards)
 		}
+		const beforeShoe = (card: Card):void => {
+			card.getPoint()
+			lastHandScore = 448
+			pscore += lastHandScore
+			drawCards_int = 1
+		}
 		for (let i = 0; i < shoeAmount; i++) {
-			const shoeOutcome = engine.playOneShoe(undefined, afterPlay)
+			const shoeOutcome = engine.playOneShoe(undefined, afterPlay, beforeShoe)
 			const statistics = shoeOutcome.getStatisticInfo()
 			result.distr.banco += statistics.banco
 			result.distr.punto += statistics.punto
 			result.distr.tie += statistics.tie
-			pscore = 0
-			lastHandScore = 0
-			drawCards_int = 0
 		}
 
 		const {distr} = result
@@ -126,7 +131,8 @@ testCase.report()
 
 /**
  * 1. sample不夠大，結果就不穩定，最少需要50000shoe
- * 2.
- * 3.
+ * 2. 莊的策略，相對於宏觀數據的優勢，比較穩定。閒，不穩定，幾乎沒有作用
+ * 2.5 穩定性，相對於波動，還是太小，波動可以遠遠超出穩定性
+ * 3. 莊的策略，對於玩家，依然沒有edge
  * 4. 還未加入燒牌的計算(只有一張明牌，作用有限)
  */
