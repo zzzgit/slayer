@@ -4,6 +4,7 @@ const massiveTestConfig:Config = {
 	shouldDetectShoe: false,
 	shouldShuffle: true,
 	shouldShuffleWhileCollectBancoHand: false,
+	shouldBurnCard: true,
 	shouldGenerateRoad: false,
 }
 export default massiveTestConfig
