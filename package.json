@@ -36,16 +36,16 @@
 		"@zzznpm/orphan": "^0.2.29",
 		"@zzznpm/samsara": "^0.0.13",
 		"asciichart": "^1.5.25",
-		"bac-motor": "^0.0.23",
+		"bac-motor": "^0.0.25",
 		"cardation": "^0.1.41",
 		"chart.js": "^3.9.1",
 		"chartjs-node-canvas": "^4.1.6",
-		"cli-table3": "^0.6.2",
+		"cli-table3": "^0.6.3",
 		"colors": "^1.4.0",
 		"kaze": "^0.0.62",
-		"marga": "^0.2.18",
+		"marga": "^0.2.20",
 		"samael": "^1.0.38",
-		"ts-custom-error": "^3.2.0"
+		"ts-custom-error": "^3.2.2"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^17.0.3",
