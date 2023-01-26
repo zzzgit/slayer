@@ -6,7 +6,7 @@ import samael from "samael"
 
 
 const engine = new Engine()
-const shoeAmount = 40000
+const shoeAmount = 400
 let losingStreakLength = 0
 
 const tableDistribution = new CliTable({

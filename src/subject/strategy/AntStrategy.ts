@@ -4,12 +4,21 @@ import BetOrUndefined from "../../model/strategy/type/BetOrUndefined"
 import {Bet, FreeMun as Free, BancoMun as Banker, PuntoMun as Player, HandOutcome} from "bac-motor"
 import samael from "samael"
 
+let counter = 0
 class AntStrategy extends Strategy {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	figureOutBet(lastBet: BetOrUndefined, _lastOutcome: HandOutcome): Bet {
+		counter++
 		const freeGame = new Bet(new Free(), 0)
 		const gen = this.getProgressionGenerator()
-		if (!(lastBet?.getMun() instanceof Free)) {
+		if (!lastBet) {
+			lastBet = freeGame
+		}
+		if (!(lastBet.getMun() instanceof Free)) {
+			// 此處取到的始終是上上手，因為freegame沒有被bac-motor記錄下來
+			// return freeGame
+		}
+		if (counter > 1 && counter % 2 == 0) {
 			return freeGame
 		}
 		if (samael.flipCoin()) {

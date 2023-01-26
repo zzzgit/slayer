@@ -9,10 +9,18 @@ class AntBetProgression extends Progression {
 		this._stepLength = stepLenth
 	}
 
+	// * _getGen(): Generator<number, void, boolean> {
+	// 	while (true || this._stepLength) {
+	// 		yield 10
+	// 	}
+	// }
 	* _getGen(): Generator<number, void, boolean> {
 		const context = this.getContext()
 		const len = this._stepLength
 		while (true) {
+			if ((context.balance || 0) >= 1100 * len) {
+				yield 50
+			}
 			if ((context.balance || 0) >= 1090 * len) {
 				yield 10
 			}

@@ -5,7 +5,7 @@ import CounterMap from "./collection/CounterMap"
 
 
 const engine = new Engine()
-const shoeAmount = 5000
+const shoeAmount = 500
 
 const tableDistribution = new CliTable({
 	head: [' ', '4', '5', '6'],
