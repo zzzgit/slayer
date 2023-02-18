@@ -1,4 +1,5 @@
 import {Card} from "cardation"
+import OddCalculator from "./OddCalculator"
 
 const util = {
 	percentize(num: number, position: number = 2) {
@@ -134,6 +135,9 @@ const util = {
 		const varianceArr = list.map(value => (value - mean) ** 2)
 		const result = varianceArr.reduce((a, b) => a + b) / list.length
 		return result
+	},
+	getOddCal(bancoWins: number, puntoWins: number, tie: number, betOnBanco: boolean):OddCalculator {
+		return OddCalculator.from(bancoWins, puntoWins, tie, betOnBanco)
 	},
 }
 

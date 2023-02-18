@@ -10,7 +10,7 @@ import {Bet, FreeMun as Free, PuntoMun as Player} from "bac-motor"
 
 class Player9to0Strategy extends Strategy {
 	figureOutBet(_lastBet: BetOrUndefined, lastComeout: HandOutcomeOrUndefined): Bet {
-		if (lastComeout?.puntoHand.getPoint() == 9 && lastComeout?.bancoHand.getPoint() == 0) {
+		if (lastComeout?.puntoHand.getPoint() == 0 && lastComeout?.bancoHand.getPoint() == 9) {
 			return new Bet(new Player(), 0)
 		}
 		const freeGame = new Bet(new Free(), 0)

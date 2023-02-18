@@ -25,6 +25,7 @@ const tool = {
 		const phand = handOutcome.puntoHand
 		const cards: Card[] = [...bhand.getDuplicatedCardArray(), ...phand.getDuplicatedCardArray()]
 		let result = 0
+		// 資料來源：https://www.888casino.com/blog/baccarat-tips/card-counting-in-baccarat  莊和閒，用兩個不同的算法
 		cards.forEach((card) => {
 			let delta = 0
 			const score = card.getPoint()
@@ -36,7 +37,7 @@ const tool = {
 				delta = 1
 			} else if (score === 6) {
 				delta = 2
-			} else if (6 < score && score < 9) {
+			} else if (score === 7 || score === 8) {
 				delta = 1
 			}
 			result = result + delta

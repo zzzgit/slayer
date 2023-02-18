@@ -5,7 +5,7 @@ import massiveTestConfig from "../config/massiveTestConfig"
 import Engine, {HandOutcome, HandResult} from "bac-motor"
 
 const engine = new Engine()
-const shoeAmount = 6000
+const shoeAmount = 10000
 
 const tableDistribution = new CliTable({
 	head: ['bet/result', 'win', 'loss', 'tie'],
@@ -48,31 +48,39 @@ const testCase = {
 				tie: 0,
 			},
 		}
-		for (let i = 0; i < shoeAmount; i++) {
-			const afterPlay = (handResult: HandOutcome): void => {
-				const pointValue = tool.countHandScore(handResult)
-				/**
-				 * 3200好像是最優值，對於莊來說，4200和2200，都會讓命中率降低
-				 */
-				if (pointValue > 3200) { // 2500..3000c
-					if (handResult.result == HandResult.BancoWins) {
-						result.banker.win++
-					} else if (handResult.result == HandResult.PuntoWins) {
-						result.banker.lose++
-					} else {
-						result.banker.tie++
-					}
-				}
-				if (pointValue < -3200) {
-					if (handResult.result == HandResult.BancoWins) {
-						result.player.lose++
-					} else if (handResult.result == HandResult.PuntoWins) {
-						result.player.win++
-					} else {
-						result.player.tie++
-					}
+		const afterPlay = (handResult: HandOutcome): void => {
+			const banco_cards = handResult.bancoHand.getDuplicatedCardArray().length
+			const punto_cards = handResult.puntoHand.getDuplicatedCardArray().length
+			const total_cards = banco_cards + punto_cards
+			// 四張牌不論
+			if (total_cards === 4) {
+				return undefined
+			}
+			const shouldBetonBanco = total_cards === 5 && banco_cards === 2
+			const pointValue = tool.countHandScore(handResult)
+			/**
+			 * 3200好像是最優值，對於莊來說，4200和2200，都會讓命中率降低
+			 */
+			if (shouldBetonBanco && pointValue > 2500) { // 2500..3000c  注意，在結合牌的張數的策略時，2500導致勝率大大降低
+				if (handResult.result == HandResult.BancoWins) {
+					result.banker.win++
+				} else if (handResult.result == HandResult.PuntoWins) {
+					result.banker.lose++
+				} else {
+					result.banker.tie++
 				}
 			}
+			if (!shouldBetonBanco && pointValue < -2500) {
+				if (handResult.result == HandResult.BancoWins) {
+					result.player.lose++
+				} else if (handResult.result == HandResult.PuntoWins) {
+					result.player.win++
+				} else {
+					result.player.tie++
+				}
+			}
+		}
+		for (let i = 0; i < shoeAmount; i++) {
 			engine.playOneShoe(undefined, afterPlay)
 		}
 		const bResult = result.banker
@@ -94,8 +102,10 @@ const testCase = {
 	report() {
 		tableDistribution.print(`六千靴牌，大小牌算牌法，輸贏：`)
 		// 百家樂理論值：1.02767525608，想要贏錢：1.05254515599
-		console.log("買莊， W/L:", util.percentize(result.banker.win / result.banker.lose, 2))
-		console.log("買閒， W/L:", util.percentize(result.player.win / result.player.lose, 2))
+		let cal = util.getOddCal(result.banker.win, result.banker.lose, 3, true)
+		console.log("買莊， W/L:", util.percentize(cal.getw2l(), 2))
+		cal = util.getOddCal(result.player.lose, result.player.win, 3, false)
+		console.log("買閒， W/L:", util.percentize(cal.getw2l(), 2))
 	},
 }
 
@@ -104,7 +114,11 @@ testCase.run()
 testCase.report()
 
 /**
- * 1. 莊家，最優值1.15，閒家，最優值1.35，看上去都有利可圖，莊家除掉佣金，還能賺0.05以上
- * 2. 莊家的優勢，沒法再優化，儘管調高閥值
+ * 0. 只考慮點數score（閥值在3000處最優）:
+ * 1. 莊家，最優值120，閒家，最優值135，看上去都有利可圖。莊家除掉佣金，還能賺0.05以上
+ * 2. 莊家的優勢，沒法再優化，儘管調高閥值(試試另外一套算法，參看源代碼)
+ *
+ * 3: 兩種策略並行thorp and WDCC:
+ * 4: 能下注的機會不多（一shoe只能下註0.8次，必須要把第一個策略的閥值調整到25000），莊家w2l 370（天花板效應），閒家w2l 220（有提升，藉助BAC的優勢？）
  */
 

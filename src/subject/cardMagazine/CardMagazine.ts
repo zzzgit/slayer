@@ -76,6 +76,55 @@ class CardMagazine {
 		}
 		return cards
 	}
+
+	static getPerfectShoe(): Card[] {
+		const cards: Card[] = []
+		for (let iDeck = 0; iDeck < 8; iDeck++) {
+			for (let iSuit = 0; iSuit < 4; iSuit++) {
+				for (let iRank = 1; iRank < 10; iRank++) {
+					cards.push(creatCard(iRank))
+				}
+				for (let iZero = 0; iZero < 4; iZero++) {
+					cards.push(creatCard(0))
+				}
+			}
+		}
+		return cards
+	}
+
+	static getCardsWithNo5(): Card[] {
+		const cards: Card[] = this.getPerfectShoe()
+		return cards.filter(item=>item.getPoint() !== 5)
+	}
+
+	static getCardsWithNo6(): Card[] {
+		const cards: Card[] = this.getPerfectShoe()
+		for (let i = 0; i < 8 * 4; i++) {
+			cards.push(creatCard(4))
+		}
+		return cards.filter(item => item.getPoint() !== 6)
+	}
+
+	static getCardsWithHighRank(): Card[] {
+		const cards: Card[] = []
+		for (let i = 0; i < 8 * 4; i++) {
+			for (let r = 5; r < 10; r++) {
+				cards.push(creatCard(r))
+			}
+		}
+		return cards
+	}
+
+	static getCardsWithLowRank(): Card[] {
+		const cards: Card[] = []
+		// 注意0的張數不對
+		for (let i = 0; i < 8 * 4; i++) {
+			for (let r = 0; r < 5; r++) {
+				cards.push(creatCard(r))
+			}
+		}
+		return cards
+	}
 }
 
 const creatCard = (score: number): Card => {

@@ -24,16 +24,17 @@ const testCase = {
 	work() {
 		result.two = 0
 		result.three = 0
-		for (let i = 0; i < shoeAmount; i++) {
-			engine.playOneShoe(undefined, (handResult: HandOutcome)=>{
-				if (handResult.result == HandResult.BancoWins) {
-					if (handResult.bancoHand.getDuplicatedCardArray().length === 2) {
-						result.two++
-					} else {
-						result.three++
-					}
+		const xxxx = (handResult: HandOutcome):void => {
+			if (handResult.result == HandResult.BancoWins) {
+				if (handResult.bancoHand.getDuplicatedCardArray().length === 2) {
+					result.two++
+				} else {
+					result.three++
 				}
-			})
+			}
+		}
+		for (let i = 0; i < shoeAmount; i++) {
+			engine.playOneShoe(undefined, xxxx)
 		}
 		const total = result.two + result.three
 		table.push([`${total}`, `${result.two} / ${util.percentize(result.two / total)}%`,

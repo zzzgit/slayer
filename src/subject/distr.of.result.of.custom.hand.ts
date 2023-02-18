@@ -5,7 +5,7 @@ import util from "../tool/util"
 import CardMagazine from "./cardMagazine/CardMagazine"
 
 const engine = new Engine()
-const shoeAmount = 1000
+const shoeAmount = 5000
 let cardsAmount = 0
 const round = 1
 const table = new CliTable({
@@ -22,7 +22,7 @@ const result = {
 
 const testCase = {
 	init() {
-		const cards: Card[] = CardMagazine.getCards99()
+		const cards: Card[] = CardMagazine.getCardsWithNo6()
 		cardsAmount = cards.length
 		const config:Config = {
 			customizedShoe: cards,
@@ -61,6 +61,8 @@ const testCase = {
 	report() {
 		console.log(`cards in shoe: ${cardsAmount}`)
 		table.print(`莊閒分佈：`)
+		const cal = util.getOddCal(result.banker, result.player, result.tie, false)
+		console.log(`買莊EV: ${cal.getReward(true) * 100}%`)
 	},
 }
 
@@ -71,6 +73,7 @@ testCase.report()
 
 
 /**
- * 1.
+ * 1. 只保留5-9，買莊w2l 1.24，六張牌/五張牌 1.2
+ * 2. 只保留0-4（沒有jkq），買閒w2l 1.24，五張牌/六張牌 1.11
  * 2.
  */

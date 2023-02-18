@@ -7,7 +7,7 @@ import CliTable from "../report/Table"
 import util from "../tool/util"
 
 const engine = new Engine()
-const shoeAmount = 20000
+const shoeAmount = 5000
 
 const tableDistribution = new CliTable({
 	head: ['total', 'P win', 'tie', 'B win'],

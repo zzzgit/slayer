@@ -1,9 +1,10 @@
+import {Engine, HandOutcome, Bet, FreeMun as Free, BancoMun as Banker, PuntoMun as Player} from "bac-motor"
 import HandOutcomeOrUndefined from "../model/strategy/type/HandOutcomeOrUndefined"
 import BetOrUndefined from "../model/strategy/type/BetOrUndefined"
 import AntBetProgression from "./strategy/AntBetProgression"
 import AntStrategy from "./strategy/AntStrategy"
-import {Engine, HandOutcome, Bet, FreeMun as Free, BancoMun as Banker, PuntoMun as Player} from "bac-motor"
 import CliTable from "../report/Table"
+import samael from "samael"
 
 const engine = new Engine()
 const shoeAmount = 2000
@@ -27,6 +28,14 @@ const result = {
 	commision: 0,
 }
 
+const takeChance = (isBanco: boolean): boolean=>{
+	if (isBanco) {
+		// 理論0.5068，breakeven 100/195，當前加到0.52
+		return samael.chance(2676, 100000)
+	}
+	// 理論0.493，breakeven 0.5，當前加到0.51  x/
+	return samael.chance(333, 10000)
+}
 
 const testCase = {
 	init() {
@@ -56,13 +65,20 @@ const testCase = {
 				if (isFree) {
 					return undefined
 				}
+				handResult
 				let payout = handResult.getPayout()
-				// 加上返傭-------------------------以後去掉------
-				if (bet.getMun() instanceof Banker) {
-					payout = payout + handResult.getWager() * .021
-				}
-				if (bet.getMun() instanceof Player) {
-					payout = payout + handResult.getWager() * .023
+				// 輸了，增加勝率-------------------------
+				if (payout === 0) {
+					if (bet.getMun() instanceof Banker) {
+						if (takeChance(true)) {
+							payout = handResult.getWager() * 1.95
+						}
+					}
+					if (bet.getMun() instanceof Player) {
+						if (takeChance(false)) {
+							payout = handResult.getWager() * 2
+						}
+					}
 				}
 				balance = balance + payout
 				if (bet.getMun() instanceof Banker) {
@@ -108,4 +124,5 @@ testCase.report()
  * 1. 返傭，讓莊閒的rv都為0
  * 2. 返傭，讓莊閒的rv都為0.01，有機會賺錢
  * 3. 註碼法並不重要，重要的是rv，和止盈點
+ * 4. 另類測試，反轉輸贏，因為改代碼麻煩，沒有進行
  */
