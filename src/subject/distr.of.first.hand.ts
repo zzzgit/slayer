@@ -3,10 +3,10 @@ import CounterMap from "./collection/CounterMap"
 import {Engine, HandResult, ShoeOutcome} from "bac-motor"
 import CliTable from "../report/Table"
 import util from "../tool/util"
-import samael from "samael"
+import * as samael from "samael"
 
 const engine = new Engine()
-const shoeAmount = 9000
+const shoeAmount = 90
 const round = 1
 const table = new CliTable({
 	head: [' ', 'B', 'P'],

@@ -3,7 +3,7 @@ import massiveTestConfig from "../config/massiveTestConfig"
 import {Engine, ShoeOutcome} from "bac-motor"
 import CliTable from "../report/Table"
 import util from "../tool/util"
-import samael from "samael"
+import * as samael from "samael"
 import {LosingEntity, Blackhole, WinningEntity} from "@zzznpm/orphan"
 
 const engine = new Engine()

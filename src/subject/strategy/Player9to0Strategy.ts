@@ -2,7 +2,7 @@ import Strategy from "../../model/strategy/Strategy"
 import BetOrUndefined from "../../model/strategy/type/BetOrUndefined"
 import HandOutcomeOrUndefined from "../../model/strategy/type/HandOutcomeOrUndefined"
 import {Bet, FreeMun as Free, PuntoMun as Player} from "bac-motor"
-// import samael from "samael"
+// import * as samael from "samael"
 
 // const date = new Date()
 // const path = "/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt"

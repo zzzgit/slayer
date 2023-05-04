@@ -4,7 +4,7 @@ import BetOrUndefined from "../model/strategy/type/BetOrUndefined"
 import AntBetProgression from "./strategy/AntBetProgression"
 import AntStrategy from "./strategy/AntStrategy"
 import CliTable from "../report/Table"
-import samael from "samael"
+import * as samael from "samael"
 
 const engine = new Engine()
 const shoeAmount = 2000

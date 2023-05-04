@@ -1,7 +1,7 @@
 import {Engine, HandOutcome} from "bac-motor"
 import massiveTestConfig from "../config/massiveTestConfig"
 import CliTable from "../report/Table"
-import util from "../tool/util"
+// import util from "../tool/util"
 import CounterMap from "./collection/CounterMap"
 
 
@@ -21,6 +21,7 @@ let result = {
 	totalGames: 0,
 	gamesInOneShoe: new CounterMap<number>(),
 	record: arr,
+	acd_streak: new CounterMap<number>(),
 }
 
 
@@ -36,8 +37,10 @@ const testCase = {
 			totalGames: 0,
 			gamesInOneShoe: new CounterMap<number>(),
 			record: [],
+			acd_streak: new CounterMap<number>(),
 		}
-		let noneACD_record = 0
+		let acd_record = 0
+		let acd_sequence = 0
 		const afterPlay = (handResult: HandOutcome): void => {
 			const bHand = handResult.bancoHand
 			const pHand = handResult.puntoHand
@@ -46,20 +49,27 @@ const testCase = {
 			result.hands.count(bPoint)
 			result.hands.count(pPoint)
 			result.totalValue += bPoint + pPoint
-			if (bHand.getDuplicatedCardArray().length == 2 && pHand.getDuplicatedCardArray().length == 3) {
-				noneACD_record++
-			}
-			if (bHand.getDuplicatedCardArray().length == 3 && pHand.getDuplicatedCardArray().length == 2) {
-				noneACD_record++
+			let condition = bHand.getDuplicatedCardArray().length == 2 && pHand.getDuplicatedCardArray().length == 3
+			condition = condition || bHand.getDuplicatedCardArray().length == 3 && pHand.getDuplicatedCardArray().length == 2
+			if (condition) {
+				acd_record++
+				acd_sequence++
+			} else {
+				if (acd_sequence !== 0) {
+					result.acd_streak.count(acd_sequence)
+					acd_sequence = 0
+				}
 			}
 		}
 		for (let i = 0; i < shoeAmount; i++) {
-			noneACD_record = 0
+			acd_record = 0
+			acd_sequence = 0
 			const shoeOutcome = engine.playOneShoe(undefined, afterPlay)
 			const {total} = shoeOutcome.getStatisticInfo()
 			result.gamesInOneShoe.count(total)
 			result.totalGames += total
-			result.record.push(+util.percentize(noneACD_record / total, 1))
+			// result.record.push(+util.percentize(noneACD_record / total, 1))
+			result.record.push(acd_record)
 		}
 		const {hands: h} = result
 		tableDistribution.push(["hand value", h.get(0) + "", h.get(1) + "", h.get(2) + "", h.get(3) + "", h.get(4) + "", h.get(5) + "", h.get(6) + "", h.get(7) + "", h.get(8) + "", h.get(9) + ""])
@@ -69,9 +79,8 @@ const testCase = {
 		tableDistribution.print(`occurrence of hand value：`)
 		console.log(`每shoe的game數平均值:			${result.totalGames / shoeAmount} games`)
 		console.log(`每個game的hand value 平均值:	${result.totalValue / result.totalGames / 2}`)
-		const max = result.record.reduce((a, b) => Math.max(a, b), -Infinity)
-		const min = result.record.reduce((a, b) => Math.min(a, b), Infinity)
-		console.log(min, max)
+		console.log(Math.min(...result.record), Math.max(...result.record))
+		console.log("acd streak:", result.acd_streak)
 	},
 }
 
@@ -89,8 +98,12 @@ testCase.report()
  * 3.2 BothACD的比例，最低15.7最高55.4，而理論值是31.5
  * 3.3 五張牌的比例，  最低12.3最高50，而理論值是30.5
  *
+ * 4. NoneACD，4張牌，每shoe出現次數，最低15，最大值48，百分比最低17，最高56
+ * 5. BothACD，6張牌，每shoe出現次數，最低15，最大值37，百分比最低17，最高49
+ * 6.
  *
- *  還需要做更多的研究，用於更加準確預測這個指標
+ * 11. streak平均長度 NoneACD 1.6，BothACD 1.45，5張牌，1.4(五張牌分解之後，肯定更加短)
+ *
  */
 
 // 統計: BothAC 情況下，（一直出小牌），看看如果閒家能連續贏多少手（越長，那麼黑天鵝越嚴重）

@@ -3,7 +3,7 @@ import BetOrUndefined from "../../model/strategy/type/BetOrUndefined"
 import HandOutcomeOrUndefined from "../../model/strategy/type/HandOutcomeOrUndefined"
 import {Bet, BancoMun as Banker, FreeMun as Free, PuntoMun as Player, HandResult} from "bac-motor"
 import tool from "../../tool/tool"
-import samael from "samael"
+import * as samael from "samael"
 
 
 const date = new Date()
