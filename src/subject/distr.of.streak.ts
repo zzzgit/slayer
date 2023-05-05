@@ -1,7 +1,6 @@
 
 import {Engine, ShoeOutcome} from "bac-motor"
 import CliTable from "../report/Table"
-import util from "../tool/util"
 import CounterMap from "./collection/CounterMap"
 
 const engine = new Engine()
@@ -69,11 +68,6 @@ const testCase = {
 		// result.bstreak.forEach((item)=>{totalB = totalB + item})
 		// result.pstreak.forEach((item)=>{totalP = totalP + item})
 		// console.log("莊、閒的條數：", totalB, totalP)
-		util.getAbyss(result.bstreak.getSortedEntities().map(item => item.value))
-		console.log("----上面是莊，下面是閒---------")
-		util.getAbyss(result.pstreak.getSortedEntities().map(item => item.value))
-		console.log("----下面是閒第一列，不論莊閒---------")
-		util.getAbyss(result.firstStreak.getSortedEntities().map(item => item.value))
 	},
 }
 

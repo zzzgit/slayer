@@ -210,7 +210,6 @@ const testCase = {
 		for (let i = 0; i < 10; i++) {
 			arr.push(result.naturalMap.get(i + 1) || 0)
 		}
-		// util.getAbyss(arr)
 
 		tableDistributionHoz.print(`五千shoe，每手牌的張數分佈：`)
 		tableDistributionVer.print(`五千shoe，每手牌的莊閒分佈：`)

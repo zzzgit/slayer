@@ -43,7 +43,6 @@ const testCase = {
 			const punto_cards = handResult.puntoHand.getDuplicatedCardArray().length
 			const testScheme = 5
 			if (banco_cards + punto_cards == testScheme) {
-				// 莊家三張牌，閒家兩張牌
 				if (banco_cards == 2) {
 					if (handResult.result == HandResult.BancoWins) {
 						result.counter.bancowins++

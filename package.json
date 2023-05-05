@@ -36,13 +36,13 @@
 		"@zzznpm/orphan": "^0.2.29",
 		"@zzznpm/samsara": "^0.0.13",
 		"asciichart": "^1.5.25",
-		"bac-motor": "^0.0.33",
-		"cardation": "^0.1.50",
+		"bac-motor": "^0.0.38",
+		"cardation": "^0.1.54",
 		"cli-table3": "^0.6.3",
 		"colors": "^1.4.0",
 		"kaze": "^0.0.63",
 		"marga": "^0.2.27",
-		"samael": "^3.0.2",
+		"samael": "^3.0.4",
 		"ts-custom-error": "^3.3.1"
 	},
 	"devDependencies": {

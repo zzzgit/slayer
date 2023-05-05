@@ -97,38 +97,6 @@ const util = {
 		})
 		return totalScore
 	},
-	getAbyss(data: number[]): void {
-		const rowIndex = []
-		const rowValue = []
-		const rowIntegral = []
-		for (let i = 0, len = data.length; i < len; i++) {
-			rowIndex.push(i)
-			rowValue.push(data[i])
-			rowIntegral.push(this._getIntegralOffirst(data, i))
-		}
-		for (let i = 0, len = data.length; i < len; i++) {
-			console.log(`${i}\t${rowValue[i]}\t${rowIntegral[i]}`)
-		}
-	},
-	_getIntegralOffirst(data: number[], index: number = 0): number {
-		const total = this._getTotal(data, index)
-		const first = data[index]
-		const num = first / total * 100
-		const result = num.toFixed(2)
-		return +result
-	},
-	_getTotal(data: number[], index: number = 0): number {
-		const total = data.reduce((a, b, currentIndex: number) => {
-			if (currentIndex < index) {
-				return 0
-			}
-			if (currentIndex === index) {
-				return b
-			}
-			return a + b
-		})
-		return total
-	},
 	getVariance(list:number[] = []) :number {
 		const total = list.reduce((a, b) => a + b)
 		const mean = total / list.length
