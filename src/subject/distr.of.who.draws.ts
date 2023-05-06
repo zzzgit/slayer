@@ -180,7 +180,7 @@ const testCase = {
 				map = result.sixCardMap
 			}
 
-			// streak，算法很多錯誤，和沒有被排除，沒次洗牌，沒有重新計算，這個所謂積分函數，到底代表什麼，沒有搞清楚。另外還需要計算strek的平均長度
+			// streak，算法很多錯誤，和沒有被排除，沒次洗牌，沒有重新計算 。另外還需要計算strek的平均長度
 			if (cardAmount === 6) {
 				streak++
 			} else {
@@ -200,11 +200,11 @@ const testCase = {
 		engine.shutdown()
 	},
 	report() {
-		// console.log("四張牌：", result.fourCardMap)
-		// console.log("五張牌：", result.fiveCardMap)
-		// console.log("六張牌：", result.sixCardMap)
+		// result.fourCardMap.printSorted("四張牌：")
+		// result.fiveCardMap.printSorted("五張牌：")
+		// result.sixCardMap.printSorted("六張牌：")
 
-		// result.naturalMap.printSorted("連續四張牌(包括叉燒)：")
+		result.naturalMap.printSorted("連續四張牌(包括叉燒)：")
 		console.log("計算積分：")
 		const arr:number[] = []
 		for (let i = 0; i < 10; i++) {

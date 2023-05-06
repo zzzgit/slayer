@@ -7,7 +7,6 @@ const engine = new Engine()
 const shoeAmount = 3000
 const round = 1
 let consecutiveBanco = 0
-let consecutivePunto = 0
 const tableForResult = new CliTable({
 	head: ['result', 'W', 'L', 'tie', "total"],
 	colWidths: [20, 20, 20, 20, 20],
@@ -48,26 +47,7 @@ const testCase = {
 				} else if (consecutiveBanco == 2) {
 					consecutiveBanco = 0
 				}
-
-				if (consecutivePunto < 2) {
-					//
-				} else if (consecutivePunto == 2) {
-					if (hresult == HandResult.BancoWins) {
-						result.banker.win++
-					} else if (hresult == HandResult.PuntoWins) {
-						result.banker.lose++
-					} else {
-						result.banker.tie++
-					}
-				}
-				consecutivePunto = 0
 			} else if (num === 6) {
-				if (consecutivePunto < 2) {
-					consecutivePunto++
-				} else if (consecutivePunto == 2) {
-					consecutivePunto = 0
-				}
-
 				if (consecutiveBanco < 2) {
 					//
 				} else if (consecutiveBanco == 2) {
@@ -136,7 +116,8 @@ testCase.report()
  * 5. 單獨買閒，100手獲利7-8手（不算和），6-7手（算上和）------或許不准，重新計算
  * 6.
  * 7.
- * 8. 下手機會 0.087
+ * 8. 下手機會 第一種方案0.087，第二種方案0.12，第三種方案0.013
+ * 		三種方案，第一種：2之後可以下注，然後重置為0，第二種：2和3可以下注，3之後重置為0，第三種：2和3可以下注，3之後重置為1
  * 10. 奇思妙想，計算連輸連贏
 
  */
