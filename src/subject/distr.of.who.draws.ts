@@ -205,7 +205,6 @@ const testCase = {
 		// result.sixCardMap.printSorted("六張牌：")
 
 		result.naturalMap.printSorted("連續四張牌(包括叉燒)：")
-		console.log("計算積分：")
 		const arr:number[] = []
 		for (let i = 0; i < 10; i++) {
 			arr.push(result.naturalMap.get(i + 1) || 0)
@@ -239,6 +238,6 @@ testCase.report()
  * 12. 六張牌，閒的優勢主要在這裡，買閒W2l 118到119(計算：用P6/B6)
  *
  * 13. 五張牌，莊家補牌/閒家補牌 0.63
- * 14. console.log("計算積分："),這個需要進一步研究，看看是否有利用價值。
+ * 14.
  *
  */

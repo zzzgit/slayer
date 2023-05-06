@@ -5,7 +5,7 @@ import util from "../tool/util"
 import CounterMap from "./collection/CounterMap"
 
 const engine = new Engine()
-const shoeAmount = 3000
+const shoeAmount = 9000
 const round = 1
 let consecutiveBanco = 0
 let consecutivePunto = 0
