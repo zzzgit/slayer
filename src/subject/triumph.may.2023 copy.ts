@@ -5,10 +5,10 @@ import util from "../tool/util"
 import CounterMap from "./collection/CounterMap"
 
 const engine = new Engine()
-const shoeAmount = 9000
+const shoeAmount = 3000
 const round = 1
-let consecutiveBanco = 0
-let consecutivePunto = 0
+let previousConsecutiveSingle = 0
+let previousConsecutiveDouble = 0
 let consecutiveLose = 0
 let consecutiveWin = 0
 const loseMap = new CounterMap<number>()
@@ -45,72 +45,75 @@ const testCase = {
 			const bHand = houtcome.bancoHand
 			const pHand = houtcome.puntoHand
 			const num = bHand.getDuplicatedCardArray().length + pHand.getDuplicatedCardArray().length
+			const betOnPlayer = (hresult: HandResult):void =>{
+				if (hresult == HandResult.BancoWins) {
+					result.player.lose++
+					consecutiveLose++
+					if (consecutiveWin) {
+						winMap.count(consecutiveWin)
+					}
+					consecutiveWin = 0
+				} else if (hresult == HandResult.PuntoWins) {
+					result.player.win++
+					consecutiveWin++
+					if (consecutiveLose) {
+						loseMap.count(consecutiveLose)
+					}
+					consecutiveLose = 0
+				} else {
+					result.player.tie++
+				}
+			}
+			const betOnBanker = (hresult: HandResult):void=> {
+				if (hresult == HandResult.BancoWins) {
+					result.banker.win++
+					consecutiveWin++
+					if (consecutiveLose) {
+						loseMap.count(consecutiveLose)
+					}
+					consecutiveLose = 0
+				} else if (hresult == HandResult.PuntoWins) {
+					result.banker.lose++
+					consecutiveLose++
+					if (consecutiveWin) {
+						winMap.count(consecutiveWin)
+					}
+					consecutiveWin = 0
+				} else {
+					result.banker.tie++
+				}
+			}
+			// 處理輸贏結果
+			if (previousConsecutiveDouble > 1) {
+				betOnBanker(hresult)
+			}
+			if (previousConsecutiveSingle > 1) {
+				betOnPlayer(hresult)
+			}
+			// 處理previousConsecutive變量的修改
 			if (num === 4) {
-				//
+				previousConsecutiveDouble = 0
+				previousConsecutiveSingle = 0
 			} else if (num === 5) {
-				if (consecutiveBanco < 3) {
-					consecutiveBanco++
-				} else if (consecutiveBanco == 3) {
-					consecutiveBanco = 1
+				previousConsecutiveDouble = 0
+				if (previousConsecutiveSingle < 2) {
+					previousConsecutiveSingle++
+				} else if (previousConsecutiveSingle == 2) {
+					previousConsecutiveSingle = 2
 				}
-
-				if (consecutivePunto < 2) {
-					//
-				} else if (consecutivePunto > 1) {
-					if (hresult == HandResult.BancoWins) {
-						result.banker.win++
-						consecutiveWin++
-						if (consecutiveLose) {
-							loseMap.count(consecutiveLose)
-						}
-						consecutiveLose = 0
-					} else if (hresult == HandResult.PuntoWins) {
-						result.banker.lose++
-						consecutiveLose++
-						if (consecutiveWin) {
-							winMap.count(consecutiveWin)
-						}
-						consecutiveWin = 0
-					} else {
-						result.banker.tie++
-					}
-				}
-				consecutivePunto = 0
 			} else if (num === 6) {
-				if (consecutivePunto < 3) {
-					consecutivePunto++
-				} else if (consecutivePunto == 3) {
-					consecutivePunto = 1
+				previousConsecutiveSingle = 0
+				if (previousConsecutiveDouble < 2) {
+					previousConsecutiveDouble++
+				} else if (previousConsecutiveDouble == 2) {
+					previousConsecutiveDouble = 2
 				}
-
-				if (consecutiveBanco < 2) {
-					//
-				} else if (consecutiveBanco > 1) {
-					if (hresult == HandResult.BancoWins) {
-						result.player.lose++
-						consecutiveLose++
-						if (consecutiveWin) {
-							winMap.count(consecutiveWin)
-						}
-						consecutiveWin = 0
-					} else if (hresult == HandResult.PuntoWins) {
-						result.player.win++
-						consecutiveWin++
-						if (consecutiveLose) {
-							loseMap.count(consecutiveLose)
-						}
-						consecutiveLose = 0
-					} else {
-						result.player.tie++
-					}
-				}
-				consecutiveBanco = 0
 			}
 		}
 		for (let i = 0; i < shoeAmount; i++) {
 			engine.playOneShoe(undefined, afterPlay)
-			consecutiveBanco = 0
-			consecutivePunto = 0
+			previousConsecutiveSingle = 0
+			previousConsecutiveDouble = 0
 		}
 		const totalB: number = result.banker.win + result.banker.lose + result.banker.tie
 		const totalP: number = result.player.win + result.player.lose + result.player.tie
@@ -145,8 +148,8 @@ const testCase = {
 		engine.shutdown()
 	},
 	report() {
-		winMap.printSorted("連贏次數分佈： ")
-		loseMap.printSorted("連輸次數分佈： ")
+		// winMap.printSorted("連贏次數分佈： ")
+		// loseMap.printSorted("連輸次數分佈： ")
 		tableForResult.print(`輸贏分佈： `)
 		tableForProfit.print(`利潤率(已扣除佣金)： `)
 	},
@@ -157,6 +160,6 @@ testCase.run()
 testCase.report()
 
 /**
- * 1. 5月5日，重大發現，夢幻。遇到下手機會，結果會是三分的（4，5，6），但是我的統計，只統計期望的情況而忽略兩外兩種情況（頭暈糊塗）
- *
+ * 1. 一切成空
+
  */
