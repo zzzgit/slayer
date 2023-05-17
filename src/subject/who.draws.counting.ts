@@ -39,8 +39,8 @@ const testCase = {
 			},
 		}
 		const afterPlay = (handResult: HandOutcome): void => {
-			const banco_cards = handResult.bancoHand.getDuplicatedCardArray().length
-			const punto_cards = handResult.puntoHand.getDuplicatedCardArray().length
+			const banco_cards = handResult.bancoHand.getLength()
+			const punto_cards = handResult.puntoHand.getLength()
 			const testScheme = 5
 			if (banco_cards + punto_cards == testScheme) {
 				if (banco_cards == 2) {

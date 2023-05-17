@@ -44,7 +44,7 @@ const testCase = {
 			const hresult = houtcome.result
 			const bHand = houtcome.bancoHand
 			const pHand = houtcome.puntoHand
-			const num = bHand.getDuplicatedCardArray().length + pHand.getDuplicatedCardArray().length
+			const num = bHand.getLength() + pHand.getLength()
 			if (num === 4) {
 				//
 			} else if (num === 5) {

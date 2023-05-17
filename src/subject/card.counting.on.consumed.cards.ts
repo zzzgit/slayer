@@ -84,7 +84,7 @@ const testCase = {
 			lastHandScore = tool.countHandScore(hOutcome)
 			shorAccumulatedScore = tool.countHandScore(hOutcome, true)
 			longAccumulatedScore += lastHandScore
-			drawCards_int += hOutcome.bancoHand.getDuplicatedCardArray().length + hOutcome.puntoHand.getDuplicatedCardArray().length
+			drawCards_int += hOutcome.bancoHand.getLength() + hOutcome.puntoHand.getLength()
 		}
 		const beforeShoe = (card: Card | undefined):void => {
 			card?.getPoint()

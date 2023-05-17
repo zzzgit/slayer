@@ -49,8 +49,8 @@ const testCase = {
 			result.hands.count(bPoint)
 			result.hands.count(pPoint)
 			result.totalValue += bPoint + pPoint
-			let condition = bHand.getDuplicatedCardArray().length == 2 && pHand.getDuplicatedCardArray().length == 3
-			condition = condition || bHand.getDuplicatedCardArray().length == 3 && pHand.getDuplicatedCardArray().length == 2
+			let condition = bHand.getLength() == 2 && pHand.getLength() == 3
+			condition = condition || bHand.getLength() == 3 && pHand.getLength() == 2
 			if (condition) {
 				acd_record++
 				acd_sequence++

@@ -26,7 +26,7 @@ const testCase = {
 		result.three = 0
 		const xxxx = (handResult: HandOutcome):void => {
 			if (handResult.result == HandResult.BancoWins) {
-				if (handResult.bancoHand.getDuplicatedCardArray().length === 2) {
+				if (handResult.bancoHand.getLength() === 2) {
 					result.two++
 				} else {
 					result.three++

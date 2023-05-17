@@ -49,8 +49,8 @@ const testCase = {
 			},
 		}
 		const afterPlay = (handResult: HandOutcome): void => {
-			const banco_cards = handResult.bancoHand.getDuplicatedCardArray().length
-			const punto_cards = handResult.puntoHand.getDuplicatedCardArray().length
+			const banco_cards = handResult.bancoHand.getLength()
+			const punto_cards = handResult.puntoHand.getLength()
 			const total_cards = banco_cards + punto_cards
 			// 四張牌不論
 			if (total_cards === 4) {
