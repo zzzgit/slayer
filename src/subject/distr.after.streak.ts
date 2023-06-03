@@ -19,10 +19,10 @@ const statistics = {
 	no: 0,
 }
 
-const isPure = (streak:Streak): boolean=>{
+const isPure = (streak: Streak): boolean => {
 	let entity = streak.getFirstEntity()
 	while (entity) {
-		const badge = entity.getTagArray().some(b=> b instanceof TieBadge) // 未實現，在marga項目中
+		const badge = entity.getTagArray().some((b) => b instanceof TieBadge) // 未實現，在marga項目中
 		if (badge) {
 			return false
 		}
@@ -54,7 +54,9 @@ const testCase = {
 							// 	statistics.no++
 							// }
 						}
-						let nextEntity = nextStreak?.getFirstEntity()?.getNextEntity() as BigEntity // 龍擺尾第二手
+						let nextEntity = nextStreak
+							?.getFirstEntity()
+							?.getNextEntity() as BigEntity // 龍擺尾第二手
 						let counter = 0
 						while (counter < 2) {
 							if (!nextEntity) {

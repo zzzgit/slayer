@@ -9,9 +9,9 @@ const shoeAmount = 5000
 let cardsAmount = 0
 const round = 1
 const table = new CliTable({
-	head: ['total', 'B', 'P', 'tie'],
+	head: ["total", "B", "P", "tie"],
 	colWidths: [20, 20, 20, 20],
-	style: {"compact": false, 'padding-left': 1},
+	style: {compact: false, "padding-left": 1},
 })
 
 const result = {
@@ -24,7 +24,7 @@ const testCase = {
 	init() {
 		const cards: Card[] = CardMagazine.getCardsWithNo6()
 		cardsAmount = cards.length
-		const config:Config = {
+		const config: Config = {
 			customizedShoe: cards,
 			shouldCutShoe: false,
 			shouldUseBlackCard: false,
@@ -49,7 +49,15 @@ const testCase = {
 		}
 
 		const totalResult: number = result.tie + result.banker + result.player
-		table.push([totalResult, result.banker, result.player, result.tie], [`100 %`, util.percentize(result.banker / totalResult) + " %", util.percentize(result.player / totalResult) + " %", util.percentize(result.tie / totalResult) + " %"])
+		table.push(
+			[totalResult, result.banker, result.player, result.tie],
+			[
+				`100 %`,
+				util.percentize(result.banker / totalResult) + " %",
+				util.percentize(result.player / totalResult) + " %",
+				util.percentize(result.tie / totalResult) + " %",
+			]
+		)
 		// table.push([100, util.percentize(result.banker / totalResult), util.percentize(result.punto / totalResult), util.percentize(result.tie / totalResult)])
 	},
 	run() {
@@ -66,11 +74,9 @@ const testCase = {
 	},
 }
 
-
 testCase.init()
 testCase.run()
 testCase.report()
-
 
 /**
  * 1. 只保留5-9，買莊w2l 1.24，六張牌/五張牌 1.2

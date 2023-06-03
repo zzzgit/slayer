@@ -14,14 +14,14 @@ let consecutiveWin = 0
 const loseMap = new CounterMap<number>()
 const winMap = new CounterMap<number>()
 const tableForResult = new CliTable({
-	head: ['result', 'W', 'L', 'tie', "total"],
+	head: ["result", "W", "L", "tie", "total"],
 	colWidths: [20, 20, 20, 20, 20],
-	style: {"compact": false, 'padding-left': 1},
+	style: {compact: false, "padding-left": 1},
 })
 const tableForProfit = new CliTable({
-	head: ['profit rate', 'B', 'P', 'total'],
+	head: ["profit rate", "B", "P", "total"],
 	colWidths: [20, 20, 20, 20],
-	style: {"compact": false, 'padding-left': 1},
+	style: {compact: false, "padding-left": 1},
 })
 
 let result = {
@@ -29,10 +29,12 @@ let result = {
 	player: {tie: 0, win: 0, lose: 0},
 }
 
-
 const testCase = {
 	init() {
-		const config = Object.assign({}, massiveTestConfig, {shouldGenerateRoad: true, shouldCutShoe: true})
+		const config = Object.assign({}, massiveTestConfig, {
+			shouldGenerateRoad: true,
+			shouldCutShoe: true,
+		})
 		engine.powerOn(config)
 	},
 	work() {
@@ -46,7 +48,7 @@ const testCase = {
 			const bHand = houtcome.bancoHand
 			const pHand = houtcome.puntoHand
 			const num = bHand.getLength() + pHand.getLength()
-			const betOnPlayer = (hresult: HandResult):void =>{
+			const betOnPlayer = (hresult: HandResult): void => {
 				if (hresult == HandResult.BancoWins) {
 					result.player.lose++
 					consecutiveLose++
@@ -65,7 +67,7 @@ const testCase = {
 					result.player.tie++
 				}
 			}
-			const betOnBanker = (hresult: HandResult):void=> {
+			const betOnBanker = (hresult: HandResult): void => {
 				if (hresult == HandResult.BancoWins) {
 					result.banker.win++
 					consecutiveWin++
@@ -116,28 +118,63 @@ const testCase = {
 			previousConsecutiveSingle = 0
 			previousConsecutiveDouble = 0
 		}
-		const totalB: number = result.banker.win + result.banker.lose + result.banker.tie
-		const totalP: number = result.player.win + result.player.lose + result.player.tie
+		const totalB: number =
+			result.banker.win + result.banker.lose + result.banker.tie
+		const totalP: number =
+			result.player.win + result.player.lose + result.player.tie
 		const total = totalB + totalP
 
 		const smallTotalB = result.banker.win + result.banker.lose
 		const smallTotalP = result.player.win + result.player.lose
 		const smallTotal = smallTotalB + smallTotalP
 		const dataForResult = [
-			["on B", result.banker.win, result.banker.lose, result.banker.tie, totalB],
-			[`on B %`, util.percentize(result.banker.win / totalB) + " %", util.percentize(result.banker.lose / totalB) + " %", util.percentize(result.banker.tie / totalB) + " %", 100],
-			["on P", result.player.win, result.player.lose, result.player.tie, totalP],
-			[`on P %`, util.percentize(result.player.win / totalP) + " %", util.percentize(result.player.lose / totalP) + " %", util.percentize(result.player.tie / totalP) + " %", 100],
-
+			[
+				"on B",
+				result.banker.win,
+				result.banker.lose,
+				result.banker.tie,
+				totalB,
+			],
+			[
+				`on B %`,
+				util.percentize(result.banker.win / totalB) + " %",
+				util.percentize(result.banker.lose / totalB) + " %",
+				util.percentize(result.banker.tie / totalB) + " %",
+				100,
+			],
+			[
+				"on P",
+				result.player.win,
+				result.player.lose,
+				result.player.tie,
+				totalP,
+			],
+			[
+				`on P %`,
+				util.percentize(result.player.win / totalP) + " %",
+				util.percentize(result.player.lose / totalP) + " %",
+				util.percentize(result.player.tie / totalP) + " %",
+				100,
+			],
 		]
 		tableForResult.push(...dataForResult)
 		const pProfit = result.player.win - result.player.lose
-		const bProfit = result.banker.win * .95 - result.banker.lose
+		const bProfit = result.banker.win * 0.95 - result.banker.lose
 		const profit = pProfit + bProfit
 
 		const dataForProfit = [
-			["include tie", util.percentize(bProfit / totalB), util.percentize(pProfit / totalP), util.percentize(profit / total)],
-			["exclude tie", util.percentize(bProfit / smallTotalB), util.percentize(pProfit / smallTotalP), util.percentize(profit / smallTotal)],
+			[
+				"include tie",
+				util.percentize(bProfit / totalB),
+				util.percentize(pProfit / totalP),
+				util.percentize(profit / total),
+			],
+			[
+				"exclude tie",
+				util.percentize(bProfit / smallTotalB),
+				util.percentize(pProfit / smallTotalP),
+				util.percentize(profit / smallTotal),
+			],
 		]
 		tableForProfit.push(...dataForProfit)
 		console.log("下手機會：", total)

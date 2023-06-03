@@ -7,19 +7,17 @@ const engine = new Engine()
 const shoeAmount = 2000
 const round = 4
 const table_distribution = new CliTable({
-	head: ['total', 'B', 'P'],
+	head: ["total", "B", "P"],
 	colWidths: [20, 20, 20],
-	style: {"compact": false, 'padding-left': 1},
+	style: {compact: false, "padding-left": 1},
 })
 
-
-const result:{[key: string]: any} = {
+const result: {[key: string]: any} = {
 	all: 0,
 	tie: 0,
 	b: 0,
 	p: 0,
 }
-
 
 const testCase = {
 	init() {
@@ -51,7 +49,11 @@ const testCase = {
 			}
 		}
 		table_distribution.push([result.all, result.b, result.p])
-		table_distribution.push(["100%", util.percentize(result.b / result.all) + "%", util.percentize(result.p / result.all) + "%"])
+		table_distribution.push([
+			"100%",
+			util.percentize(result.b / result.all) + "%",
+			util.percentize(result.p / result.all) + "%",
+		])
 	},
 	run() {
 		for (let i = 0; i < round; i++) {

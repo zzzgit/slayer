@@ -1,4 +1,3 @@
-
 // import Strategy from "../../model/strategy/Strategy"
 // import {Bet, FreeMun as Free, PuntoMun as Player, HandOutcome, HandResult} from "bac-motor"
 

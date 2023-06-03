@@ -9,15 +9,46 @@ const shoeAmount = 30000
 const round = 1
 const width = 8
 const table = new CliTable({
-	head: ['categ', "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "0"],
-	colWidths: [width, width, width, width, width, width, width, width, width, width, width, width, width, width, width],
-	style: {"compact": false, 'padding-left': 1},
+	head: [
+		"categ",
+		"A",
+		"2",
+		"3",
+		"4",
+		"5",
+		"6",
+		"7",
+		"8",
+		"9",
+		"10",
+		"J",
+		"Q",
+		"K",
+		"0",
+	],
+	colWidths: [
+		width,
+		width,
+		width,
+		width,
+		width,
+		width,
+		width,
+		width,
+		width,
+		width,
+		width,
+		width,
+		width,
+		width,
+		width,
+	],
+	style: {compact: false, "padding-left": 1},
 })
 
-const result: { [key: string]: CounterMap<number> } = {
+const result: {[key: string]: CounterMap<number>} = {
 	counter: new CounterMap<number>(),
 }
-
 
 const testCase = {
 	init() {
@@ -28,7 +59,7 @@ const testCase = {
 		const {counter} = result
 		for (let i = 0; i < shoeAmount; i++) {
 			// const tempMap = new Map<number, HandOutcome>()
-			const shoeoutcome: ShoeOutcome = engine.playOneShoe(undefined, ()=>{
+			const shoeoutcome: ShoeOutcome = engine.playOneShoe(undefined, () => {
 				// tempMap.set(handResult.handIndex, handResult)
 			})
 			const map = shoeoutcome.getOutcomeMap()
@@ -60,7 +91,7 @@ const testCase = {
 		for (let i = 1; i < 14; i++) {
 			arrNum.push(counter.get(i) as number)
 		}
-		const total = arrNum.reduce((a, b)=>+a + b)
+		const total = arrNum.reduce((a, b) => +a + b)
 		for (let i = 1; i < 14; i++) {
 			arrPer.push(util.percentize(arrNum[i - 1] / total, 3))
 		}

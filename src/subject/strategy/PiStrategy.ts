@@ -1,8 +1,15 @@
 import Strategy from "../../model/strategy/Strategy"
 import BetOrUndefined from "../../model/strategy/type/BetOrUndefined"
-import {Bet, FreeMun as Free, BancoMun as Banker, PuntoMun as Player, HandOutcome} from "bac-motor"
+import {
+	Bet,
+	FreeMun as Free,
+	BancoMun as Banker,
+	PuntoMun as Player,
+	HandOutcome,
+} from "bac-motor"
 
-const Pi = "14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214"
+const Pi =
+	"14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214"
 const {length} = Pi
 
 class PiStrategy extends Strategy {

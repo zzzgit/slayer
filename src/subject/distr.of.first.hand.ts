@@ -9,21 +9,23 @@ const engine = new Engine()
 const shoeAmount = 90
 const round = 1
 const table = new CliTable({
-	head: [' ', 'B', 'P'],
+	head: [" ", "B", "P"],
 	colWidths: [20, 20, 20],
-	style: {"compact": false, 'padding-left': 1},
+	style: {compact: false, "padding-left": 1},
 })
 
-let result: { firstHand: CounterMap<string>;banker: number;player:number } = {
+let result: {firstHand: CounterMap<string>; banker: number; player: number} = {
 	firstHand: new CounterMap<string>(),
 	banker: 0,
 	player: 0,
 }
 
-
 const testCase = {
 	init() {
-		const config = Object.assign({}, massiveTestConfig, {shouldGenerateRoad: false, shouldCutShoe: true})
+		const config = Object.assign({}, massiveTestConfig, {
+			shouldGenerateRoad: false,
+			shouldCutShoe: true,
+		})
 		engine.powerOn(config)
 	},
 	work() {
@@ -33,12 +35,17 @@ const testCase = {
 			player: 0,
 		}
 		const date = new Date()
-		const path = "/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt"
-		let prom = samael.writeToFile(path, `${date.toLocaleString()}\n  \n`).catch((e: Error) => console.log("錯誤", e))
+		const path =
+			"/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt"
+		let prom = samael
+			.writeToFile(path, `${date.toLocaleString()}\n  \n`)
+			.catch((e: Error) => console.log("錯誤", e))
 		for (let i = 0; i < shoeAmount; i++) {
 			const shoeComeout: ShoeOutcome = engine.playOneShoe()
 			const info = shoeComeout.getStatisticInfo()
-			let str = `${shoeComeout.getShoeIndex()}\t${info.banco}\t${info.punto}\t${info.tie}\n`
+			let str = `${shoeComeout.getShoeIndex()}\t${info.banco}\t${info.punto}\t${
+				info.tie
+			}\n`
 			str = ""
 			prom = prom.then(() => samael.appendToFile(path, str))
 			let first = shoeComeout.getFirstHandOutcome()
@@ -62,9 +69,17 @@ const testCase = {
 		const totalFisrt = firstB + firstP
 		table.push(
 			["total", result.banker, result.player],
-			[`100 %`, util.percentize(result.banker / totalResult) + " %", util.percentize(result.player / totalResult) + " %"],
+			[
+				`100 %`,
+				util.percentize(result.banker / totalResult) + " %",
+				util.percentize(result.player / totalResult) + " %",
+			],
 			["first hand", firstB, firstP],
-			["100 %", util.percentize(firstB / totalFisrt) + " %", util.percentize(firstP / totalFisrt) + " %"],
+			[
+				"100 %",
+				util.percentize(firstB / totalFisrt) + " %",
+				util.percentize(firstP / totalFisrt) + " %",
+			]
 		)
 	},
 	run() {

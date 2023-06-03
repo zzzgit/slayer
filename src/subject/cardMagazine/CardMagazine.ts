@@ -1,4 +1,12 @@
-import {AceCard, Card, CardFactory, Club, FaceCard, Heart, NumberCard} from "cardation"
+import {
+	AceCard,
+	Card,
+	CardFactory,
+	Club,
+	FaceCard,
+	Heart,
+	NumberCard,
+} from "cardation"
 
 class CardMagazine {
 	static getCardsFromArbitraryNum(): Card[] {
@@ -17,7 +25,9 @@ class CardMagazine {
 				}
 			} else {
 				for (let i = 0; i < count; i++) {
-					if (index) {cards.push(CardFactory.createNumberCard(club, index, index))}
+					if (index) {
+						cards.push(CardFactory.createNumberCard(club, index, index))
+					}
 				}
 			}
 		})
@@ -26,12 +36,12 @@ class CardMagazine {
 
 	static getCardsFromPie(): Card[] {
 		const cards: Card[] = []
-		const pie = "314157926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679"
+		const pie =
+			"314157926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679"
 		for (const element of pie) {
 			cards.push(creatCard(+element))
 		}
-		const eip = [...pie].reverse()
-			.join('')
+		const eip = [...pie].reverse().join("")
 		for (const element of eip) {
 			cards.push(creatCard(+element))
 		}
@@ -94,7 +104,7 @@ class CardMagazine {
 
 	static getCardsWithNo5(): Card[] {
 		const cards: Card[] = this.getPerfectShoe()
-		return cards.filter(item=>item.getPoint() !== 5)
+		return cards.filter((item) => item.getPoint() !== 5)
 	}
 
 	static getCardsWithNo6(): Card[] {
@@ -102,7 +112,7 @@ class CardMagazine {
 		for (let i = 0; i < 8 * 4; i++) {
 			cards.push(creatCard(4))
 		}
-		return cards.filter(item => item.getPoint() !== 6)
+		return cards.filter((item) => item.getPoint() !== 6)
 	}
 
 	static getCardsWithHighRank(): Card[] {

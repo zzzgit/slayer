@@ -1,4 +1,3 @@
-
 import {Engine, ShoeOutcome} from "bac-motor"
 import CliTable from "../report/Table"
 import CounterMap from "./collection/CounterMap"
@@ -8,17 +7,44 @@ const shoeAmount = 20000
 const round = 1
 const width = 8
 const table = new CliTable({
-	head: ['categ', "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"],
-	colWidths: [width, width, width, width, width, width, width, width, width, width, width, width, width],
-	style: {"compact": false, 'padding-left': 1},
+	head: [
+		"categ",
+		"11",
+		"12",
+		"13",
+		"14",
+		"15",
+		"16",
+		"17",
+		"18",
+		"19",
+		"20",
+		"21",
+		"22",
+	],
+	colWidths: [
+		width,
+		width,
+		width,
+		width,
+		width,
+		width,
+		width,
+		width,
+		width,
+		width,
+		width,
+		width,
+		width,
+	],
+	style: {compact: false, "padding-left": 1},
 })
 
-const result: { [key: string]: CounterMap<number> } = {
+const result: {[key: string]: CounterMap<number>} = {
 	bstreak: new CounterMap<number>(),
 	pstreak: new CounterMap<number>(),
 	firstStreak: new CounterMap<number>(),
 }
-
 
 const testCase = {
 	init() {

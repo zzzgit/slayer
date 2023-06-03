@@ -1,5 +1,13 @@
 import HandOutcomeOrUndefined from "../model/strategy/type/HandOutcomeOrUndefined"
-import {Engine, HandOutcome, Bet, FreeMun as Free, HandResult, BancoMun as Banker, PuntoMun as Player} from "bac-motor"
+import {
+	Engine,
+	HandOutcome,
+	Bet,
+	FreeMun as Free,
+	HandResult,
+	BancoMun as Banker,
+	PuntoMun as Player,
+} from "bac-motor"
 import BetOrUndefined from "../model/strategy/type/BetOrUndefined"
 import FlatBetProgression from "./strategy/FlatBetProgression"
 import PiStrategy from "./strategy/PiStrategy"
@@ -9,9 +17,9 @@ const engine = new Engine()
 const shoeAmount = 1000
 
 const tableDistribution = new CliTable({
-	head: ['', 'win', 'lose', 'tie'],
+	head: ["", "win", "lose", "tie"],
 	colWidths: [15, 15, 15, 15],
-	style: {"compact": false, 'padding-left': 1},
+	style: {compact: false, "padding-left": 1},
 })
 
 const result = {
@@ -38,7 +46,10 @@ const testCase = {
 			const seq = new FlatBetProgression(1)
 			const system = new PiStrategy(seq)
 			let bet: Bet
-			const beforePlay = (prevBet: BetOrUndefined, prevComeout: HandOutcomeOrUndefined): Bet => {
+			const beforePlay = (
+				prevBet: BetOrUndefined,
+				prevComeout: HandOutcomeOrUndefined
+			): Bet => {
 				bet = system.figureOutBet(prevBet, prevComeout as HandOutcome)
 				isFree = bet.getMun() instanceof Free ? true : false
 				return bet
@@ -81,7 +92,6 @@ const testCase = {
 		tableDistribution.print(`300 shoes，according to Pi：`)
 	},
 }
-
 
 testCase.init()
 testCase.run()

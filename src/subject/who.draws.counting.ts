@@ -8,11 +8,10 @@ const shoeAmount = 6000
 const isBetOnBanco = true
 
 const tableDistribution = new CliTable({
-	head: ['bet/result', 'win', 'loss', 'tie'],
+	head: ["bet/result", "win", "loss", "tie"],
 	colWidths: [15, 15, 15, 15],
-	style: {"compact": false, 'padding-left': 1},
+	style: {compact: false, "padding-left": 1},
 })
-
 
 let result = {
 	total: 0,
@@ -23,10 +22,12 @@ let result = {
 	},
 }
 
-
 const testCase = {
 	init() {
-		const config = Object.assign({}, massiveTestConfig, {shouldGenerateRoad: false, shouldCutShoe: true})
+		const config = Object.assign({}, massiveTestConfig, {
+			shouldGenerateRoad: false,
+			shouldCutShoe: true,
+		})
 		engine.powerOn(config)
 	},
 	run() {
@@ -58,12 +59,17 @@ const testCase = {
 			engine.playOneShoe(undefined, afterPlay)
 		}
 		const {counter} = result
-		result.total = result.counter.bancowins + result.counter.puntowins + result.counter.tie
+		result.total =
+			result.counter.bancowins + result.counter.puntowins + result.counter.tie
 		const {total} = result
 		tableDistribution.push(
 			["bet times", counter.bancowins, counter.puntowins, counter.tie],
-			["bet perct", util.percentize(counter.bancowins / total), util.percentize(counter.puntowins / total), util.percentize(counter.tie / total)],
-
+			[
+				"bet perct",
+				util.percentize(counter.bancowins / total),
+				util.percentize(counter.puntowins / total),
+				util.percentize(counter.tie / total),
+			]
 		)
 
 		engine.shutdown()
@@ -71,10 +77,15 @@ const testCase = {
 	report() {
 		tableDistribution.print(`六千靴牌，大小牌算牌法，輸贏：`)
 		const count = result.counter
-		const cal = util.getOddCal(count.bancowins, count.puntowins, count.tie, isBetOnBanco)
-		console.log(`W/L:			${ cal.getw2l() }`)
-		console.log(`EV(已減佣金)算和:	${ cal.getReward(true) }`)
-		console.log(`EV(已減佣金)不算:	${ cal.getReward(false) }`)
+		const cal = util.getOddCal(
+			count.bancowins,
+			count.puntowins,
+			count.tie,
+			isBetOnBanco
+		)
+		console.log(`W/L:			${cal.getw2l()}`)
+		console.log(`EV(已減佣金)算和:	${cal.getReward(true)}`)
+		console.log(`EV(已減佣金)不算:	${cal.getReward(false)}`)
 		// -0.01235 -0.0136
 		// -0.0106 -0.0117
 	},
@@ -94,4 +105,3 @@ testCase.report()
  *
  *
  */
-

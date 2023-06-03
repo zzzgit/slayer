@@ -1,4 +1,3 @@
-
 import {BigRoad} from "marga"
 import massiveTestConfig from "../config/massiveTestConfig"
 import CounterMap from "./collection/CounterMap"
@@ -11,12 +10,19 @@ const engine = new Engine()
 const shoeAmount = 10000
 const round = 1
 const table = new CliTable({
-	head: ['total', 'B', 'P', 'tie'],
+	head: ["total", "B", "P", "tie"],
 	colWidths: [20, 20, 20, 20],
-	style: {"compact": false, 'padding-left': 1},
+	style: {compact: false, "padding-left": 1},
 })
 
-let result: { tie: number; banker: number; player: number; streakAfterPingpong: number[]; reserved: CounterMap<number>; pingpongLen: number[] } = {
+let result: {
+	tie: number
+	banker: number
+	player: number
+	streakAfterPingpong: number[]
+	reserved: CounterMap<number>
+	pingpongLen: number[]
+} = {
 	tie: 0,
 	banker: 0,
 	player: 0,
@@ -25,10 +31,12 @@ let result: { tie: number; banker: number; player: number; streakAfterPingpong: 
 	pingpongLen: [],
 }
 
-
 const testCase = {
 	init() {
-		const config = Object.assign({}, massiveTestConfig, {shouldGenerateRoad: true, shouldCutShoe: true})
+		const config = Object.assign({}, massiveTestConfig, {
+			shouldGenerateRoad: true,
+			shouldCutShoe: true,
+		})
 		engine.powerOn(config)
 	},
 	work() {
@@ -41,12 +49,17 @@ const testCase = {
 			pingpongLen: [],
 		}
 		const date = new Date()
-		const path = "/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt"
-		let prom = samael.writeToFile(path, `${date.toLocaleString()}\n  \n`).catch((e: Error) => console.log("錯誤", e))
+		const path =
+			"/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt"
+		let prom = samael
+			.writeToFile(path, `${date.toLocaleString()}\n  \n`)
+			.catch((e: Error) => console.log("錯誤", e))
 		for (let i = 0; i < shoeAmount; i++) {
 			const shoeComeout: ShoeOutcome = engine.playOneShoe()
 			const info = shoeComeout.getStatisticInfo()
-			let str = `${shoeComeout.getShoeIndex()}\t${info.banco}\t${info.punto}\t${info.tie}\n`
+			let str = `${shoeComeout.getShoeIndex()}\t${info.banco}\t${info.punto}\t${
+				info.tie
+			}\n`
 			str = ""
 			prom = prom.then(() => samael.appendToFile(path, str))
 			this.showRoad(shoeComeout)
@@ -56,11 +69,17 @@ const testCase = {
 			result.tie += info.tie
 		}
 		const totalResult: number = result.tie + result.banker + result.player
-		table.push([totalResult, result.banker, result.player, result.tie],
-			[`100 %`, util.percentize(result.banker / totalResult) + " %",
-				util.percentize(result.player / totalResult) + " %", util.percentize(result.tie / totalResult) + " %"])
+		table.push(
+			[totalResult, result.banker, result.player, result.tie],
+			[
+				`100 %`,
+				util.percentize(result.banker / totalResult) + " %",
+				util.percentize(result.player / totalResult) + " %",
+				util.percentize(result.tie / totalResult) + " %",
+			]
+		)
 	},
-	showRoad(shoeComeout:ShoeOutcome) {
+	showRoad(shoeComeout: ShoeOutcome) {
 		const road: BigRoad = shoeComeout.getBigRoad()
 		// 舊API
 		let streak = road.getFirstStreak()
@@ -95,10 +114,16 @@ const testCase = {
 	},
 	report() {
 		table.print(`莊閒分佈： `)
-		const totalStreak = result.streakAfterPingpong.reduce((a, b)=>a + b)
-		const total_pingpong_length = result.pingpongLen.reduce((a, b)=>a + b)
-		console.log(`單跳之後的龍，平均長度：`, totalStreak / result.streakAfterPingpong.length)
-		console.log(`單跳平均長度：`, total_pingpong_length / result.pingpongLen.length)
+		const totalStreak = result.streakAfterPingpong.reduce((a, b) => a + b)
+		const total_pingpong_length = result.pingpongLen.reduce((a, b) => a + b)
+		console.log(
+			`單跳之後的龍，平均長度：`,
+			totalStreak / result.streakAfterPingpong.length
+		)
+		console.log(
+			`單跳平均長度：`,
+			total_pingpong_length / result.pingpongLen.length
+		)
 		console.log(`單跳最長：`, Math.max(...result.pingpongLen))
 	},
 }

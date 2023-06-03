@@ -4,7 +4,7 @@ import Engine from "bac-motor"
 const engine = new Engine()
 const shoeAmount = 200
 const round = 1
-const bhole = new Blackhole
+const bhole = new Blackhole()
 
 const testCase = {
 	init() {
@@ -39,7 +39,8 @@ const testCase = {
 							bhole.addEntity(new LosingEntity(true))
 						}
 					}
-				} else {	// the last treak
+				} else {
+					// the last treak
 					if (length === 4) {
 						//
 					} else {
@@ -74,7 +75,6 @@ const testCase = {
 testCase.init()
 testCase.run()
 testCase.report()
-
 
 /**
  * 1. 斬閒龍，必輸，w2l低於105%，也就是說扣除佣金後，沒有利潤

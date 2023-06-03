@@ -2,14 +2,13 @@ import {Engine, HandOutcome, Natural, BancoNatural} from "bac-motor"
 import CliTable from "../report/Table"
 import CounterMap from "./collection/CounterMap"
 
-
 const engine = new Engine()
 const shoeAmount = 5000
 const round = 3
 const table = new CliTable({
-	head: ['category', 'eight', 'nine'],
+	head: ["category", "eight", "nine"],
 	colWidths: [20, 20, 20],
-	style: {"compact": false, 'padding-left': 1},
+	style: {compact: false, "padding-left": 1},
 })
 
 const result = {
@@ -22,7 +21,6 @@ let cardMap = {
 	p: new CounterMap<number>(),
 	b: new CounterMap<number>(),
 }
-
 
 const testCase = {
 	init() {
@@ -37,7 +35,7 @@ const testCase = {
 			p: new CounterMap<number>(),
 			b: new CounterMap<number>(),
 		}
-		const afterShoe = (handComeout: HandOutcome):void => {
+		const afterShoe = (handComeout: HandOutcome): void => {
 			const tags: Natural[] = handComeout.tagArray.filter((item) => {
 				return item instanceof Natural
 			}) as Natural[]
@@ -56,7 +54,7 @@ const testCase = {
 					} else {
 						result.banker9++
 					}
-					[first, second] = bHand
+					;[first, second] = bHand
 					map = cardMap.b
 				} else {
 					if (tag.score === 8) {
@@ -64,7 +62,7 @@ const testCase = {
 					} else {
 						result.player9++
 					}
-					[first, second] = pHand
+					;[first, second] = pHand
 					map = cardMap.p
 				}
 				map.count(first.getPoint())
@@ -74,8 +72,10 @@ const testCase = {
 		for (let i = 0; i < shoeAmount; i++) {
 			engine.playOneShoe(undefined, afterShoe)
 		}
-		table.push([`B`, result.banker8, result.banker9],
-			["P", result.player8, result.player9])
+		table.push(
+			[`B`, result.banker8, result.banker9],
+			["P", result.player8, result.player9]
+		)
 	},
 	run() {
 		for (let i = 0; i < round; i++) {
@@ -94,7 +94,6 @@ const testCase = {
 testCase.init()
 testCase.run()
 testCase.report()
-
 
 /**
  * 結論：

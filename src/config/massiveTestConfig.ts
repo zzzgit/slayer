@@ -1,5 +1,5 @@
 import {Config} from "bac-motor"
-const massiveTestConfig:Config = {
+const massiveTestConfig: Config = {
 	shouldCutShoe: false,
 	shouldDetectShoe: false,
 	shouldShuffle: true,

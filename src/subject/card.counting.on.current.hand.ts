@@ -8,11 +8,10 @@ const engine = new Engine()
 const shoeAmount = 10000
 
 const tableDistribution = new CliTable({
-	head: ['bet/result', 'win', 'loss', 'tie'],
+	head: ["bet/result", "win", "loss", "tie"],
 	colWidths: [15, 15, 15, 15],
-	style: {"compact": false, 'padding-left': 1},
+	style: {compact: false, "padding-left": 1},
 })
-
 
 let result = {
 	total: 0,
@@ -28,10 +27,12 @@ let result = {
 	},
 }
 
-
 const testCase = {
 	init() {
-		const config = Object.assign({}, massiveTestConfig, {shouldGenerateRoad: false, shouldCutShoe: true})
+		const config = Object.assign({}, massiveTestConfig, {
+			shouldGenerateRoad: false,
+			shouldCutShoe: true,
+		})
 		engine.powerOn(config)
 	},
 	run() {
@@ -61,7 +62,8 @@ const testCase = {
 			/**
 			 * 3200好像是最優值，對於莊來說，4200和2200，都會讓命中率降低
 			 */
-			if (shouldBetonBanco && pointValue > 2500) { // 2500..3000c  注意，在結合牌的張數的策略時，2500導致勝率大大降低
+			if (shouldBetonBanco && pointValue > 2500) {
+				// 2500..3000c  注意，在結合牌的張數的策略時，2500導致勝率大大降低
 				if (handResult.result == HandResult.BancoWins) {
 					result.banker.win++
 				} else if (handResult.result == HandResult.PuntoWins) {
@@ -89,12 +91,26 @@ const testCase = {
 		const pTotal = result.player.win + result.player.lose + result.player.tie
 		tableDistribution.push(
 			["bet on B", bResult.win, bResult.lose, bResult.tie],
-			["bet on B-%", util.percentize(bResult.win / bTotal), util.percentize(bResult.lose / bTotal), util.percentize(bResult.tie / bTotal)],
+			[
+				"bet on B-%",
+				util.percentize(bResult.win / bTotal),
+				util.percentize(bResult.lose / bTotal),
+				util.percentize(bResult.tie / bTotal),
+			],
 			["bet on P", pResult.win, pResult.lose, pResult.tie],
-			["bet on P-%", util.percentize(pResult.win / pTotal), util.percentize(pResult.lose / pTotal), util.percentize(pResult.tie / pTotal)],
-			["total", pResult.win + bResult.win, pResult.lose + bResult.lose, pResult.tie + bResult.tie],
+			[
+				"bet on P-%",
+				util.percentize(pResult.win / pTotal),
+				util.percentize(pResult.lose / pTotal),
+				util.percentize(pResult.tie / pTotal),
+			],
+			[
+				"total",
+				pResult.win + bResult.win,
+				pResult.lose + bResult.lose,
+				pResult.tie + bResult.tie,
+			]
 			// ["total", util.percentize(pResult.win / pTotal), util.percentize(pResult.lose / pTotal), util.percentize(pResult.tie / pTotal)],
-
 		)
 
 		engine.shutdown()
@@ -121,4 +137,3 @@ testCase.report()
  * 3: 兩種策略並行thorp and WDCC:
  * 4: 能下注的機會不多（一shoe只能下註0.8次，必須要把第一個策略的閥值調整到25000），莊家w2l 370（天花板效應），閒家w2l 220（有提升，藉助BAC的優勢？）
  */
-

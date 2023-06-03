@@ -2,17 +2,27 @@ import {Engine, HandOutcome} from "bac-motor"
 import CliTable from "../report/Table"
 import CounterMap from "./collection/CounterMap"
 
-
 const engine = new Engine()
 const shoeAmount = 9000
 const colWith = 7
 
 const tableDistribution = new CliTable({
-	head: ['last draw/score', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
-	colWidths: [15, colWith, colWith, colWith, colWith, colWith, colWith, colWith, colWith, colWith, colWith],
-	style: {"compact": false, 'padding-left': 1},
+	head: ["last draw/score", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+	colWidths: [
+		15,
+		colWith,
+		colWith,
+		colWith,
+		colWith,
+		colWith,
+		colWith,
+		colWith,
+		colWith,
+		colWith,
+		colWith,
+	],
+	style: {compact: false, "padding-left": 1},
 })
-
 
 let result = {
 	fivePlayerMap: new CounterMap<number>(),
@@ -20,7 +30,6 @@ let result = {
 	sixMap: new CounterMap<number>(),
 	fourMap: new CounterMap<number>(),
 }
-
 
 const testCase = {
 	init() {
@@ -59,7 +68,12 @@ const testCase = {
 		for (let i = 0; i < shoeAmount; i++) {
 			engine.playOneShoe(undefined, afterPlay)
 		}
-		const {fivePlayerMap, fiveBankerMap, sixMap, fourMap: fourPlayerMap} = result
+		const {
+			fivePlayerMap,
+			fiveBankerMap,
+			sixMap,
+			fourMap: fourPlayerMap,
+		} = result
 		const arr1 = []
 		const arr2 = []
 		const arr3 = []
@@ -92,4 +106,3 @@ testCase.report()
  * 2. 這項研究可以用來預測邊註（大小），而大小，可以用來預測莊閒
  * 5. 4張牌，除了0，89出現最多，67次之
  */
-

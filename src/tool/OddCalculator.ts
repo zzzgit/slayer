@@ -17,11 +17,21 @@ class OddCalculator {
 
 	private _totalBig: number
 
-	static from(bancoWins: number, puntoWins: number, tie: number, betOnBanco: boolean): OddCalculator {
+	static from(
+		bancoWins: number,
+		puntoWins: number,
+		tie: number,
+		betOnBanco: boolean
+	): OddCalculator {
 		return new OddCalculator(bancoWins, puntoWins, tie, betOnBanco)
 	}
 
-	constructor(bancoWins: number, puntoWins: number, tie: number, betOnBanco:boolean) {
+	constructor(
+		bancoWins: number,
+		puntoWins: number,
+		tie: number,
+		betOnBanco: boolean
+	) {
 		this._banber = bancoWins
 		this._player = puntoWins
 		this._tie = tie
@@ -37,27 +47,27 @@ class OddCalculator {
 		return this._player / this._banber
 	}
 
-	getReward(isTieIncluded: boolean):number {
+	getReward(isTieIncluded: boolean): number {
 		const total = isTieIncluded ? this._totalBig : this._totalSmall
 		if (this._betOnBanco) {
-			return (this._banber * .95 - this._player) / total
+			return (this._banber * 0.95 - this._player) / total
 		}
 		return (this._player - this._banber) / total
 	}
 
-	getBancoHitOccurence() :number {
+	getBancoHitOccurence(): number {
 		return this._banber / this._totalBig
 	}
 
-	getPuntoHitOccurence() :number {
+	getPuntoHitOccurence(): number {
 		return this._player / this._totalBig
 	}
 
-	getTieHitOccurence() :number {
+	getTieHitOccurence(): number {
 		return this._tie / this._totalBig
 	}
 
-	getPerfectw2l():number {
+	getPerfectw2l(): number {
 		if (this._betOnBanco) {
 			return this.perfect_banber / this.perfect_player
 		}
@@ -66,7 +76,7 @@ class OddCalculator {
 
 	getBreakEvenw2l(): number {
 		if (this._betOnBanco) {
-			return this.perfect_banber / (.95 * this.perfect_banber)
+			return this.perfect_banber / (0.95 * this.perfect_banber)
 		}
 		return 1
 	}
@@ -74,7 +84,7 @@ class OddCalculator {
 	getPerfectReward(isTieIncluded: boolean): number {
 		const total = isTieIncluded ? 1 : 1 - this.perfect_tie
 		if (this._betOnBanco) {
-			return (this.perfect_banber * .95 - this.perfect_player) / total
+			return (this.perfect_banber * 0.95 - this.perfect_player) / total
 		}
 		return (this.perfect_player - this.perfect_banber) / total
 	}

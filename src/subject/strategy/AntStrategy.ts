@@ -1,7 +1,12 @@
-
 import Strategy from "../../model/strategy/Strategy"
 import BetOrUndefined from "../../model/strategy/type/BetOrUndefined"
-import {Bet, FreeMun as Free, BancoMun as Banker, PuntoMun as Player, HandOutcome} from "bac-motor"
+import {
+	Bet,
+	FreeMun as Free,
+	BancoMun as Banker,
+	PuntoMun as Player,
+	HandOutcome,
+} from "bac-motor"
 import * as samael from "samael"
 
 let counter = 0
@@ -27,7 +32,7 @@ class AntStrategy extends Strategy {
 		return new Bet(new Player(), gen.next().value as number)
 	}
 
-	setBalance(b: number):void {
+	setBalance(b: number): void {
 		this.getProgressionGenerator().setBalance(b)
 	}
 }

@@ -1,4 +1,4 @@
-const Table = require('cli-table3')
+const Table = require("cli-table3")
 
 type CellContent = string | number
 
@@ -20,7 +20,7 @@ class CliTable {
 		return this.table.push(...arr)
 	}
 
-	print(title:string):void {
+	print(title: string): void {
 		console.log(title)
 		console.log(this.table.toString())
 	}

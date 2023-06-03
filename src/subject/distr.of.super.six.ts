@@ -7,12 +7,19 @@ const engine = new Engine()
 const shoeAmount = 5000
 const round = 1
 const table = new CliTable({
-	head: ['occurrence / shoe', 'shoes', 'percentage'],
+	head: ["occurrence / shoe", "shoes", "percentage"],
 	colWidths: [20, 10, 10],
-	style: {"compact": false, 'padding-left': 1},
+	style: {compact: false, "padding-left": 1},
 })
 
-const result:{super: CounterMap<number>; prevB:number; prevP:number; tie:number;allB:number; allP:number} = {
+const result: {
+	super: CounterMap<number>
+	prevB: number
+	prevP: number
+	tie: number
+	allB: number
+	allP: number
+} = {
 	super: new CounterMap<number>(),
 	prevB: 0,
 	prevP: 0,
@@ -20,7 +27,6 @@ const result:{super: CounterMap<number>; prevB:number; prevP:number; tie:number;
 	allB: 0,
 	allP: 0,
 }
-
 
 const testCase = {
 	init() {
@@ -37,22 +43,28 @@ const testCase = {
 		let three = 0
 		for (let i = 0; i < shoeAmount; i++) {
 			let super6 = 0
-			engine.playOneShoe(undefined, (outcome:HandOutcome)=>{
+			engine.playOneShoe(undefined, (outcome: HandOutcome) => {
 				const isSuper6 = outcome.tagArray.some((item) => {
 					return item instanceof SuperSix
 				})
 				if (isSuper6) {
 					super6++
-					const tag:SuperSix = outcome.tagArray.find(item => item instanceof SuperSix) as SuperSix
+					const tag: SuperSix = outcome.tagArray.find(
+						(item) => item instanceof SuperSix
+					) as SuperSix
 					if (tag.withCards == 3) {
 						three++
 					} else {
 						two++
 					}
 					// 沒有剔除幸運六本身
-					if (outcome.getPreviousHandOutcome()?.result == HandResult.BancoWins) {
+					if (
+						outcome.getPreviousHandOutcome()?.result == HandResult.BancoWins
+					) {
 						result.prevB++
-					} else if (outcome.getPreviousHandOutcome()?.result == HandResult.PuntoWins) {
+					} else if (
+						outcome.getPreviousHandOutcome()?.result == HandResult.PuntoWins
+					) {
 						result.prevP++
 					} else {
 						// 包括了第一手就是幸運六
@@ -78,11 +90,15 @@ const testCase = {
 	report() {
 		const arr = result.super.getSortedEntities()
 		let total = 0
-		arr.forEach((item)=>{
+		arr.forEach((item) => {
 			total = total + item.value + 0
 		})
-		arr.forEach((item)=>{
-			table.push([item.key + "", item.value, util.percentize(item.value / total)])
+		arr.forEach((item) => {
+			table.push([
+				item.key + "",
+				item.value,
+				util.percentize(item.value / total),
+			])
 		})
 		table.push(["total", total, "100"])
 		table.print(`幸運6分佈：`)
@@ -91,15 +107,20 @@ const testCase = {
 		map.set("six after P", result.prevP)
 		map.set("six after tie", result.tie)
 		console.log("幸運六前一手：", map)
-		console.log(`幸運六在閒後，百分比：`, result.prevP / (result.prevP + result.prevB) * 100)
-		console.log(`所有結果中閒，百分比：`, result.allP / (result.allP + result.allB) * 100)
+		console.log(
+			`幸運六在閒後，百分比：`,
+			(result.prevP / (result.prevP + result.prevB)) * 100
+		)
+		console.log(
+			`所有結果中閒，百分比：`,
+			(result.allP / (result.allP + result.allB)) * 100
+		)
 	},
 }
 
 testCase.init()
 testCase.run()
 testCase.report()
-
 
 /**
  * 結論：

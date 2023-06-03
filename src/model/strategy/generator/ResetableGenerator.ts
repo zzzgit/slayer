@@ -7,16 +7,19 @@ class ResetableGenerator<YieldType, ReturnType, NextType> {
 
 	private _gen: Generator<YieldType, ReturnType, NextType>
 
-	constructor(gen: Generator<YieldType, ReturnType, NextType>, context:Context) {
+	constructor(
+		gen: Generator<YieldType, ReturnType, NextType>,
+		context: Context
+	) {
 		this._context = context
 		this._gen = gen
 	}
 
-	setBalance(balance: number):void {
+	setBalance(balance: number): void {
 		this._context.balance = balance
 	}
 
-	reset() :void {
+	reset(): void {
 		this._context.instruct = Instruct.Reset
 	}
 
@@ -33,6 +36,5 @@ class ResetableGenerator<YieldType, ReturnType, NextType> {
 		return this._gen.next()
 	}
 }
-
 
 export default ResetableGenerator

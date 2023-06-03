@@ -6,16 +6,15 @@ const engine = new Engine()
 const shoeAmount = 5000
 const round = 3
 const table = new CliTable({
-	head: ['total', 'two', 'three'],
+	head: ["total", "two", "three"],
 	colWidths: [20, 20, 20],
-	style: {"compact": false, 'padding-left': 1},
+	style: {compact: false, "padding-left": 1},
 })
 
 const result = {
 	two: 0,
 	three: 0,
 }
-
 
 const testCase = {
 	init() {
@@ -24,7 +23,7 @@ const testCase = {
 	work() {
 		result.two = 0
 		result.three = 0
-		const xxxx = (handResult: HandOutcome):void => {
+		const xxxx = (handResult: HandOutcome): void => {
 			if (handResult.result == HandResult.BancoWins) {
 				if (handResult.bancoHand.getLength() === 2) {
 					result.two++
@@ -37,8 +36,11 @@ const testCase = {
 			engine.playOneShoe(undefined, xxxx)
 		}
 		const total = result.two + result.three
-		table.push([`${total}`, `${result.two} / ${util.percentize(result.two / total)}%`,
-			`${result.three} / ${util.percentize(result.three / total)}%`])
+		table.push([
+			`${total}`,
+			`${result.two} / ${util.percentize(result.two / total)}%`,
+			`${result.three} / ${util.percentize(result.three / total)}%`,
+		])
 	},
 	run() {
 		for (let i = 0; i < round; i++) {
@@ -54,7 +56,6 @@ const testCase = {
 testCase.init()
 testCase.run()
 testCase.report()
-
 
 /**
  * 結論：

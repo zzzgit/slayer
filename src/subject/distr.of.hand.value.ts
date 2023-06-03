@@ -4,14 +4,13 @@ import CliTable from "../report/Table"
 // import util from "../tool/util"
 import CounterMap from "./collection/CounterMap"
 
-
 const engine = new Engine()
 const shoeAmount = 5000
 
 const tableDistribution = new CliTable({
-	head: [" ", "0", '1', '2', '3', '4', "5", '6', '7', '8', '9'],
+	head: [" ", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
 	colWidths: [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
-	style: {"compact": false, 'padding-left': 1},
+	style: {compact: false, "padding-left": 1},
 })
 
 const arr: number[] = []
@@ -24,10 +23,12 @@ let result = {
 	acd_streak: new CounterMap<number>(),
 }
 
-
 const testCase = {
 	init() {
-		const config = Object.assign({}, massiveTestConfig, {shouldGenerateRoad: false, shouldCutShoe: true})
+		const config = Object.assign({}, massiveTestConfig, {
+			shouldGenerateRoad: false,
+			shouldCutShoe: true,
+		})
 		engine.powerOn(config)
 	},
 	run() {
@@ -50,7 +51,8 @@ const testCase = {
 			result.hands.count(pPoint)
 			result.totalValue += bPoint + pPoint
 			let condition = bHand.getLength() == 2 && pHand.getLength() == 3
-			condition = condition || bHand.getLength() == 3 && pHand.getLength() == 2
+			condition =
+				condition || (bHand.getLength() == 3 && pHand.getLength() == 2)
 			if (condition) {
 				acd_record++
 				acd_sequence++
@@ -72,13 +74,27 @@ const testCase = {
 			result.record.push(acd_record)
 		}
 		const {hands: h} = result
-		tableDistribution.push(["hand value", h.get(0) + "", h.get(1) + "", h.get(2) + "", h.get(3) + "", h.get(4) + "", h.get(5) + "", h.get(6) + "", h.get(7) + "", h.get(8) + "", h.get(9) + ""])
+		tableDistribution.push([
+			"hand value",
+			h.get(0) + "",
+			h.get(1) + "",
+			h.get(2) + "",
+			h.get(3) + "",
+			h.get(4) + "",
+			h.get(5) + "",
+			h.get(6) + "",
+			h.get(7) + "",
+			h.get(8) + "",
+			h.get(9) + "",
+		])
 		engine.shutdown()
 	},
 	report() {
 		tableDistribution.print(`occurrence of hand value：`)
 		console.log(`每shoe的game數平均值:			${result.totalGames / shoeAmount} games`)
-		console.log(`每個game的hand value 平均值:	${result.totalValue / result.totalGames / 2}`)
+		console.log(
+			`每個game的hand value 平均值:	${result.totalValue / result.totalGames / 2}`
+		)
 		console.log(Math.min(...result.record), Math.max(...result.record))
 		console.log("acd streak:", result.acd_streak)
 	},

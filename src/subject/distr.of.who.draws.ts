@@ -3,22 +3,20 @@ import CliTable from "../report/Table"
 import util from "../tool/util"
 import CounterMap from "./collection/CounterMap"
 
-
 const engine = new Engine()
 const shoeAmount = 5000
 
 const tableDistributionHoz = new CliTable({
-	head: [' ', '4', '5', '6'],
+	head: [" ", "4", "5", "6"],
 	colWidths: [15, 15, 15, 15],
-	style: {"compact": false, 'padding-left': 1},
+	style: {compact: false, "padding-left": 1},
 })
 
 const tableDistributionVer = new CliTable({
-	head: [' ', 'B', 'P', 'T'],
+	head: [" ", "B", "P", "T"],
 	colWidths: [15, 15, 15, 15],
-	style: {"compact": false, 'padding-left': 1},
+	style: {compact: false, "padding-left": 1},
 })
-
 
 let result = {
 	totalMap: new CounterMap<number>(),
@@ -36,7 +34,6 @@ let result = {
 	sixMap: new CounterMap<number>(),
 }
 let streak = 0
-
 
 const testCase = {
 	init() {
@@ -59,65 +56,116 @@ const testCase = {
 		let six = totalMap.get(6) || 0
 		let total = four + five + six
 		tableDistributionHoz.push(["overall", four, five, six])
-		tableDistributionHoz.push(["100%", util.percentize(four / total) + "%", util.percentize(five / total) + "%", util.percentize(six / total) + "%"])
+		tableDistributionHoz.push([
+			"100%",
+			util.percentize(four / total) + "%",
+			util.percentize(five / total) + "%",
+			util.percentize(six / total) + "%",
+		])
 		// tie
 		four = tieMap.get(4) || 0
 		five = tieMap.get(5) || 0
 		six = tieMap.get(6) || 0
 		total = four + five + six
 		tableDistributionHoz.push(["tie", four, five, six])
-		tableDistributionHoz.push(["T--100%", util.percentize(four / total) + "%", util.percentize(five / total) + "%", util.percentize(six / total) + "%"])
+		tableDistributionHoz.push([
+			"T--100%",
+			util.percentize(four / total) + "%",
+			util.percentize(five / total) + "%",
+			util.percentize(six / total) + "%",
+		])
 		// 莊家贏
 		four = bMap.get(4) || 0
 		five = bMap.get(5) || 0
 		six = bMap.get(6) || 0
 		total = four + five + six
 		tableDistributionHoz.push(["B", four, five, six])
-		tableDistributionHoz.push(["B--100%", util.percentize(four / total) + "%", util.percentize(five / total) + "%", util.percentize(six / total) + "%"])
+		tableDistributionHoz.push([
+			"B--100%",
+			util.percentize(four / total) + "%",
+			util.percentize(five / total) + "%",
+			util.percentize(six / total) + "%",
+		])
 		// 閒家贏
 		four = pMap.get(4) || 0
 		five = pMap.get(5) || 0
 		six = pMap.get(6) || 0
 		total = four + five + six
 		tableDistributionHoz.push(["P", four, five, six])
-		tableDistributionHoz.push(["P--100%", util.percentize(four / total) + "%", util.percentize(five / total) + "%", util.percentize(six / total) + "%"])
+		tableDistributionHoz.push([
+			"P--100%",
+			util.percentize(four / total) + "%",
+			util.percentize(five / total) + "%",
+			util.percentize(six / total) + "%",
+		])
 
-		const {fourMap, fiveMap, fiveforbankerdrawMap: fiveforbankerMap, fiveforplayerdrawMap: fiveforplayerMap, sixMap} = result
+		const {
+			fourMap,
+			fiveMap,
+			fiveforbankerdrawMap: fiveforbankerMap,
+			fiveforplayerdrawMap: fiveforplayerMap,
+			sixMap,
+		} = result
 		// 四張牌
 		let banker = fourMap.get(1) || 0
 		let player = fourMap.get(2) || 0
 		let tie = fourMap.get(0) || 0
 		total = banker + player + tie
 		tableDistributionVer.push(["4", banker, player, tie])
-		tableDistributionVer.push(["4-100%", util.percentize(banker / total) + "%", util.percentize(player / total) + "%", util.percentize(tie / total) + "%"])
+		tableDistributionVer.push([
+			"4-100%",
+			util.percentize(banker / total) + "%",
+			util.percentize(player / total) + "%",
+			util.percentize(tie / total) + "%",
+		])
 		// 五張牌
 		banker = fiveMap.get(1) || 0
 		player = fiveMap.get(2) || 0
 		tie = fiveMap.get(0) || 0
 		total = banker + player + tie
 		tableDistributionVer.push(["5", banker, player, tie])
-		tableDistributionVer.push(["5-100%", util.percentize(banker / total) + "%", util.percentize(player / total) + "%", util.percentize(tie / total) + "%"])
+		tableDistributionVer.push([
+			"5-100%",
+			util.percentize(banker / total) + "%",
+			util.percentize(player / total) + "%",
+			util.percentize(tie / total) + "%",
+		])
 		// 六張牌
 		banker = sixMap.get(1) || 0
 		player = sixMap.get(2) || 0
 		tie = sixMap.get(0) || 0
 		total = banker + player + tie
 		tableDistributionVer.push(["6", banker, player, tie])
-		tableDistributionVer.push(["6-100%", util.percentize(banker / total) + "%", util.percentize(player / total) + "%", util.percentize(tie / total) + "%"])
+		tableDistributionVer.push([
+			"6-100%",
+			util.percentize(banker / total) + "%",
+			util.percentize(player / total) + "%",
+			util.percentize(tie / total) + "%",
+		])
 		// 五張牌 莊家
 		banker = fiveforbankerMap.get(1) || 0
 		player = fiveforbankerMap.get(2) || 0
 		tie = fiveforbankerMap.get(0) || 0
 		total = banker + player + tie
 		tableDistributionVer.push(["5b draw", banker, player, tie])
-		tableDistributionVer.push(["5b-100%", util.percentize(banker / total) + "%", util.percentize(player / total) + "%", util.percentize(tie / total) + "%"])
+		tableDistributionVer.push([
+			"5b-100%",
+			util.percentize(banker / total) + "%",
+			util.percentize(player / total) + "%",
+			util.percentize(tie / total) + "%",
+		])
 		// 五張牌 閒家
 		banker = fiveforplayerMap.get(1) || 0
 		player = fiveforplayerMap.get(2) || 0
 		tie = fiveforplayerMap.get(0) || 0
 		total = banker + player + tie
 		tableDistributionVer.push(["5p draw", banker, player, tie])
-		tableDistributionVer.push(["5p-100%", util.percentize(banker / total) + "%", util.percentize(player / total) + "%", util.percentize(tie / total) + "%"])
+		tableDistributionVer.push([
+			"5p-100%",
+			util.percentize(banker / total) + "%",
+			util.percentize(player / total) + "%",
+			util.percentize(tie / total) + "%",
+		])
 	},
 	run() {
 		result = {
@@ -205,7 +253,7 @@ const testCase = {
 		// result.sixCardMap.printSorted("六張牌：")
 
 		result.naturalMap.printSorted("連續四張牌(包括叉燒)：")
-		const arr:number[] = []
+		const arr: number[] = []
 		for (let i = 0; i < 10; i++) {
 			arr.push(result.naturalMap.get(i + 1) || 0)
 		}

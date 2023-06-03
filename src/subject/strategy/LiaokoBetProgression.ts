@@ -1,9 +1,8 @@
 import Progression from "../../model/strategy/Progression"
 import Instruct from "../../model/strategy/generator/Instruct"
 
-
 class LiaokoBetProgression extends Progression {
-	private _seed:number[]
+	private _seed: number[]
 
 	constructor(seed: number[]) {
 		super()
@@ -13,7 +12,7 @@ class LiaokoBetProgression extends Progression {
 		this._seed = seed
 	}
 
-	* _getGen(): Generator<number, void, boolean> {
+	*_getGen(): Generator<number, void, boolean> {
 		const seed = this._seed
 		const context = this.getContext()
 		while (true) {

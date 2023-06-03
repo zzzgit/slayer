@@ -1,7 +1,7 @@
 import Progression from "../../model/strategy/Progression"
 
 class FlatBetProgression extends Progression {
-	private _wager:number
+	private _wager: number
 
 	constructor(wager: number) {
 		super()
@@ -11,7 +11,7 @@ class FlatBetProgression extends Progression {
 		this._wager = wager
 	}
 
-	* _getGen(): Generator<number, void, boolean> {
+	*_getGen(): Generator<number, void, boolean> {
 		while (true) {
 			yield this._wager
 		}

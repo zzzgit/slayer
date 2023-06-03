@@ -1,11 +1,10 @@
 import Progression from "../../model/strategy/Progression"
 import Instruct from "../../model/strategy/generator/Instruct"
 
-
 class MartingaleBetProgression extends Progression {
-	private _seed:number
+	private _seed: number
 
-	private _steps:number
+	private _steps: number
 
 	constructor(seed: number, step: number) {
 		super()
@@ -13,7 +12,7 @@ class MartingaleBetProgression extends Progression {
 		this._steps = step
 	}
 
-	* _getGen(): Generator<number, void, boolean> {
+	*_getGen(): Generator<number, void, boolean> {
 		const context = this.getContext()
 		const seed = this._seed
 		if (seed < 0) {

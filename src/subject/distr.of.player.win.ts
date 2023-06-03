@@ -1,4 +1,3 @@
-
 import {Engine, HandResult, HandOutcome} from "bac-motor"
 import CliTable from "../report/Table"
 import util from "../tool/util"
@@ -7,16 +6,15 @@ const engine = new Engine()
 const shoeAmount = 5000
 const round = 3
 const table = new CliTable({
-	head: ['total', 'two', 'three'],
+	head: ["total", "two", "three"],
 	colWidths: [20, 20, 20],
-	style: {"compact": false, 'padding-left': 1},
+	style: {compact: false, "padding-left": 1},
 })
 
 const result = {
 	two: 0,
 	three: 0,
 }
-
 
 const testCase = {
 	init() {
@@ -26,7 +24,7 @@ const testCase = {
 		result.two = 0
 		result.three = 0
 		for (let i = 0; i < shoeAmount; i++) {
-			engine.playOneShoe(undefined, (handResult: HandOutcome)=>{
+			engine.playOneShoe(undefined, (handResult: HandOutcome) => {
 				if (handResult.result == HandResult.PuntoWins) {
 					if (handResult.puntoHand.getLength() === 2) {
 						result.two++
@@ -37,8 +35,11 @@ const testCase = {
 			})
 		}
 		const total = result.two + result.three
-		table.push([`${total}`, `${result.two} / ${util.percentize(result.two / total)}%`,
-			`${result.three} / ${util.percentize(result.three / total)}%`])
+		table.push([
+			`${total}`,
+			`${result.two} / ${util.percentize(result.two / total)}%`,
+			`${result.three} / ${util.percentize(result.three / total)}%`,
+		])
 	},
 	run() {
 		for (let i = 0; i < round; i++) {
@@ -54,7 +55,6 @@ const testCase = {
 testCase.init()
 testCase.run()
 testCase.report()
-
 
 /**
  * 結論：

@@ -1,8 +1,7 @@
 import Progression from "../../model/strategy/Progression"
 
-
 class AntBetProgression extends Progression {
-	private _stepLength:number
+	private _stepLength: number
 
 	constructor(stepLenth: number = 1) {
 		super()
@@ -14,7 +13,7 @@ class AntBetProgression extends Progression {
 	// 		yield 10
 	// 	}
 	// }
-	* _getGen(): Generator<number, void, boolean> {
+	*_getGen(): Generator<number, void, boolean> {
 		const context = this.getContext()
 		const len = this._stepLength
 		while (true) {

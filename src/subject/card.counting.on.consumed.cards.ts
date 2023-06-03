@@ -6,7 +6,6 @@ import CliTable from "../report/Table"
 import tool from "../tool/tool"
 import {Card} from "cardation"
 
-
 const engine = new Engine()
 const shoeAmount = 6000
 const road = new Blackhole()
@@ -16,11 +15,10 @@ let shorAccumulatedScore = 0
 let drawCards_int = 0
 
 const tableDistribution = new CliTable({
-	head: ['bet/result', 'win', 'loss', 'tie'],
+	head: ["bet/result", "win", "loss", "tie"],
 	colWidths: [15, 15, 15, 15],
-	style: {"compact": false, 'padding-left': 1},
+	style: {compact: false, "padding-left": 1},
 })
-
 
 let result = {
 	total: 0,
@@ -35,10 +33,12 @@ let result = {
 	},
 }
 
-
 const testCase = {
 	init() {
-		const config = Object.assign({}, massiveTestConfig, {shouldGenerateRoad: false, shouldCutShoe: true})
+		const config = Object.assign({}, massiveTestConfig, {
+			shouldGenerateRoad: false,
+			shouldCutShoe: true,
+		})
 		engine.powerOn(config)
 	},
 	run() {
@@ -55,9 +55,11 @@ const testCase = {
 			},
 		}
 		const afterPlay = (hOutcome: HandOutcome): void => {
-			const longWeightedScore = longAccumulatedScore / ((416 - drawCards_int) / 416)
+			const longWeightedScore =
+				longAccumulatedScore / ((416 - drawCards_int) / 416)
 			const threshold_for_short = 3500
-			if (longWeightedScore > 25000) {		// 30000，相當於每10手打一手，2000，相當於每5手打一手
+			if (longWeightedScore > 25000) {
+				// 30000，相當於每10手打一手，2000，相當於每5手打一手
 				if (shorAccumulatedScore > threshold_for_short) {
 					result.total++
 					if (hOutcome.result === HandResult.BancoWins) {
@@ -84,9 +86,10 @@ const testCase = {
 			lastHandScore = tool.countHandScore(hOutcome)
 			shorAccumulatedScore = tool.countHandScore(hOutcome, true)
 			longAccumulatedScore += lastHandScore
-			drawCards_int += hOutcome.bancoHand.getLength() + hOutcome.puntoHand.getLength()
+			drawCards_int +=
+				hOutcome.bancoHand.getLength() + hOutcome.puntoHand.getLength()
 		}
-		const beforeShoe = (card: Card | undefined):void => {
+		const beforeShoe = (card: Card | undefined): void => {
 			card?.getPoint()
 			lastHandScore = 448
 			longAccumulatedScore += lastHandScore
@@ -102,7 +105,7 @@ const testCase = {
 
 		const {distr} = result
 		tableDistribution.push(
-			["distro", distr.banco, distr.punto, distr.tie],
+			["distro", distr.banco, distr.punto, distr.tie]
 			// ["bet on P", bet.punto.win, bet.punto.lose, result.tie.player],
 		)
 
@@ -117,8 +120,8 @@ const testCase = {
 		// console.log(info.strategy)
 
 		const {distr} = result
-		const pRate = distr.banco / distr.punto * 100
-		const bRate = distr.punto / distr.banco * 100
+		const pRate = (distr.banco / distr.punto) * 100
+		const bRate = (distr.punto / distr.banco) * 100
 		console.log("B/P:", pRate.toFixed(4))
 		console.log("P/B:", bRate.toFixed(4))
 	},

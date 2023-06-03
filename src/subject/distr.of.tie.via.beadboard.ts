@@ -1,4 +1,3 @@
-
 import {IEntity, BlueBeadEntity, RedBeadEntity, BeadRoad} from "marga"
 import {Engine, ShoeOutcome} from "bac-motor"
 import CliTable from "../report/Table"
@@ -9,9 +8,9 @@ const engine = new Engine()
 const shoeAmount = 1200
 const round = 1
 const table = new CliTable({
-	head: ['total', 'B', 'P', 'tie'],
+	head: ["total", "B", "P", "tie"],
 	colWidths: [20, 20, 20, 20],
-	style: {"compact": false, 'padding-left': 1},
+	style: {compact: false, "padding-left": 1},
 })
 
 let result = {
@@ -19,7 +18,6 @@ let result = {
 	banker: 0,
 	player: 0,
 }
-
 
 const testCase = {
 	init() {
@@ -33,12 +31,22 @@ const testCase = {
 			player: 0,
 		}
 		const date = new Date()
-		const path = "/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt"
-		let prom = samael.writeToFile(path, `${date.toLocaleString()}\n  \n`).catch((e: Error) => console.log("錯誤", e))
+		const path =
+			"/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt"
+		let prom = samael
+			.writeToFile(path, `${date.toLocaleString()}\n  \n`)
+			.catch((e: Error) => console.log("錯誤", e))
 		for (let i = 0; i < shoeAmount; i++) {
 			const shoeComeout: ShoeOutcome = engine.playOneShoe()
 			const info = shoeComeout.getStatisticInfo()
-			prom = prom.then(() => samael.appendToFile(path, `${shoeComeout.getShoeIndex()}\t${info.banco}\t${info.punto}\t${info.tie}\n`))
+			prom = prom.then(() =>
+				samael.appendToFile(
+					path,
+					`${shoeComeout.getShoeIndex()}\t${info.banco}\t${info.punto}\t${
+						info.tie
+					}\n`
+				)
+			)
 			this.showRoad(shoeComeout.getBeadRoad())
 
 			result.banker += info.banco
@@ -46,13 +54,19 @@ const testCase = {
 			result.tie += info.tie
 		}
 		const totalResult: number = result.tie + result.banker + result.player
-		table.push([totalResult, result.banker, result.player, result.tie],
-			[`100 %`, util.percentize(result.banker / totalResult) + " %",
-				util.percentize(result.player / totalResult) + " %", util.percentize(result.tie / totalResult) + " %"])
+		table.push(
+			[totalResult, result.banker, result.player, result.tie],
+			[
+				`100 %`,
+				util.percentize(result.banker / totalResult) + " %",
+				util.percentize(result.player / totalResult) + " %",
+				util.percentize(result.tie / totalResult) + " %",
+			]
+		)
 	},
 	showRoad(road: BeadRoad) {
 		let result = ""
-		let last:IEntity = road.getLastEntity() as IEntity
+		let last: IEntity = road.getLastEntity() as IEntity
 		while (last) {
 			if (last instanceof RedBeadEntity) {
 				result += " B"

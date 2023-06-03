@@ -1,4 +1,3 @@
-
 // import util from "../tool/util"
 // import massiveTestConfig from "../config/massiveTestConfig"
 // import {BigRoad, Streak, BeadRoad, BankerBigEntity, GreenBeadEntity, RedBeadEntity, BeadEntity} from "marga"
@@ -25,7 +24,6 @@
 // 	ppb: 0,
 // }
 // const varianceArr:number[] = []
-
 
 // const testCase = {
 // 	init() {

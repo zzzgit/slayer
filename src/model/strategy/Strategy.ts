@@ -7,7 +7,10 @@ import HandOutcomeOrUndefined from "./type/HandOutcomeOrUndefined"
 abstract class Strategy {
 	private readonly _sequence: Progression
 
-	abstract figureOutBet(lastBet: BetOrUndefined, lastHandComeout: HandOutcomeOrUndefined): Bet
+	abstract figureOutBet(
+		lastBet: BetOrUndefined,
+		lastHandComeout: HandOutcomeOrUndefined
+	): Bet
 
 	constructor(sequence: Progression) {
 		this._sequence = sequence

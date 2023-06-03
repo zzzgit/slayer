@@ -2,7 +2,7 @@ import {Engine, Config} from "bac-motor"
 import CliTable from "../report/Table"
 import util from "../tool/util"
 
-const conf:Config = {
+const conf: Config = {
 	shouldShuffleWhileCollectBancoHand: false,
 	shouldCutShoe: false,
 	shouldBurnCard: false,
@@ -12,9 +12,9 @@ const engine = new Engine()
 const shoeAmount = 4000
 const round = 1
 const table = new CliTable({
-	head: ['total', 'B', 'P', 'tie'],
+	head: ["total", "B", "P", "tie"],
 	colWidths: [20, 20, 20, 20],
-	style: {"compact": false, 'padding-left': 1},
+	style: {compact: false, "padding-left": 1},
 })
 
 const result = {
@@ -22,7 +22,6 @@ const result = {
 	banker: 0,
 	player: 0,
 }
-
 
 const testCase = {
 	init() {
@@ -42,7 +41,15 @@ const testCase = {
 		}
 
 		const totalResult: number = result.tie + result.banker + result.player
-		table.push([totalResult, result.banker, result.player, result.tie], [`100 %`, util.percentize(result.banker / totalResult) + " %", util.percentize(result.player / totalResult) + " %", util.percentize(result.tie / totalResult) + " %"])
+		table.push(
+			[totalResult, result.banker, result.player, result.tie],
+			[
+				`100 %`,
+				util.percentize(result.banker / totalResult) + " %",
+				util.percentize(result.player / totalResult) + " %",
+				util.percentize(result.tie / totalResult) + " %",
+			]
+		)
 		// table.push([100, util.percentize(result.banco / totalResult), util.percentize(result.punto / totalResult), util.percentize(result.tie / totalResult)])
 	},
 	run() {

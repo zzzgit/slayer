@@ -1,4 +1,3 @@
-
 import CounterMap from "./collection/CounterMap"
 import {Engine, HandResult, HandOutcome} from "bac-motor"
 import CliTable from "../report/Table"
@@ -8,23 +7,22 @@ const engine = new Engine()
 const shoeAmount = 5000
 const round = 3
 const table_distribution = new CliTable({
-	head: ['total', 'tie', 'tie %'],
+	head: ["total", "tie", "tie %"],
 	colWidths: [20, 20, 20],
-	style: {"compact": false, 'padding-left': 1},
+	style: {compact: false, "padding-left": 1},
 })
 const table_score = new CliTable({
-	head: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+	head: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
 	colWidths: [8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
-	style: {"compact": false, 'padding-left': 1},
+	style: {compact: false, "padding-left": 1},
 })
 
-const result:{[key: string]: any} = {
+const result: {[key: string]: any} = {
 	point: [],
 	indexMap: new CounterMap<number>(),
 	all: 0,
 	tie: 0,
 }
-
 
 const testCase = {
 	init() {
@@ -35,7 +33,7 @@ const testCase = {
 		result.tie = 0
 		result.indexMap.clear()
 		for (let i = 0; i < shoeAmount; i++) {
-			engine.playOneShoe(undefined, (handResult:HandOutcome)=>{
+			engine.playOneShoe(undefined, (handResult: HandOutcome) => {
 				result.all++
 				if (handResult.result === HandResult.Tie) {
 					result.tie++
@@ -45,7 +43,11 @@ const testCase = {
 				}
 			})
 		}
-		table_distribution.push([result.all, result.tie, util.percentize(result.tie / result.all) + " %"])
+		table_distribution.push([
+			result.all,
+			result.tie,
+			util.percentize(result.tie / result.all) + " %",
+		])
 	},
 	run() {
 		for (let i = 0; i < round; i++) {

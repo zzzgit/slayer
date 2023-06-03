@@ -1,4 +1,11 @@
-import {Engine, HandOutcome, Bet, FreeMun as Free, BancoMun as Banker, PuntoMun as Player} from "bac-motor"
+import {
+	Engine,
+	HandOutcome,
+	Bet,
+	FreeMun as Free,
+	BancoMun as Banker,
+	PuntoMun as Player,
+} from "bac-motor"
 import HandOutcomeOrUndefined from "../model/strategy/type/HandOutcomeOrUndefined"
 import BetOrUndefined from "../model/strategy/type/BetOrUndefined"
 import AntBetProgression from "./strategy/AntBetProgression"
@@ -14,13 +21,17 @@ const profitGoal = 1000
 const stopLoss = 10
 let round = 0
 
-
 const tableDistribution = new CliTable({
-	head: ['round/statistics', 'bet money', 'betting times', 'commision', 'balance'],
+	head: [
+		"round/statistics",
+		"bet money",
+		"betting times",
+		"commision",
+		"balance",
+	],
 	colWidths: [15, 15, 15, 15, 15],
-	style: {"compact": false, 'padding-left': 1},
+	style: {compact: false, "padding-left": 1},
 })
-
 
 const result = {
 	bettingTimes: 0,
@@ -28,7 +39,7 @@ const result = {
 	commision: 0,
 }
 
-const takeChance = (isBanco: boolean): boolean=>{
+const takeChance = (isBanco: boolean): boolean => {
 	if (isBanco) {
 		// 理論0.5068，breakeven 100/195，當前加到0.52
 		return samael.chance(2676, 100000)
@@ -47,7 +58,10 @@ const testCase = {
 			const seq = new AntBetProgression()
 			const system = new AntStrategy(seq)
 			let bet: Bet
-			const beforePlay = (prevBet: BetOrUndefined, prevComeout: HandOutcomeOrUndefined): Bet => {
+			const beforePlay = (
+				prevBet: BetOrUndefined,
+				prevComeout: HandOutcomeOrUndefined
+			): Bet => {
 				// / https://github.com/zzzgit/bac-motor/blob/7cbe9b35a4f0e32515dc58c6c364b514d60f215c/src/Engine.ts#L123
 				// 上面一行被comment, 所以prevBet永遠為空
 				system.setBalance(balance)
@@ -83,12 +97,18 @@ const testCase = {
 				balance = balance + payout
 				if (bet.getMun() instanceof Banker) {
 					// if (handResult.tagArray.find(item => item instanceof SuperSix)) {
-					result.commision += handResult.getWager() * .05
+					result.commision += handResult.getWager() * 0.05
 					// }
 				}
 				// console.log(`${handResult.getWager()}\t${payout}\t${balance}`)
 				if (balance >= capital + profitGoal) {
-					tableDistribution.push([++round, result.betMoney, result.bettingTimes, result.commision, balance])
+					tableDistribution.push([
+						++round,
+						result.betMoney,
+						result.bettingTimes,
+						result.commision,
+						balance,
+					])
 					balance = capital
 					result.betMoney = 0
 					result.bettingTimes = 0
