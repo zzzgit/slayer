@@ -4,22 +4,21 @@ import {
 	Bet,
 	FreeMun as Free,
 	BancoMun as Banker,
-	PuntoMun as Player,
 } from "bac-motor"
 import HandOutcomeOrUndefined from "../model/strategy/type/HandOutcomeOrUndefined"
 import BetOrUndefined from "../model/strategy/type/BetOrUndefined"
 import AntBetProgression from "./strategy/AntBetProgression"
 import AntStrategy from "./strategy/AntStrategy"
 import CliTable from "../report/Table"
-import * as samael from "samael"
 
 const engine = new Engine()
-const shoeAmount = 2000
-const capital = 1000
+const shoeAmount = 8000
+const capital = 10000
 let balance = capital
-const profitGoal = 1000
-const stopLoss = 10
-let round = 0
+const profitGoal = 40
+const stopLoss = 50
+let currentRound = 0
+const targetRound = 40
 
 const tableDistribution = new CliTable({
 	head: [
@@ -39,14 +38,15 @@ const result = {
 	commision: 0,
 }
 
-const takeChance = (isBanco: boolean): boolean => {
-	if (isBanco) {
-		// 理論0.5068，breakeven 100/195，當前加到0.52
-		return samael.chance(2676, 100000)
-	}
-	// 理論0.493，breakeven 0.5，當前加到0.51  x/
-	return samael.chance(333, 10000)
-}
+// 專門增加，用來為輸的情況，把一定比例的game變成贏
+// const takeChance = (isBanco: boolean): boolean => {
+// 	if (isBanco) {
+// 		// 理論0.5068，breakeven 100/195，當前加到0.52
+// 		return samael.chance(2676, 100000)
+// 	}
+// 	// 理論0.493，breakeven 0.5，當前加到0.51  x/
+// 	return samael.chance(333, 10000)
+// }
 
 const testCase = {
 	init() {
@@ -66,7 +66,7 @@ const testCase = {
 				// 上面一行被comment, 所以prevBet永遠為空
 				system.setBalance(balance)
 				bet = system.figureOutBet(prevBet, prevComeout as HandOutcome)
-				isFree = bet.getMun() instanceof Free ? true : false
+				isFree = bet.getMun() instanceof Free
 				if (!isFree) {
 					const wager = bet.getWager()
 					balance = balance - wager
@@ -79,21 +79,7 @@ const testCase = {
 				if (isFree) {
 					return undefined
 				}
-				handResult
-				let payout = handResult.getPayout()
-				// 輸了，增加勝率-------------------------
-				if (payout === 0) {
-					if (bet.getMun() instanceof Banker) {
-						if (takeChance(true)) {
-							payout = handResult.getWager() * 1.95
-						}
-					}
-					if (bet.getMun() instanceof Player) {
-						if (takeChance(false)) {
-							payout = handResult.getWager() * 2
-						}
-					}
-				}
+				const payout = handResult.getPayout()
 				balance = balance + payout
 				if (bet.getMun() instanceof Banker) {
 					// if (handResult.tagArray.find(item => item instanceof SuperSix)) {
@@ -103,17 +89,18 @@ const testCase = {
 				// console.log(`${handResult.getWager()}\t${payout}\t${balance}`)
 				if (balance >= capital + profitGoal) {
 					tableDistribution.push([
-						++round,
-						result.betMoney,
+						++currentRound,
+						Math.round(result.betMoney),
 						result.bettingTimes,
-						result.commision,
-						balance,
+						Math.round(result.commision),
+						Math.round(balance),
 					])
 					balance = capital
 					result.betMoney = 0
 					result.bettingTimes = 0
 					result.commision = 0
-					if (round == 4) {
+					if (currentRound == targetRound) {
+						console.log(`完成任務${targetRound}輪`)
 						engine.shutdown()
 					}
 				} else if (balance < stopLoss) {
@@ -124,7 +111,7 @@ const testCase = {
 			try {
 				engine.playOneShoe(beforePlay, afterPlay)
 			} catch (e) {
-				console.log(222, 333)
+				console.log("shutdown:", 2 || e)
 				break
 			}
 		}
@@ -132,7 +119,6 @@ const testCase = {
 	},
 	report() {
 		tableDistribution.print(`20 shoes，螞蟻🐜搬家打法：`)
-		// console.log(`balance: ${balance }`)
 	},
 }
 
@@ -144,5 +130,5 @@ testCase.report()
  * 1. 返傭，讓莊閒的rv都為0
  * 2. 返傭，讓莊閒的rv都為0.01，有機會賺錢
  * 3. 註碼法並不重要，重要的是rv，和止盈點
- * 4. 另類測試，反轉輸贏，因為改代碼麻煩，沒有進行
+ * 4.
  */

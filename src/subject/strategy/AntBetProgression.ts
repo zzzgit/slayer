@@ -8,52 +8,62 @@ class AntBetProgression extends Progression {
 		this._stepLength = stepLenth
 	}
 
-	// * _getGen(): Generator<number, void, boolean> {
-	// 	while (true || this._stepLength) {
-	// 		yield 10
-	// 	}
-	// }
 	*_getGen(): Generator<number, void, boolean> {
-		const context = this.getContext()
-		const len = this._stepLength
 		while (true) {
-			if ((context.balance || 0) >= 1100 * len) {
-				yield 50
-			}
-			if ((context.balance || 0) >= 1090 * len) {
-				yield 10
-			}
-			if ((context.balance || 0) >= 1080 * len) {
-				yield 20
-			}
-			if ((context.balance || 0) >= 1070 * len) {
-				yield 30
-			}
-			if ((context.balance || 0) >= 1060 * len) {
-				yield 20
-			}
-			if ((context.balance || 0) >= 1050 * len) {
-				yield 20
-			}
-			if ((context.balance || 0) >= 1040 * len) {
-				yield 10
-			}
-			if ((context.balance || 0) >= 1030 * len) {
-				yield 20
-			}
-			if ((context.balance || 0) >= 1020 * len) {
-				yield 30
-			}
-			if ((context.balance || 0) >= 1010 * len) {
-				yield 20
-			}
-			if ((context.balance || 0) >= 1000 * len) {
-				yield 10
-			}
-			if ((context.balance || 0) < 1000 * len) {
-				yield 10
-			}
+			yield this.customized()
 		}
+	}
+
+	customized(): number {
+		const len = this._stepLength
+		if (this.isBalanceHigherThan(10020 * len)) {
+			return 4
+		}
+		if (this.isBalanceHigherThan(10010 * len)) {
+			return 2
+		}
+		if (this.isBalanceHigherThan(10000 * len)) {
+			return 1
+		}
+		if (this.isBalanceHigherThan(9990 * len)) {
+			return 1
+		}
+		if (this.isBalanceHigherThan(9970 * len)) {
+			return 2
+		}
+		if (this.isBalanceHigherThan(9950 * len)) {
+			return 3
+		}
+		if (this.isBalanceHigherThan(9920 * len)) {
+			return 4
+		}
+		if (this.isBalanceHigherThan(9900 * len)) {
+			return 5
+		}
+		if (this.isBalanceHigherThan(9850 * len)) {
+			return 10
+		}
+		if (this.isBalanceHigherThan(9780 * len)) {
+			return 15
+		}
+		if (this.isBalanceHigherThan(9700 * len)) {
+			return 20
+		}
+		if (this.isBalanceHigherThan(9600 * len)) {
+			return 30
+		}
+		if (this.isBalanceHigherThan(9500 * len)) {
+			return 40
+		}
+		if (this.isBalanceHigherThan(9400 * len)) {
+			console.log(this.getContext().balance, 50)
+			return 50
+		}
+		// if (this.isBalanceHigherThan(9000 * len)) {
+		// 	console.log(this.getContext().balance, 3000)
+		// 	return 3000
+		// }
+		return 1
 	}
 }
 

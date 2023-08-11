@@ -20,7 +20,8 @@ class AntStrategy extends Strategy {
 			lastBet = freeGame
 		}
 		if (!(lastBet.getMun() instanceof Free)) {
-			// 此處取到的始終是上上手，因為freegame沒有被bac-motor記錄下來
+			// 此處取到的始終是上上手，因為freegame沒有被bac-motor記錄下來，應該修改之，使其能夠被記錄下來
+			// 這個分支已經不需要，因為用了下面的if分支代替
 			// return freeGame
 		}
 		if (counter > 1 && counter % 2 == 0) {

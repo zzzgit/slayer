@@ -23,6 +23,13 @@ abstract class Progression {
 		return this._context
 	}
 
+	isBalanceHigherThan = (threshold: number): boolean => {
+		if ((this.getContext().balance || 0) > threshold) {
+			return true
+		}
+		return false
+	}
+
 	abstract _getGen(): Generator<number, void, boolean>
 }
 
