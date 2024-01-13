@@ -1,16 +1,16 @@
-import {Engine, HandOutcome} from "bac-motor"
-import massiveTestConfig from "../config/massiveTestConfig"
-import CliTable from "../report/Table"
+import { Engine, HandOutcome } from 'bac-motor'
+import massiveTestConfig from '../config/massiveTestConfig'
+import CliTable from '../report/Table'
 // import util from "../tool/util"
-import CounterMap from "./collection/CounterMap"
+import CounterMap from './collection/CounterMap'
 
 const engine = new Engine()
 const shoeAmount = 5000
 
 const tableDistribution = new CliTable({
-	head: [" ", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+	head: [' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
 	colWidths: [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 
 const arr: number[] = []
@@ -24,14 +24,14 @@ let result = {
 }
 
 const testCase = {
-	init() {
+	init(){
 		const config = Object.assign({}, massiveTestConfig, {
 			shouldGenerateRoad: false,
 			shouldCutShoe: true,
 		})
 		engine.powerOn(config)
 	},
-	run() {
+	run(){
 		result = {
 			hands: new CounterMap<number>(),
 			totalValue: 0,
@@ -53,50 +53,50 @@ const testCase = {
 			let condition = bHand.getLength() == 2 && pHand.getLength() == 3
 			condition =
 				condition || (bHand.getLength() == 3 && pHand.getLength() == 2)
-			if (condition) {
+			if (condition){
 				acd_record++
 				acd_sequence++
 			} else {
-				if (acd_sequence !== 0) {
+				if (acd_sequence !== 0){
 					result.acd_streak.count(acd_sequence)
 					acd_sequence = 0
 				}
 			}
 		}
-		for (let i = 0; i < shoeAmount; i++) {
+		for (let i = 0; i < shoeAmount; i++){
 			acd_record = 0
 			acd_sequence = 0
 			const shoeOutcome = engine.playOneShoe(undefined, afterPlay)
-			const {total} = shoeOutcome.getStatisticInfo()
+			const { total } = shoeOutcome.getStatisticInfo()
 			result.gamesInOneShoe.count(total)
 			result.totalGames += total
 			// result.record.push(+util.percentize(noneACD_record / total, 1))
 			result.record.push(acd_record)
 		}
-		const {hands: h} = result
+		const { hands: h } = result
 		tableDistribution.push([
-			"hand value",
-			h.get(0) + "",
-			h.get(1) + "",
-			h.get(2) + "",
-			h.get(3) + "",
-			h.get(4) + "",
-			h.get(5) + "",
-			h.get(6) + "",
-			h.get(7) + "",
-			h.get(8) + "",
-			h.get(9) + "",
+			'hand value',
+			h.get(0) + '',
+			h.get(1) + '',
+			h.get(2) + '',
+			h.get(3) + '',
+			h.get(4) + '',
+			h.get(5) + '',
+			h.get(6) + '',
+			h.get(7) + '',
+			h.get(8) + '',
+			h.get(9) + '',
 		])
 		engine.shutdown()
 	},
-	report() {
-		tableDistribution.print(`occurrence of hand value：`)
+	report(){
+		tableDistribution.print('occurrence of hand value：')
 		console.log(`每shoe的game數平均值:			${result.totalGames / shoeAmount} games`)
 		console.log(
 			`每個game的hand value 平均值:	${result.totalValue / result.totalGames / 2}`
 		)
 		console.log(Math.min(...result.record), Math.max(...result.record))
-		console.log("acd streak:", result.acd_streak)
+		console.log('acd streak:', result.acd_streak)
 	},
 }
 

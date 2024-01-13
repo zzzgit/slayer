@@ -1,16 +1,16 @@
-import CliTable from "../report/Table"
-import util from "../tool/util"
-import tool from "../tool/tool"
-import massiveTestConfig from "../config/massiveTestConfig"
-import Engine, {HandOutcome, HandResult} from "bac-motor"
+import CliTable from '../report/Table'
+import util from '../tool/util'
+import tool from '../tool/tool'
+import massiveTestConfig from '../config/massiveTestConfig'
+import Engine, { HandOutcome, HandResult } from 'bac-motor'
 
 const engine = new Engine()
 const shoeAmount = 10000
 
 const tableDistribution = new CliTable({
-	head: ["bet/result", "win", "loss", "tie"],
+	head: ['bet/result', 'win', 'loss', 'tie'],
 	colWidths: [15, 15, 15, 15],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 
 let result = {
@@ -28,14 +28,14 @@ let result = {
 }
 
 const testCase = {
-	init() {
+	init(){
 		const config = Object.assign({}, massiveTestConfig, {
 			shouldGenerateRoad: false,
 			shouldCutShoe: true,
 		})
 		engine.powerOn(config)
 	},
-	run() {
+	run(){
 		result = {
 			total: 0,
 			banker: {
@@ -54,7 +54,7 @@ const testCase = {
 			const punto_cards = handResult.puntoHand.getLength()
 			const total_cards = banco_cards + punto_cards
 			// 四張牌不論
-			if (total_cards === 4) {
+			if (total_cards === 4){
 				return undefined
 			}
 			const shouldBetonBanco = total_cards === 5 && banco_cards === 2
@@ -62,27 +62,27 @@ const testCase = {
 			/**
 			 * 3200好像是最優值，對於莊來說，4200和2200，都會讓命中率降低
 			 */
-			if (shouldBetonBanco && pointValue > 2500) {
+			if (shouldBetonBanco && pointValue > 2500){
 				// 2500..3000c  注意，在結合牌的張數的策略時，2500導致勝率大大降低
-				if (handResult.result == HandResult.BancoWins) {
+				if (handResult.result == HandResult.BancoWins){
 					result.banker.win++
-				} else if (handResult.result == HandResult.PuntoWins) {
+				} else if (handResult.result == HandResult.PuntoWins){
 					result.banker.lose++
 				} else {
 					result.banker.tie++
 				}
 			}
-			if (!shouldBetonBanco && pointValue < -2500) {
-				if (handResult.result == HandResult.BancoWins) {
+			if (!shouldBetonBanco && pointValue < -2500){
+				if (handResult.result == HandResult.BancoWins){
 					result.player.lose++
-				} else if (handResult.result == HandResult.PuntoWins) {
+				} else if (handResult.result == HandResult.PuntoWins){
 					result.player.win++
 				} else {
 					result.player.tie++
 				}
 			}
 		}
-		for (let i = 0; i < shoeAmount; i++) {
+		for (let i = 0; i < shoeAmount; i++){
 			engine.playOneShoe(undefined, afterPlay)
 		}
 		const bResult = result.banker
@@ -90,22 +90,22 @@ const testCase = {
 		const bTotal = result.banker.win + result.banker.lose + result.banker.tie
 		const pTotal = result.player.win + result.player.lose + result.player.tie
 		tableDistribution.push(
-			["bet on B", bResult.win, bResult.lose, bResult.tie],
+			['bet on B', bResult.win, bResult.lose, bResult.tie],
 			[
-				"bet on B-%",
+				'bet on B-%',
 				util.percentize(bResult.win / bTotal),
 				util.percentize(bResult.lose / bTotal),
 				util.percentize(bResult.tie / bTotal),
 			],
-			["bet on P", pResult.win, pResult.lose, pResult.tie],
+			['bet on P', pResult.win, pResult.lose, pResult.tie],
 			[
-				"bet on P-%",
+				'bet on P-%',
 				util.percentize(pResult.win / pTotal),
 				util.percentize(pResult.lose / pTotal),
 				util.percentize(pResult.tie / pTotal),
 			],
 			[
-				"total",
+				'total',
 				pResult.win + bResult.win,
 				pResult.lose + bResult.lose,
 				pResult.tie + bResult.tie,
@@ -115,13 +115,13 @@ const testCase = {
 
 		engine.shutdown()
 	},
-	report() {
-		tableDistribution.print(`六千靴牌，大小牌算牌法，輸贏：`)
+	report(){
+		tableDistribution.print('六千靴牌，大小牌算牌法，輸贏：')
 		// 百家樂理論值：1.02767525608，想要贏錢：1.05254515599
 		let cal = util.getOddCal(result.banker.win, result.banker.lose, 3, true)
-		console.log("買莊， W/L:", util.percentize(cal.getw2l(), 2))
+		console.log('買莊， W/L:', util.percentize(cal.getw2l(), 2))
 		cal = util.getOddCal(result.player.lose, result.player.win, 3, false)
-		console.log("買閒， W/L:", util.percentize(cal.getw2l(), 2))
+		console.log('買閒， W/L:', util.percentize(cal.getw2l(), 2))
 	},
 }
 

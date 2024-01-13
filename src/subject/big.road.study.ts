@@ -1,19 +1,19 @@
-import {Engine, ShoeOutcome} from "bac-motor"
-import {BigRoad} from "marga"
-import massiveTestConfig from "../config/massiveTestConfig"
-import CounterMap from "./collection/CounterMap"
-import {Card} from "cardation"
-import CliTable from "../report/Table"
-import util from "../tool/util"
-import * as samael from "samael"
+import { Engine, ShoeOutcome } from 'bac-motor'
+import { BigRoad } from 'marga'
+import massiveTestConfig from '../config/massiveTestConfig'
+import CounterMap from './collection/CounterMap'
+import { Card } from 'cardation'
+import CliTable from '../report/Table'
+import util from '../tool/util'
+import * as samael from 'samael'
 
 const engine = new Engine()
 const shoeAmount = 30000
 const round = 1
 const table = new CliTable({
-	head: ["total", "B", "P", "tie"],
+	head: ['total', 'B', 'P', 'tie'],
 	colWidths: [20, 20, 20, 20],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 
 let result: {
@@ -47,14 +47,14 @@ let result: {
 }
 
 const testCase = {
-	init() {
+	init(){
 		const config = Object.assign({}, massiveTestConfig, {
 			shouldGenerateRoad: true,
 			shouldCutShoe: true,
 		})
 		engine.powerOn(config)
 	},
-	work() {
+	work(){
 		result = {
 			tie: 0,
 			banker: 0,
@@ -74,17 +74,17 @@ const testCase = {
 		}
 		const date = new Date()
 		const path =
-			"/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt"
+			'/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt'
 		let prom = samael
 			.writeToFile(path, `${date.toLocaleString()}\n  \n`)
-			.catch((e: Error) => console.log("錯誤", e))
-		for (let i = 0; i < shoeAmount; i++) {
+			.catch((e: Error) => console.log('錯誤', e))
+		for (let i = 0; i < shoeAmount; i++){
 			const shoeComeout: ShoeOutcome = engine.playOneShoe()
 			const info = shoeComeout.getStatisticInfo()
 			let str = `${shoeComeout.getShoeIndex()}\t${info.banco}\t${info.punto}\t${
 				info.tie
 			}\n`
-			str = ""
+			str = ''
 			prom = prom.then(() => samael.appendToFile(path, str))
 			this.showRoad(shoeComeout)
 
@@ -96,18 +96,18 @@ const testCase = {
 		table.push(
 			[totalResult, result.banker, result.player, result.tie],
 			[
-				`100 %`,
-				util.percentize(result.banker / totalResult) + " %",
-				util.percentize(result.player / totalResult) + " %",
-				util.percentize(result.tie / totalResult) + " %",
+				'100 %',
+				util.percentize(result.banker / totalResult) + ' %',
+				util.percentize(result.player / totalResult) + ' %',
+				util.percentize(result.tie / totalResult) + ' %',
 			]
 		)
 	},
-	showRoad(shoeComeout: ShoeOutcome) {
+	showRoad(shoeComeout: ShoeOutcome){
 		const road: BigRoad = shoeComeout.getBigRoad()
 		let streak = road.getFirstStreak()
 		// 統計龍頭和龍尾的牌，不統計最後一列
-		if (streak?.getNextStreak() && streak?.getFirstEntity()?.isBanco) {
+		if (streak?.getNextStreak() && streak?.getFirstEntity()?.isBanco){
 			// 龍尾
 			let gameid = streak?.getLastEntity()?.getIndex()
 			let comeout = shoeComeout.getOutcomeMap().get(gameid as number)
@@ -115,14 +115,14 @@ const testCase = {
 			let [first, second, three] = bhand
 			result.lastBankB.count(first.getPoint())
 			result.lastBankB.count(second.getPoint())
-			if (three) {
+			if (three){
 				result.lastBankB.count(first.getPoint())
 			}
 			let phand = comeout?.puntoHand.getDuplicatedCardArray() as Card[]
 			;[first, second, three] = phand
 			result.lastBankB.count(first.getPoint())
 			result.lastBankB.count(second.getPoint())
-			if (three) {
+			if (three){
 				result.lastBankB.count(first.getPoint())
 			}
 			// 龍頭
@@ -132,14 +132,14 @@ const testCase = {
 			;[first, second, three] = bhand
 			result.firstBankB.count(first.getPoint())
 			result.firstBankB.count(second.getPoint())
-			if (three) {
+			if (three){
 				result.firstBankB.count(first.getPoint())
 			}
 			phand = comeout?.bancoHand.getDuplicatedCardArray() as Card[]
 			;[first, second, three] = phand
 			result.firstBankB.count(first.getPoint())
 			result.firstBankB.count(second.getPoint())
-			if (three) {
+			if (three){
 				result.firstBankB.count(first.getPoint())
 			}
 		}
@@ -147,18 +147,18 @@ const testCase = {
 		const resultFirstStreak = result.firstStreak
 		const length = streak?.getLength()
 		resultFirstStreak.allarray.push(length)
-		if (streak?.getFirstEntity()?.isBanco) {
+		if (streak?.getFirstEntity()?.isBanco){
 			resultFirstStreak.barray.push(length)
 		} else {
 			resultFirstStreak.parray.push(length)
 		}
 
-		while (streak?.getNextStreak()) {
+		while (streak?.getNextStreak()){
 			const longStreak = 9
 			const len = streak.getLength()
 			//  忽略最後一個
-			if (streak.getNextStreak()) {
-				if (streak.getFirstEntity()?.isBanco) {
+			if (streak.getNextStreak()){
+				if (streak.getFirstEntity()?.isBanco){
 					result.bStreakLen.push(len)
 				} else {
 					result.pStreakLen.push(len)
@@ -167,47 +167,47 @@ const testCase = {
 			}
 
 			const prev = streak.getPreviousStreak()
-			if (prev && prev.getLength() > longStreak) {
+			if (prev && prev.getLength() > longStreak){
 				result.longStreak.push(streak.getLength())
 			}
 
 			streak = streak.getNextStreak()
 		}
 	},
-	run() {
-		for (let i = 0; i < round; i++) {
+	run(){
+		for (let i = 0; i < round; i++){
 			this.work()
 		}
 		engine.shutdown()
 	},
-	report() {
-		table.print(`莊閒分佈： `)
+	report(){
+		table.print('莊閒分佈： ')
 		const alltotal = result.allStreakLen.reduce((a, b) => a + b)
 		const btotal = result.bStreakLen.reduce((a, b) => a + b)
 		const ptotal = result.pStreakLen.reduce((a, b) => a + b)
-		console.log(`平均長度：`, alltotal / result.allStreakLen.length)
-		console.log(`莊平均長度：`, btotal / result.bStreakLen.length)
-		console.log(`閒平均長度：`, ptotal / result.pStreakLen.length)
+		console.log('平均長度：', alltotal / result.allStreakLen.length)
+		console.log('莊平均長度：', btotal / result.bStreakLen.length)
+		console.log('閒平均長度：', ptotal / result.pStreakLen.length)
 		// result.lastBankB.printSorted("banker龍尾的牌：")
 		// result.firstBankB.printSorted("banker龍頭的牌：")
 		console.log(
-			`龍擺尾長度：`,
+			'龍擺尾長度：',
 			result.longStreak.reduce((a, b) => a + b) / result.longStreak.length,
 			result.longStreak.length
 		)
-		console.log(``)
+		console.log('')
 		console.log(
-			`第一列平均長度：`,
+			'第一列平均長度：',
 			result.firstStreak.allarray.reduce((a: number, b: number) => a + b) /
 				result.firstStreak.allarray.length
 		)
 		console.log(
-			`第一列莊長度：`,
+			'第一列莊長度：',
 			result.firstStreak.barray.reduce((a: number, b: number) => a + b) /
 				result.firstStreak.barray.length
 		)
 		console.log(
-			`第一列閒長度：`,
+			'第一列閒長度：',
 			result.firstStreak.parray.reduce((a: number, b: number) => a + b) /
 				result.firstStreak.parray.length
 		)

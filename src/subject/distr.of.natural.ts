@@ -1,14 +1,14 @@
-import {Engine, HandOutcome, Natural, BancoNatural} from "bac-motor"
-import CliTable from "../report/Table"
-import CounterMap from "./collection/CounterMap"
+import { Engine, HandOutcome, Natural, BancoNatural } from 'bac-motor'
+import CliTable from '../report/Table'
+import CounterMap from './collection/CounterMap'
 
 const engine = new Engine()
 const shoeAmount = 5000
 const round = 3
 const table = new CliTable({
-	head: ["category", "eight", "nine"],
+	head: ['category', 'eight', 'nine'],
 	colWidths: [20, 20, 20],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 
 const result = {
@@ -23,10 +23,10 @@ let cardMap = {
 }
 
 const testCase = {
-	init() {
+	init(){
 		engine.powerOn()
 	},
-	work() {
+	work(){
 		result.banker8 = 0
 		result.banker9 = 0
 		result.player8 = 0
@@ -39,7 +39,7 @@ const testCase = {
 			const tags: Natural[] = handComeout.tagArray.filter((item) => {
 				return item instanceof Natural
 			}) as Natural[]
-			if (!tags.length) {
+			if (!tags.length){
 				return undefined
 			}
 			tags.forEach((tag) => {
@@ -48,46 +48,46 @@ const testCase = {
 				let first
 				let second
 				let map
-				if (tag instanceof BancoNatural) {
-					if (tag.score === 8) {
+				if (tag instanceof BancoNatural){
+					if (tag.score === 8){
 						result.banker8++
 					} else {
 						result.banker9++
 					}
-					;[first, second] = bHand
+					[first, second] = bHand
 					map = cardMap.b
 				} else {
-					if (tag.score === 8) {
+					if (tag.score === 8){
 						result.player8++
 					} else {
 						result.player9++
 					}
-					;[first, second] = pHand
+					[first, second] = pHand
 					map = cardMap.p
 				}
 				map.count(first.getPoint())
 				map.count(second.getPoint())
 			})
 		}
-		for (let i = 0; i < shoeAmount; i++) {
+		for (let i = 0; i < shoeAmount; i++){
 			engine.playOneShoe(undefined, afterShoe)
 		}
 		table.push(
-			[`B`, result.banker8, result.banker9],
-			["P", result.player8, result.player9]
+			['B', result.banker8, result.banker9],
+			['P', result.player8, result.player9]
 		)
 	},
-	run() {
-		for (let i = 0; i < round; i++) {
+	run(){
+		for (let i = 0; i < round; i++){
 			this.work()
 		}
-		cardMap.b.printSorted("莊家天牌，兩張card：")
-		cardMap.p.printSorted("閒家天牌，兩張card：")
+		cardMap.b.printSorted('莊家天牌，兩張card：')
+		cardMap.p.printSorted('閒家天牌，兩張card：')
 
 		engine.shutdown()
 	},
-	report() {
-		table.print(`天牌分佈：`)
+	report(){
+		table.print('天牌分佈：')
 	},
 }
 

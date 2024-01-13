@@ -4,32 +4,32 @@ import {
 	Bet,
 	FreeMun as Free,
 	BancoMun as Banker,
-} from "bac-motor"
-import HandOutcomeOrUndefined from "../model/strategy/type/HandOutcomeOrUndefined"
-import BetOrUndefined from "../model/strategy/type/BetOrUndefined"
-import AntBetProgression from "./strategy/AntBetProgression"
-import AntStrategy from "./strategy/AntStrategy"
-import CliTable from "../report/Table"
+} from 'bac-motor'
+import HandOutcomeOrUndefined from '../model/strategy/type/HandOutcomeOrUndefined'
+import BetOrUndefined from '../model/strategy/type/BetOrUndefined'
+import AntBetProgression from './strategy/AntBetProgression'
+import AntStrategy from './strategy/AntStrategy'
+import CliTable from '../report/Table'
 
 const engine = new Engine()
 const shoeAmount = 8000
 const capital = 10000
 let balance = capital
-const profitGoal = 40
+const profitGoal = 2
 const stopLoss = 50
 let currentRound = 0
 const targetRound = 40
 
 const tableDistribution = new CliTable({
 	head: [
-		"round/statistics",
-		"bet money",
-		"betting times",
-		"commision",
-		"balance",
+		'round/statistics',
+		'bet money',
+		'betting times',
+		'commision',
+		'balance',
 	],
 	colWidths: [15, 15, 15, 15, 15],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 
 const result = {
@@ -49,11 +49,11 @@ const result = {
 // }
 
 const testCase = {
-	init() {
+	init(){
 		engine.powerOn()
 	},
-	run() {
-		for (let i = 0; i < shoeAmount; i++) {
+	run(){
+		for (let i = 0; i < shoeAmount; i++){
 			let isFree = false
 			const seq = new AntBetProgression()
 			const system = new AntStrategy(seq)
@@ -67,7 +67,7 @@ const testCase = {
 				system.setBalance(balance)
 				bet = system.figureOutBet(prevBet, prevComeout as HandOutcome)
 				isFree = bet.getMun() instanceof Free
-				if (!isFree) {
+				if (!isFree){
 					const wager = bet.getWager()
 					balance = balance - wager
 					result.bettingTimes++
@@ -76,18 +76,16 @@ const testCase = {
 				return bet
 			}
 			const afterPlay = (handResult: HandOutcome): void => {
-				if (isFree) {
+				if (isFree){
 					return undefined
 				}
 				const payout = handResult.getPayout()
 				balance = balance + payout
-				if (bet.getMun() instanceof Banker) {
-					// if (handResult.tagArray.find(item => item instanceof SuperSix)) {
+				if (bet.getMun() instanceof Banker){
 					result.commision += handResult.getWager() * 0.05
-					// }
 				}
 				// console.log(`${handResult.getWager()}\t${payout}\t${balance}`)
-				if (balance >= capital + profitGoal) {
+				if (balance >= capital + profitGoal){
 					tableDistribution.push([
 						++currentRound,
 						Math.round(result.betMoney),
@@ -99,26 +97,26 @@ const testCase = {
 					result.betMoney = 0
 					result.bettingTimes = 0
 					result.commision = 0
-					if (currentRound == targetRound) {
+					if (currentRound == targetRound){
 						console.log(`完成任務${targetRound}輪`)
 						engine.shutdown()
 					}
-				} else if (balance < stopLoss) {
+				} else if (balance < stopLoss){
 					engine.shutdown()
 					console.log(`輸光了！第${handResult.getShoeIndex()}shoe`, balance)
 				}
 			}
 			try {
 				engine.playOneShoe(beforePlay, afterPlay)
-			} catch (e) {
-				console.log("shutdown:", 2 || e)
+			} catch (e){
+				console.log('shutdown:', 2 || e)
 				break
 			}
 		}
 		engine.shutdown()
 	},
-	report() {
-		tableDistribution.print(`20 shoes，螞蟻🐜搬家打法：`)
+	report(){
+		// tableDistribution.print(`20 shoes，螞蟻🐜搬家打法：`)
 	},
 }
 

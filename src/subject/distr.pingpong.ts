@@ -1,18 +1,18 @@
-import {BigRoad} from "marga"
-import massiveTestConfig from "../config/massiveTestConfig"
-import CounterMap from "./collection/CounterMap"
-import {Engine, ShoeOutcome} from "bac-motor"
-import CliTable from "../report/Table"
-import util from "../tool/util"
-import samael from "samael"
+import { BigRoad } from 'marga'
+import massiveTestConfig from '../config/massiveTestConfig'
+import CounterMap from './collection/CounterMap'
+import { Engine, ShoeOutcome } from 'bac-motor'
+import CliTable from '../report/Table'
+import util from '../tool/util'
+import samael from 'samael'
 
 const engine = new Engine()
 const shoeAmount = 10000
 const round = 1
 const table = new CliTable({
-	head: ["total", "B", "P", "tie"],
+	head: ['total', 'B', 'P', 'tie'],
 	colWidths: [20, 20, 20, 20],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 
 let result: {
@@ -32,14 +32,14 @@ let result: {
 }
 
 const testCase = {
-	init() {
+	init(){
 		const config = Object.assign({}, massiveTestConfig, {
 			shouldGenerateRoad: true,
 			shouldCutShoe: true,
 		})
 		engine.powerOn(config)
 	},
-	work() {
+	work(){
 		result = {
 			tie: 0,
 			banker: 0,
@@ -50,17 +50,17 @@ const testCase = {
 		}
 		const date = new Date()
 		const path =
-			"/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt"
+			'/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt'
 		let prom = samael
 			.writeToFile(path, `${date.toLocaleString()}\n  \n`)
-			.catch((e: Error) => console.log("錯誤", e))
-		for (let i = 0; i < shoeAmount; i++) {
+			.catch((e: Error) => console.log('錯誤', e))
+		for (let i = 0; i < shoeAmount; i++){
 			const shoeComeout: ShoeOutcome = engine.playOneShoe()
 			const info = shoeComeout.getStatisticInfo()
 			let str = `${shoeComeout.getShoeIndex()}\t${info.banco}\t${info.punto}\t${
 				info.tie
 			}\n`
-			str = ""
+			str = ''
 			prom = prom.then(() => samael.appendToFile(path, str))
 			this.showRoad(shoeComeout)
 
@@ -72,27 +72,27 @@ const testCase = {
 		table.push(
 			[totalResult, result.banker, result.player, result.tie],
 			[
-				`100 %`,
-				util.percentize(result.banker / totalResult) + " %",
-				util.percentize(result.player / totalResult) + " %",
-				util.percentize(result.tie / totalResult) + " %",
+				'100 %',
+				util.percentize(result.banker / totalResult) + ' %',
+				util.percentize(result.player / totalResult) + ' %',
+				util.percentize(result.tie / totalResult) + ' %',
 			]
 		)
 	},
-	showRoad(shoeComeout: ShoeOutcome) {
+	showRoad(shoeComeout: ShoeOutcome){
 		const road: BigRoad = shoeComeout.getBigRoad()
 		// 舊API
 		let streak = road.getFirstStreak()
 		// 遍歷streak,忽略最後一個
-		while (streak?.getNextStreak()) {
-			if (streak.getLength() > 1) {
+		while (streak?.getNextStreak()){
+			if (streak.getLength() > 1){
 				let prev = streak.getPreviousStreak()
 				let length = 0
-				while (prev?.getLength() === 1) {
+				while (prev?.getLength() === 1){
 					length++
 					prev = prev.getPreviousStreak()
 				}
-				if (length > 6) {
+				if (length > 6){
 					result.streakAfterPingpong.push(streak.getLength())
 				}
 			}
@@ -101,30 +101,30 @@ const testCase = {
 		// 新的API
 		const gen = road.getPingpongIterator()
 		let next = gen.next()
-		while (!next.done) {
+		while (!next.done){
 			result.pingpongLen.push(next.value.length)
 			next = gen.next()
 		}
 	},
-	run() {
-		for (let i = 0; i < round; i++) {
+	run(){
+		for (let i = 0; i < round; i++){
 			this.work()
 		}
 		engine.shutdown()
 	},
-	report() {
-		table.print(`莊閒分佈： `)
+	report(){
+		table.print('莊閒分佈： ')
 		const totalStreak = result.streakAfterPingpong.reduce((a, b) => a + b)
 		const total_pingpong_length = result.pingpongLen.reduce((a, b) => a + b)
 		console.log(
-			`單跳之後的龍，平均長度：`,
+			'單跳之後的龍，平均長度：',
 			totalStreak / result.streakAfterPingpong.length
 		)
 		console.log(
-			`單跳平均長度：`,
+			'單跳平均長度：',
 			total_pingpong_length / result.pingpongLen.length
 		)
-		console.log(`單跳最長：`, Math.max(...result.pingpongLen))
+		console.log('單跳最長：', Math.max(...result.pingpongLen))
 	},
 }
 

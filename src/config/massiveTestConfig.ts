@@ -1,4 +1,4 @@
-import {Config} from "bac-motor"
+import { Config } from 'bac-motor'
 const massiveTestConfig: Config = {
 	shouldCutShoe: false,
 	shouldDetectShoe: false,

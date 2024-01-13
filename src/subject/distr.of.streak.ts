@@ -1,6 +1,6 @@
-import {Engine, ShoeOutcome} from "bac-motor"
-import CliTable from "../report/Table"
-import CounterMap from "./collection/CounterMap"
+import { Engine, ShoeOutcome } from 'bac-motor'
+import CliTable from '../report/Table'
+import CounterMap from './collection/CounterMap'
 
 const engine = new Engine()
 const shoeAmount = 20000
@@ -8,19 +8,19 @@ const round = 1
 const width = 8
 const table = new CliTable({
 	head: [
-		"categ",
-		"11",
-		"12",
-		"13",
-		"14",
-		"15",
-		"16",
-		"17",
-		"18",
-		"19",
-		"20",
-		"21",
-		"22",
+		'categ',
+		'11',
+		'12',
+		'13',
+		'14',
+		'15',
+		'16',
+		'17',
+		'18',
+		'19',
+		'20',
+		'21',
+		'22',
 	],
 	colWidths: [
 		width,
@@ -37,7 +37,7 @@ const table = new CliTable({
 		width,
 		width,
 	],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 
 const result: {[key: string]: CounterMap<number>} = {
@@ -47,14 +47,14 @@ const result: {[key: string]: CounterMap<number>} = {
 }
 
 const testCase = {
-	init() {
+	init(){
 		engine.powerOn()
 	},
-	work() {
+	work(){
 		const mapB = result.bstreak
 		const mapP = result.pstreak
 		const mapfirst = result.firstStreak
-		for (let i = 0; i < shoeAmount; i++) {
+		for (let i = 0; i < shoeAmount; i++){
 			const shoeoutcome: ShoeOutcome = engine.playOneShoe(undefined, undefined)
 			const road = shoeoutcome.getBigRoad()
 			let streak = road.getFirstStreak()
@@ -63,9 +63,9 @@ const testCase = {
 			// }
 			mapfirst.count(streak?.getLength() || 0)
 			// 所有
-			while (streak) {
+			while (streak){
 				const first = streak.getFirstEntity()
-				if (first?.isBanco) {
+				if (first?.isBanco){
 					mapB.count(streak.getLength())
 				} else {
 					mapP.count(streak.getLength())
@@ -75,20 +75,20 @@ const testCase = {
 		}
 		const arrB: any[] = []
 		const arrP: any[] = []
-		for (let i = 11; i < 23; i++) {
+		for (let i = 11; i < 23; i++){
 			arrB.push(mapB.get(i))
 			arrP.push(mapP.get(i))
 		}
-		table.push(["B", ...arrB], ["P", ...arrP])
+		table.push(['B', ...arrB], ['P', ...arrP])
 	},
-	run() {
-		for (let i = 0; i < round; i++) {
+	run(){
+		for (let i = 0; i < round; i++){
 			this.work()
 		}
 		engine.shutdown()
 	},
-	report() {
-		table.print(`七萬shoe長龍分佈：`)
+	report(){
+		table.print('七萬shoe長龍分佈：')
 		// let totalB = 0
 		// let totalP = 0
 		// result.bstreak.forEach((item)=>{totalB = totalB + item})

@@ -1,34 +1,34 @@
-import {Engine, HandOutcome, HandResult} from "bac-motor"
-import CliTable from "../report/Table"
-import util from "../tool/util"
-import CounterMap from "./collection/CounterMap"
-import samael from "samael"
+import { Engine, HandOutcome, HandResult } from 'bac-motor'
+import CliTable from '../report/Table'
+import util from '../tool/util'
+import CounterMap from './collection/CounterMap'
+import samael from 'samael'
 
 const engine = new Engine()
 const shoeAmount = 400
 let losingStreakLength = 0
 
 const tableDistribution = new CliTable({
-	head: ["total", "win", "loss"],
+	head: ['total', 'win', 'loss'],
 	colWidths: [20, 20, 20],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 const length = 6
 const tableStrek = new CliTable({
 	head: [
-		"8",
-		"9",
-		"10",
-		"11",
-		"12",
-		"13",
-		"14",
-		"15",
-		"16",
-		"17",
-		"18",
-		"19",
-		"20",
+		'8',
+		'9',
+		'10',
+		'11',
+		'12',
+		'13',
+		'14',
+		'15',
+		'16',
+		'17',
+		'18',
+		'19',
+		'20',
 	],
 	colWidths: [
 		length,
@@ -45,7 +45,7 @@ const tableStrek = new CliTable({
 		length,
 		length,
 	],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 
 let result = {
@@ -55,24 +55,24 @@ let result = {
 }
 
 const testCase = {
-	init() {
+	init(){
 		engine.powerOn()
 	},
-	run() {
+	run(){
 		result = {
 			win: 0,
 			loss: 0,
 			losingStreak: new CounterMap<number>(),
 		}
-		for (let i = 0; i < shoeAmount; i++) {
+		for (let i = 0; i < shoeAmount; i++){
 			engine.playOneShoe(undefined, (handResult: HandOutcome) => {
 				const expectWinner = samael.flipCoin()
 					? HandResult.PuntoWins
 					: HandResult.BancoWins
-				if (handResult.result == HandResult.Tie) {
+				if (handResult.result == HandResult.Tie){
 					return undefined
 				}
-				if (handResult.result == expectWinner) {
+				if (handResult.result == expectWinner){
 					result.loss++
 					losingStreakLength++
 				} else {
@@ -85,25 +85,25 @@ const testCase = {
 		}
 		const totalBet: number = result.win + result.loss
 		tableDistribution.push(
-			[totalBet + " hand", result.win, result.loss],
+			[totalBet + ' hand', result.win, result.loss],
 			[
-				100 + "%",
-				util.percentize(result.win / totalBet) + "%",
-				util.percentize(result.loss / totalBet) + "%",
+				100 + '%',
+				util.percentize(result.win / totalBet) + '%',
+				util.percentize(result.loss / totalBet) + '%',
 			]
 		)
 
 		const map = result.losingStreak
 		const arr = []
-		for (let i = 8; i < 21; i++) {
+		for (let i = 8; i < 21; i++){
 			arr.push(map.get(i) || 0)
 		}
 		tableStrek.push(arr)
 		engine.shutdown()
 	},
-	report() {
-		tableDistribution.print(`拋硬幣輸贏分佈：`)
-		tableStrek.print(`拋硬幣連輸：`)
+	report(){
+		tableDistribution.print('拋硬幣輸贏分佈：')
+		tableStrek.print('拋硬幣連輸：')
 	},
 }
 

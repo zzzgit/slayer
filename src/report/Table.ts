@@ -1,4 +1,4 @@
-const Table = require("cli-table3")
+const Table = require('cli-table3')
 
 type CellContent = string | number
 
@@ -9,18 +9,18 @@ type Config = {
 	style: {[key: string]: any}
 }
 
-class CliTable {
+class CliTable{
 	private table
 
-	constructor(config: Config) {
+	constructor(config: Config){
 		this.table = new Table(config)
 	}
 
-	push(...arr: CellContent[][]): any {
+	push(...arr: CellContent[][]): any{
 		return this.table.push(...arr)
 	}
 
-	print(title: string): void {
+	print(title: string): void{
 		console.log(title)
 		console.log(this.table.toString())
 	}

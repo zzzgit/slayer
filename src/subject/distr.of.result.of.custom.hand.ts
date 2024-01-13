@@ -1,17 +1,17 @@
-import {Engine, Config} from "bac-motor"
-import {Card} from "cardation"
-import CliTable from "../report/Table"
-import util from "../tool/util"
-import CardMagazine from "./cardMagazine/CardMagazine"
+import { Engine, Config } from 'bac-motor'
+import { Card } from 'cardation'
+import CliTable from '../report/Table'
+import util from '../tool/util'
+import CardMagazine from './cardMagazine/CardMagazine'
 
 const engine = new Engine()
 const shoeAmount = 5000
 let cardsAmount = 0
 const round = 1
 const table = new CliTable({
-	head: ["total", "B", "P", "tie"],
+	head: ['total', 'B', 'P', 'tie'],
 	colWidths: [20, 20, 20, 20],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 
 const result = {
@@ -21,7 +21,7 @@ const result = {
 }
 
 const testCase = {
-	init() {
+	init(){
 		const cards: Card[] = CardMagazine.getCardsWithNo6()
 		cardsAmount = cards.length
 		const config: Config = {
@@ -35,12 +35,12 @@ const testCase = {
 		}
 		engine.powerOn(config)
 	},
-	work() {
+	work(){
 		result.tie = 0
 		result.banker = 0
 		result.player = 0
 
-		for (let i = 0; i < shoeAmount; i++) {
+		for (let i = 0; i < shoeAmount; i++){
 			const shoeComeout = engine.playOneShoe(undefined, undefined)
 			const info = shoeComeout.getStatisticInfo()
 			result.banker = result.banker + info.banco
@@ -52,23 +52,23 @@ const testCase = {
 		table.push(
 			[totalResult, result.banker, result.player, result.tie],
 			[
-				`100 %`,
-				util.percentize(result.banker / totalResult) + " %",
-				util.percentize(result.player / totalResult) + " %",
-				util.percentize(result.tie / totalResult) + " %",
+				'100 %',
+				util.percentize(result.banker / totalResult) + ' %',
+				util.percentize(result.player / totalResult) + ' %',
+				util.percentize(result.tie / totalResult) + ' %',
 			]
 		)
 		// table.push([100, util.percentize(result.banker / totalResult), util.percentize(result.punto / totalResult), util.percentize(result.tie / totalResult)])
 	},
-	run() {
-		for (let i = 0; i < round; i++) {
+	run(){
+		for (let i = 0; i < round; i++){
 			this.work()
 		}
 		engine.shutdown()
 	},
-	report() {
+	report(){
 		console.log(`cards in shoe: ${cardsAmount}`)
-		table.print(`莊閒分佈：`)
+		table.print('莊閒分佈：')
 		const cal = util.getOddCal(result.banker, result.player, result.tie, false)
 		console.log(`買莊EV: ${cal.getReward(true) * 100}%`)
 	},

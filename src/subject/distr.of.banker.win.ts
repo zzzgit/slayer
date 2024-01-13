@@ -1,14 +1,14 @@
-import {Engine, HandResult, HandOutcome} from "bac-motor"
-import CliTable from "../report/Table"
-import util from "../tool/util"
+import { Engine, HandResult, HandOutcome } from 'bac-motor'
+import CliTable from '../report/Table'
+import util from '../tool/util'
 
 const engine = new Engine()
 const shoeAmount = 5000
 const round = 3
 const table = new CliTable({
-	head: ["total", "two", "three"],
+	head: ['total', 'two', 'three'],
 	colWidths: [20, 20, 20],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 
 const result = {
@@ -17,22 +17,22 @@ const result = {
 }
 
 const testCase = {
-	init() {
+	init(){
 		engine.powerOn()
 	},
-	work() {
+	work(){
 		result.two = 0
 		result.three = 0
 		const xxxx = (handResult: HandOutcome): void => {
-			if (handResult.result == HandResult.BancoWins) {
-				if (handResult.bancoHand.getLength() === 2) {
+			if (handResult.result == HandResult.BancoWins){
+				if (handResult.bancoHand.getLength() === 2){
 					result.two++
 				} else {
 					result.three++
 				}
 			}
 		}
-		for (let i = 0; i < shoeAmount; i++) {
+		for (let i = 0; i < shoeAmount; i++){
 			engine.playOneShoe(undefined, xxxx)
 		}
 		const total = result.two + result.three
@@ -42,14 +42,14 @@ const testCase = {
 			`${result.three} / ${util.percentize(result.three / total)}%`,
 		])
 	},
-	run() {
-		for (let i = 0; i < round; i++) {
+	run(){
+		for (let i = 0; i < round; i++){
 			this.work()
 		}
 		engine.shutdown()
 	},
-	report() {
-		table.print(`莊贏，牌的張數：`)
+	report(){
+		table.print('莊贏，牌的張數：')
 	},
 }
 

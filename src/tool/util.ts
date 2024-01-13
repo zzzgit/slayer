@@ -1,11 +1,11 @@
-import {Card} from "cardation"
-import OddCalculator from "./OddCalculator"
+import { Card } from 'cardation'
+import OddCalculator from './OddCalculator'
 
 const util = {
-	percentize(num: number, position: number = 2) {
+	percentize(num: number, position: number = 2){
 		return (num * 100).toFixed(position)
 	},
-	sum(arr: number[]): number {
+	sum(arr: number[]): number{
 		let result = 0
 		arr.forEach((item) => {
 			result += +item
@@ -13,7 +13,7 @@ const util = {
 		return result
 	},
 	// Average absolute deviation
-	aad(arr: number[]) {
+	aad(arr: number[]){
 		const sum = this.sum(arr)
 		const avg = sum / arr.length
 		let deviationSum = 0
@@ -22,82 +22,82 @@ const util = {
 		})
 		return deviationSum / arr.length
 	},
-	min(arr: number[]) {
-		if (arr.length == 0) {
-			throw new Error("不能為空")
+	min(arr: number[]){
+		if (arr.length == 0){
+			throw new Error('不能為空')
 		}
 		let min = Infinity
-		for (const element of arr) {
+		for (const element of arr){
 			const elem = +element
-			if (elem < min) {
+			if (elem < min){
 				min = elem
 			}
 		}
 		return min
 	},
-	max(arr: number[]) {
-		if (arr.length == 0) {
-			throw new Error(" 不能為空")
+	max(arr: number[]){
+		if (arr.length == 0){
+			throw new Error(' 不能為空')
 		}
 		let max = -Infinity
-		for (const element of arr) {
+		for (const element of arr){
 			const elem = +element
-			if (elem > max) {
+			if (elem > max){
 				max = elem
 			}
 		}
 		return max
 	},
-	range(arr: number[]) {
+	range(arr: number[]){
 		return this.max(arr) - this.min(arr)
 	},
-	mean(arr: number[]) {
-		if (arr.length == 0) {
+	mean(arr: number[]){
+		if (arr.length == 0){
 			return null
 		}
 		return this.sum(arr) / arr.length
 	},
-	median(arr: number[]) {
-		if (arr.length == 0) {
+	median(arr: number[]){
+		if (arr.length == 0){
 			return null
 		}
 		const sorted = arr.sort((a, b) => {
 			return a - b
 		})
 		const mid = Math.floor(sorted.length / 2)
-		if (sorted.length % 2 == 1) {
+		if (sorted.length % 2 == 1){
 			return +sorted[mid]
 		}
 		const top = +sorted[mid]
 		const bot = +sorted[mid - 1]
 		return (top + bot) / 2
 	},
-	fillArray(arr: any[]) {
-		for (let i = 0, len = arr.length; i < len; i++) {
-			if (arr[i] == null) {
+	fillArray(arr: any[]){
+		for (let i = 0, len = arr.length; i < len; i++){
+			if (arr[i] == null){
 				arr[i] = 0
 			}
 		}
 	},
-	countScore(cards: Card[]): number {
+	countScore(cards: Card[]): number{
 		let totalScore = 0
 		cards.forEach((card: Card) => {
 			const cardScore = card.getPoint()
-			if (0 < cardScore && cardScore < 3) {
+			if (0 < cardScore && cardScore < 3){
 				totalScore += 1
-			} else if (cardScore === 3) {
+			} else if (cardScore === 3){
 				totalScore += 2
-			} else if (cardScore === 4) {
+			} else if (cardScore === 4){
 				totalScore += 3
-			} else if (4 < cardScore && cardScore < 8) {
+			} else if (4 < cardScore && cardScore < 8){
 				totalScore += -2
-			} else if (cardScore === 8) {
+			} else if (cardScore === 8){
 				totalScore += -1
 			}
 		})
 		return totalScore
 	},
-	getVariance(list: number[] = []): number {
+	getVariance(list: number[] = []): number{
 		const total = list.reduce((a, b) => a + b)
 		const mean = total / list.length
 		const varianceArr = list.map((value) => (value - mean) ** 2)
@@ -109,7 +109,7 @@ const util = {
 		puntoWins: number,
 		tie: number,
 		betOnBanco: boolean
-	): OddCalculator {
+	): OddCalculator{
 		return OddCalculator.from(bancoWins, puntoWins, tie, betOnBanco)
 	},
 }

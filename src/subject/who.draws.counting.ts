@@ -1,16 +1,16 @@
-import CliTable from "../report/Table"
-import util from "../tool/util"
-import massiveTestConfig from "../config/massiveTestConfig"
-import Engine, {HandOutcome, HandResult} from "bac-motor"
+import CliTable from '../report/Table'
+import util from '../tool/util'
+import massiveTestConfig from '../config/massiveTestConfig'
+import Engine, { HandOutcome, HandResult } from 'bac-motor'
 
 const engine = new Engine()
 const shoeAmount = 6000
 const isBetOnBanco = true
 
 const tableDistribution = new CliTable({
-	head: ["bet/result", "win", "loss", "tie"],
+	head: ['bet/result', 'win', 'loss', 'tie'],
 	colWidths: [15, 15, 15, 15],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 
 let result = {
@@ -23,14 +23,14 @@ let result = {
 }
 
 const testCase = {
-	init() {
+	init(){
 		const config = Object.assign({}, massiveTestConfig, {
 			shouldGenerateRoad: false,
 			shouldCutShoe: true,
 		})
 		engine.powerOn(config)
 	},
-	run() {
+	run(){
 		result = {
 			total: 0,
 			counter: {
@@ -43,11 +43,11 @@ const testCase = {
 			const banco_cards = handResult.bancoHand.getLength()
 			const punto_cards = handResult.puntoHand.getLength()
 			const testScheme = 5
-			if (banco_cards + punto_cards == testScheme) {
-				if (banco_cards == 2) {
-					if (handResult.result == HandResult.BancoWins) {
+			if (banco_cards + punto_cards == testScheme){
+				if (banco_cards == 2){
+					if (handResult.result == HandResult.BancoWins){
 						result.counter.bancowins++
-					} else if (handResult.result == HandResult.PuntoWins) {
+					} else if (handResult.result == HandResult.PuntoWins){
 						result.counter.puntowins++
 					} else {
 						result.counter.tie++
@@ -55,17 +55,17 @@ const testCase = {
 				}
 			}
 		}
-		for (let i = 0; i < shoeAmount; i++) {
+		for (let i = 0; i < shoeAmount; i++){
 			engine.playOneShoe(undefined, afterPlay)
 		}
-		const {counter} = result
+		const { counter } = result
 		result.total =
 			result.counter.bancowins + result.counter.puntowins + result.counter.tie
-		const {total} = result
+		const { total } = result
 		tableDistribution.push(
-			["bet times", counter.bancowins, counter.puntowins, counter.tie],
+			['bet times', counter.bancowins, counter.puntowins, counter.tie],
 			[
-				"bet perct",
+				'bet perct',
 				util.percentize(counter.bancowins / total),
 				util.percentize(counter.puntowins / total),
 				util.percentize(counter.tie / total),
@@ -74,8 +74,8 @@ const testCase = {
 
 		engine.shutdown()
 	},
-	report() {
-		tableDistribution.print(`六千靴牌，大小牌算牌法，輸贏：`)
+	report(){
+		tableDistribution.print('六千靴牌，大小牌算牌法，輸贏：')
 		const count = result.counter
 		const cal = util.getOddCal(
 			count.bancowins,

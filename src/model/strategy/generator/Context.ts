@@ -1,4 +1,4 @@
-import Instruct from "./Instruct"
+import Instruct from './Instruct'
 
 // eslint-disable-next-line @typescript-eslint/no-type-alias
 type Context = {

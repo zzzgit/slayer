@@ -1,9 +1,9 @@
-import {Card} from "cardation"
-import {HandOutcome} from "bac-motor"
+import { Card } from 'cardation'
+import { HandOutcome } from 'bac-motor'
 const tool = {
-	countNextHandScore(handResult: HandOutcome | undefined): number {
+	countNextHandScore(handResult: HandOutcome | undefined): number{
 		let result = 0
-		if (!handResult) {
+		if (!handResult){
 			return 0
 		}
 		const score = this._countScore(handResult)
@@ -14,16 +14,16 @@ const tool = {
 	countHandScore(
 		handResult: HandOutcome | undefined,
 		shouldConsiderPre: boolean = false
-	): number {
+	): number{
 		let result = 0
-		if (!handResult) {
+		if (!handResult){
 			return 0
 		}
 		result = this._countScoreByWait(handResult, shouldConsiderPre)
 		return result
 	},
 	// 權重直接用整數表示分數，沒用下面的數組，可以對比兩種算法的效果
-	_countScore(handOutcome: HandOutcome): number {
+	_countScore(handOutcome: HandOutcome): number{
 		const bhand = handOutcome.bancoHand
 		const phand = handOutcome.puntoHand
 		const cards: Card[] = [
@@ -35,15 +35,15 @@ const tool = {
 		cards.forEach((card) => {
 			let delta = 0
 			const score = card.getPoint()
-			if (0 < score && score < 4) {
+			if (0 < score && score < 4){
 				delta = -1
-			} else if (score === 4) {
+			} else if (score === 4){
 				delta = -2
-			} else if (score === 5) {
+			} else if (score === 5){
 				delta = 1
-			} else if (score === 6) {
+			} else if (score === 6){
 				delta = 2
-			} else if (score === 7 || score === 8) {
+			} else if (score === 7 || score === 8){
 				delta = 1
 			}
 			result = result + delta
@@ -53,7 +53,7 @@ const tool = {
 	_countScoreByWait(
 		handOutcome: HandOutcome,
 		shouldConsiderPre: boolean = false
-	): number {
+	): number{
 		const bhand = handOutcome.bancoHand
 		const phand = handOutcome.puntoHand
 		const cards: Card[] = [
@@ -61,7 +61,7 @@ const tool = {
 			...phand.getDuplicatedCardArray(),
 		]
 		const prev = handOutcome.getPreviousHandOutcome()
-		if (shouldConsiderPre && prev) {
+		if (shouldConsiderPre && prev){
 			const previousBHand = prev.bancoHand
 			const previousPHand = prev.puntoHand
 			cards.push(
@@ -70,7 +70,7 @@ const tool = {
 			)
 		}
 		const prevPrev = prev?.getPreviousHandOutcome()
-		if (shouldConsiderPre && prevPrev) {
+		if (shouldConsiderPre && prevPrev){
 			const previousBHand = prevPrev.bancoHand
 			const previousPHand = prevPrev.puntoHand
 			cards.push(

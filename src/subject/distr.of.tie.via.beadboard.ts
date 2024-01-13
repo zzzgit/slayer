@@ -1,16 +1,16 @@
-import {IEntity, BlueBeadEntity, RedBeadEntity, BeadRoad} from "marga"
-import {Engine, ShoeOutcome} from "bac-motor"
-import CliTable from "../report/Table"
-import util from "../tool/util"
-import * as samael from "samael"
+import { IEntity, BlueBeadEntity, RedBeadEntity, BeadRoad } from 'marga'
+import { Engine, ShoeOutcome } from 'bac-motor'
+import CliTable from '../report/Table'
+import util from '../tool/util'
+import * as samael from 'samael'
 
 const engine = new Engine()
 const shoeAmount = 1200
 const round = 1
 const table = new CliTable({
-	head: ["total", "B", "P", "tie"],
+	head: ['total', 'B', 'P', 'tie'],
 	colWidths: [20, 20, 20, 20],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 
 let result = {
@@ -20,11 +20,11 @@ let result = {
 }
 
 const testCase = {
-	init() {
-		const config = Object.assign({}, {shouldGenerateRoad: true})
+	init(){
+		const config = Object.assign({}, { shouldGenerateRoad: true })
 		engine.powerOn(config)
 	},
-	work() {
+	work(){
 		result = {
 			tie: 0,
 			banker: 0,
@@ -32,11 +32,11 @@ const testCase = {
 		}
 		const date = new Date()
 		const path =
-			"/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt"
+			'/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt'
 		let prom = samael
 			.writeToFile(path, `${date.toLocaleString()}\n  \n`)
-			.catch((e: Error) => console.log("錯誤", e))
-		for (let i = 0; i < shoeAmount; i++) {
+			.catch((e: Error) => console.log('錯誤', e))
+		for (let i = 0; i < shoeAmount; i++){
 			const shoeComeout: ShoeOutcome = engine.playOneShoe()
 			const info = shoeComeout.getStatisticInfo()
 			prom = prom.then(() =>
@@ -57,37 +57,37 @@ const testCase = {
 		table.push(
 			[totalResult, result.banker, result.player, result.tie],
 			[
-				`100 %`,
-				util.percentize(result.banker / totalResult) + " %",
-				util.percentize(result.player / totalResult) + " %",
-				util.percentize(result.tie / totalResult) + " %",
+				'100 %',
+				util.percentize(result.banker / totalResult) + ' %',
+				util.percentize(result.player / totalResult) + ' %',
+				util.percentize(result.tie / totalResult) + ' %',
 			]
 		)
 	},
-	showRoad(road: BeadRoad) {
-		let result = ""
+	showRoad(road: BeadRoad){
+		let result = ''
 		let last: IEntity = road.getLastEntity() as IEntity
-		while (last) {
-			if (last instanceof RedBeadEntity) {
-				result += " B"
-			} else if (last instanceof BlueBeadEntity) {
-				result += " P"
+		while (last){
+			if (last instanceof RedBeadEntity){
+				result += ' B'
+			} else if (last instanceof BlueBeadEntity){
+				result += ' P'
 			} else {
-				result += " T"
+				result += ' T'
 			}
 			last = last.getPreviousEntity() as IEntity
 		}
 		return result
 		// console.log(`第${road.getShoeIndex()}靴: ${result}`)
 	},
-	run() {
-		for (let i = 0; i < round; i++) {
+	run(){
+		for (let i = 0; i < round; i++){
 			this.work()
 		}
 		engine.shutdown()
 	},
-	report() {
-		table.print(`莊閒分佈：`)
+	report(){
+		table.print('莊閒分佈：')
 	},
 }
 

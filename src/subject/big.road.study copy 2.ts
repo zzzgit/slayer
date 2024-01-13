@@ -1,61 +1,69 @@
-import {Engine, HandOutcome, HandResult} from "bac-motor"
-import massiveTestConfig from "../config/massiveTestConfig"
-import CliTable from "../report/Table"
-import util from "../tool/util"
+import { Engine, HandOutcome, HandResult } from 'bac-motor'
+import massiveTestConfig from '../config/massiveTestConfig'
+import CliTable from '../report/Table'
+import util from '../tool/util'
 
 const engine = new Engine()
 const shoeAmount = 3000
 const round = 1
 let consecutiveBanco = 0
 const tableForResult = new CliTable({
-	head: ["result", "W", "L", "tie", "total"],
+	head: ['result', 'W', 'L', 'tie', 'total'],
 	colWidths: [20, 20, 20, 20, 20],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 const tableForProfit = new CliTable({
-	head: ["profit rate", "B", "P", "total"],
+	head: ['profit rate', 'B', 'P', 'total'],
 	colWidths: [20, 20, 20, 20],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 
 let result = {
-	banker: {tie: 0, win: 0, lose: 0},
-	player: {tie: 0, win: 0, lose: 0},
+	banker: {
+		tie: 0, win: 0, lose: 0
+	},
+	player: {
+		tie: 0, win: 0, lose: 0
+	},
 }
 
 const testCase = {
-	init() {
+	init(){
 		const config = Object.assign({}, massiveTestConfig, {
 			shouldGenerateRoad: true,
 			shouldCutShoe: true,
 		})
 		engine.powerOn(config)
 	},
-	work() {
+	work(){
 		result = {
-			banker: {tie: 0, win: 0, lose: 0},
-			player: {tie: 0, win: 0, lose: 0},
+			banker: {
+				tie: 0, win: 0, lose: 0
+			},
+			player: {
+				tie: 0, win: 0, lose: 0
+			},
 		}
 		const afterPlay = (houtcome: HandOutcome): void => {
 			const hresult = houtcome.result
 			const bHand = houtcome.bancoHand
 			const pHand = houtcome.puntoHand
 			const num = bHand.getLength() + pHand.getLength()
-			if (num === 4) {
+			if (num === 4){
 				//
-			} else if (num === 5) {
-				if (consecutiveBanco < 2) {
+			} else if (num === 5){
+				if (consecutiveBanco < 2){
 					consecutiveBanco++
-				} else if (consecutiveBanco == 2) {
+				} else if (consecutiveBanco == 2){
 					consecutiveBanco = 0
 				}
-			} else if (num === 6) {
-				if (consecutiveBanco < 2) {
+			} else if (num === 6){
+				if (consecutiveBanco < 2){
 					//
-				} else if (consecutiveBanco == 2) {
-					if (hresult == HandResult.BancoWins) {
+				} else if (consecutiveBanco == 2){
+					if (hresult == HandResult.BancoWins){
 						result.player.lose++
-					} else if (hresult == HandResult.PuntoWins) {
+					} else if (hresult == HandResult.PuntoWins){
 						result.player.win++
 					} else {
 						result.player.tie++
@@ -64,7 +72,7 @@ const testCase = {
 				consecutiveBanco = 0
 			}
 		}
-		for (let i = 0; i < shoeAmount; i++) {
+		for (let i = 0; i < shoeAmount; i++){
 			engine.playOneShoe(undefined, afterPlay)
 			consecutiveBanco = 0
 		}
@@ -79,31 +87,31 @@ const testCase = {
 		const smallTotal = smallTotalB + smallTotalP
 		const dataForResult = [
 			[
-				"on B",
+				'on B',
 				result.banker.win,
 				result.banker.lose,
 				result.banker.tie,
 				totalB,
 			],
 			[
-				`on B %`,
-				util.percentize(result.banker.win / totalB) + " %",
-				util.percentize(result.banker.lose / totalB) + " %",
-				util.percentize(result.banker.tie / totalB) + " %",
+				'on B %',
+				util.percentize(result.banker.win / totalB) + ' %',
+				util.percentize(result.banker.lose / totalB) + ' %',
+				util.percentize(result.banker.tie / totalB) + ' %',
 				100,
 			],
 			[
-				"on P",
+				'on P',
 				result.player.win,
 				result.player.lose,
 				result.player.tie,
 				totalP,
 			],
 			[
-				`on P %`,
-				util.percentize(result.player.win / totalP) + " %",
-				util.percentize(result.player.lose / totalP) + " %",
-				util.percentize(result.player.tie / totalP) + " %",
+				'on P %',
+				util.percentize(result.player.win / totalP) + ' %',
+				util.percentize(result.player.lose / totalP) + ' %',
+				util.percentize(result.player.tie / totalP) + ' %',
 				100,
 			],
 		]
@@ -114,30 +122,30 @@ const testCase = {
 
 		const dataForProfit = [
 			[
-				"include tie",
+				'include tie',
 				util.percentize(bProfit / totalB),
 				util.percentize(pProfit / totalP),
 				util.percentize(profit / total),
 			],
 			[
-				"exclude tie",
+				'exclude tie',
 				util.percentize(bProfit / smallTotalB),
 				util.percentize(pProfit / smallTotalP),
 				util.percentize(profit / smallTotal),
 			],
 		]
 		tableForProfit.push(...dataForProfit)
-		console.log("下手機會：", total)
+		console.log('下手機會：', total)
 	},
-	run() {
-		for (let i = 0; i < round; i++) {
+	run(){
+		for (let i = 0; i < round; i++){
 			this.work()
 		}
 		engine.shutdown()
 	},
-	report() {
-		tableForResult.print(`輸贏分佈： `)
-		tableForProfit.print(`利潤率(已扣除佣金)： `)
+	report(){
+		tableForResult.print('輸贏分佈： ')
+		tableForProfit.print('利潤率(已扣除佣金)： ')
 	},
 }
 

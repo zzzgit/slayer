@@ -1,4 +1,4 @@
-extends: ["janus/ts", "janus/security"]
+extends: ["janus/ts" ]
 # plugins: []
 ignorePatterns: ["built/**/*"]
 parserOptions:
@@ -6,4 +6,3 @@ parserOptions:
   project: ./tsconfig.json
   sourceType: module
 # rules:
-#   "prettier/prettier": error

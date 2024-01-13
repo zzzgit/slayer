@@ -1,4 +1,4 @@
-import HandOutcomeOrUndefined from "../model/strategy/type/HandOutcomeOrUndefined"
+import HandOutcomeOrUndefined from '../model/strategy/type/HandOutcomeOrUndefined'
 import {
 	Engine,
 	HandOutcome,
@@ -7,19 +7,19 @@ import {
 	HandResult,
 	BancoMun as Banker,
 	PuntoMun as Player,
-} from "bac-motor"
-import BetOrUndefined from "../model/strategy/type/BetOrUndefined"
-import FlatBetProgression from "./strategy/FlatBetProgression"
-import PiStrategy from "./strategy/PiStrategy"
-import CliTable from "../report/Table"
+} from 'bac-motor'
+import BetOrUndefined from '../model/strategy/type/BetOrUndefined'
+import FlatBetProgression from './strategy/FlatBetProgression'
+import PiStrategy from './strategy/PiStrategy'
+import CliTable from '../report/Table'
 
 const engine = new Engine()
 const shoeAmount = 1000
 
 const tableDistribution = new CliTable({
-	head: ["", "win", "lose", "tie"],
+	head: ['', 'win', 'lose', 'tie'],
 	colWidths: [15, 15, 15, 15],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 
 const result = {
@@ -37,11 +37,11 @@ const result = {
 }
 
 const testCase = {
-	init() {
+	init(){
 		engine.powerOn()
 	},
-	run() {
-		for (let i = 0; i < shoeAmount; i++) {
+	run(){
+		for (let i = 0; i < shoeAmount; i++){
 			let isFree = false
 			const seq = new FlatBetProgression(1)
 			const system = new PiStrategy(seq)
@@ -55,24 +55,24 @@ const testCase = {
 				return bet
 			}
 			const afterPlay = (hOutcome: HandOutcome): void => {
-				if (isFree) {
+				if (isFree){
 					return undefined
 				}
 				// 押莊
-				if (bet.getMun() instanceof Banker) {
-					if (hOutcome.result == HandResult.PuntoWins) {
+				if (bet.getMun() instanceof Banker){
+					if (hOutcome.result == HandResult.PuntoWins){
 						result.b.lose++
-					} else if (hOutcome.result == HandResult.BancoWins) {
+					} else if (hOutcome.result == HandResult.BancoWins){
 						result.b.win++
 					} else {
 						result.b.tie++
 					}
 				}
 				// 押閒
-				if (bet.getMun() instanceof Player) {
-					if (hOutcome.result == HandResult.PuntoWins) {
+				if (bet.getMun() instanceof Player){
+					if (hOutcome.result == HandResult.PuntoWins){
 						result.p.win++
-					} else if (hOutcome.result == HandResult.BancoWins) {
+					} else if (hOutcome.result == HandResult.BancoWins){
 						result.p.lose++
 					} else {
 						result.p.tie++
@@ -83,13 +83,13 @@ const testCase = {
 			}
 			engine.playOneShoe(beforePlay, afterPlay)
 		}
-		tableDistribution.push(["B", result.b.win, result.b.lose, result.b.tie])
-		tableDistribution.push(["P", result.p.win, result.p.lose, result.p.tie])
+		tableDistribution.push(['B', result.b.win, result.b.lose, result.b.tie])
+		tableDistribution.push(['P', result.p.win, result.p.lose, result.p.tie])
 		// tableDistribution.push(["100%", util.percentize(result.p / (result.p + result.b), 2) + "%", "", util.percentize(result.b / (result.p + result.b), 2) + "%"])
 		engine.shutdown()
 	},
-	report() {
-		tableDistribution.print(`300 shoes，according to Pi：`)
+	report(){
+		tableDistribution.print('300 shoes，according to Pi：')
 	},
 }
 

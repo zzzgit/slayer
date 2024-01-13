@@ -1,10 +1,10 @@
-import {Bet} from "bac-motor"
-import Progression from "./Progression"
-import ResetableGenerator from "./generator/ResetableGenerator"
-import BetOrUndefined from "./type/BetOrUndefined"
-import HandOutcomeOrUndefined from "./type/HandOutcomeOrUndefined"
+import { Bet } from 'bac-motor'
+import Progression from './Progression'
+import ResetableGenerator from './generator/ResetableGenerator'
+import BetOrUndefined from './type/BetOrUndefined'
+import HandOutcomeOrUndefined from './type/HandOutcomeOrUndefined'
 
-abstract class Strategy {
+abstract class Strategy{
 	private readonly _sequence: Progression
 
 	abstract figureOutBet(
@@ -12,11 +12,11 @@ abstract class Strategy {
 		lastHandComeout: HandOutcomeOrUndefined
 	): Bet
 
-	constructor(sequence: Progression) {
+	constructor(sequence: Progression){
 		this._sequence = sequence
 	}
 
-	getProgressionGenerator(): ResetableGenerator<number, void, boolean> {
+	getProgressionGenerator(): ResetableGenerator<number, void, boolean>{
 		return this._sequence.getGenerator()
 	}
 }

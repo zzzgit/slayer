@@ -1,23 +1,23 @@
-import Progression from "../../model/strategy/Progression"
-import Instruct from "../../model/strategy/generator/Instruct"
+import Progression from '../../model/strategy/Progression'
+import Instruct from '../../model/strategy/generator/Instruct'
 
-class LiaokoBetProgression extends Progression {
+class LiaokoBetProgression extends Progression{
 	private _seed: number[]
 
-	constructor(seed: number[]) {
+	constructor(seed: number[]){
 		super()
-		if (!Array.isArray(seed)) {
-			throw new Error("seed must be an array")
+		if (!Array.isArray(seed)){
+			throw new Error('seed must be an array')
 		}
 		this._seed = seed
 	}
 
-	*_getGen(): Generator<number, void, boolean> {
+	*_getGen(): Generator<number, void, boolean>{
 		const seed = this._seed
 		const context = this.getContext()
-		while (true) {
-			for (let i = 0; i < seed.length; i++) {
-				if (context.instruct == Instruct.Reset) {
+		while (true){
+			for (let i = 0; i < seed.length; i++){
+				if (context.instruct == Instruct.Reset){
 					context.instruct = Instruct.DoNothing
 					i = 0
 				}

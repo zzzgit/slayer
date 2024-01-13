@@ -1,10 +1,10 @@
 /* eslint-disable no-constant-condition */
-import {LosingEntity, Blackhole, WinningEntity} from "@zzznpm/orphan"
-import massiveTestConfig from "../config/massiveTestConfig"
-import Engine, {HandOutcome, HandResult} from "bac-motor"
-import CliTable from "../report/Table"
-import tool from "../tool/tool"
-import {Card} from "cardation"
+import { LosingEntity, Blackhole, WinningEntity } from '@zzznpm/orphan'
+import massiveTestConfig from '../config/massiveTestConfig'
+import Engine, { HandOutcome, HandResult } from 'bac-motor'
+import CliTable from '../report/Table'
+import tool from '../tool/tool'
+import { Card } from 'cardation'
 
 const engine = new Engine()
 const shoeAmount = 6000
@@ -15,9 +15,9 @@ let shorAccumulatedScore = 0
 let drawCards_int = 0
 
 const tableDistribution = new CliTable({
-	head: ["bet/result", "win", "loss", "tie"],
+	head: ['bet/result', 'win', 'loss', 'tie'],
 	colWidths: [15, 15, 15, 15],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 
 let result = {
@@ -34,14 +34,14 @@ let result = {
 }
 
 const testCase = {
-	init() {
+	init(){
 		const config = Object.assign({}, massiveTestConfig, {
 			shouldGenerateRoad: false,
 			shouldCutShoe: true,
 		})
 		engine.powerOn(config)
 	},
-	run() {
+	run(){
 		result = {
 			total: 0,
 			tie: {
@@ -58,25 +58,25 @@ const testCase = {
 			const longWeightedScore =
 				longAccumulatedScore / ((416 - drawCards_int) / 416)
 			const threshold_for_short = 3500
-			if (longWeightedScore > 25000) {
+			if (longWeightedScore > 25000){
 				// 30000，相當於每10手打一手，2000，相當於每5手打一手
-				if (shorAccumulatedScore > threshold_for_short) {
+				if (shorAccumulatedScore > threshold_for_short){
 					result.total++
-					if (hOutcome.result === HandResult.BancoWins) {
+					if (hOutcome.result === HandResult.BancoWins){
 						road.addEntity(new WinningEntity(true))
-					} else if (hOutcome.result === HandResult.PuntoWins) {
+					} else if (hOutcome.result === HandResult.PuntoWins){
 						road.addEntity(new LosingEntity(true))
 					} else {
 						result.tie.banker++
 					}
 				}
 			}
-			if (longWeightedScore < -30000) {
-				if (lastHandScore < -threshold_for_short) {
+			if (longWeightedScore < -30000){
+				if (lastHandScore < -threshold_for_short){
 					// result.total++
-					if (hOutcome.result === HandResult.BancoWins) {
+					if (hOutcome.result === HandResult.BancoWins){
 						// road.addEntity(new LosingEntity(false))
-					} else if (hOutcome.result === HandResult.PuntoWins) {
+					} else if (hOutcome.result === HandResult.PuntoWins){
 						// road.addEntity(new WinningEntity(false))
 					} else {
 						result.tie.player++
@@ -95,7 +95,7 @@ const testCase = {
 			longAccumulatedScore += lastHandScore
 			drawCards_int = 1
 		}
-		for (let i = 0; i < shoeAmount; i++) {
+		for (let i = 0; i < shoeAmount; i++){
 			const shoeOutcome = engine.playOneShoe(undefined, afterPlay, beforeShoe)
 			const statistics = shoeOutcome.getStatisticInfo()
 			result.distr.banco += statistics.banco
@@ -103,27 +103,27 @@ const testCase = {
 			result.distr.tie += statistics.tie
 		}
 
-		const {distr} = result
+		const { distr } = result
 		tableDistribution.push(
-			["distro", distr.banco, distr.punto, distr.tie]
+			['distro', distr.banco, distr.punto, distr.tie]
 			// ["bet on P", bet.punto.win, bet.punto.lose, result.tie.player],
 		)
 
 		engine.shutdown()
 	},
-	report() {
+	report(){
 		const info = road.getOutcome(false)
-		tableDistribution.print(`三千靴牌，大小牌算牌法，輸贏：`)
+		tableDistribution.print('三千靴牌，大小牌算牌法，輸贏：')
 
 		console.log(info.statistics)
 		console.log(info.bet)
 		// console.log(info.strategy)
 
-		const {distr} = result
+		const { distr } = result
 		const pRate = (distr.banco / distr.punto) * 100
 		const bRate = (distr.punto / distr.banco) * 100
-		console.log("B/P:", pRate.toFixed(4))
-		console.log("P/B:", bRate.toFixed(4))
+		console.log('B/P:', pRate.toFixed(4))
+		console.log('P/B:', bRate.toFixed(4))
 	},
 }
 

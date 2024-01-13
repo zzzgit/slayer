@@ -1,17 +1,17 @@
-import {Card} from "cardation"
+import { Card } from 'cardation'
 
-import {Engine, HandOutcome, HandResult} from "bac-motor"
-import CounterMap from "./collection/CounterMap"
-import CliTable from "../report/Table"
-import util from "../tool/util"
+import { Engine, HandOutcome, HandResult } from 'bac-motor'
+import CounterMap from './collection/CounterMap'
+import CliTable from '../report/Table'
+import util from '../tool/util'
 
 const engine = new Engine()
 const shoeAmount = 2000
 const round = 3
 const table = new CliTable({
-	head: ["total", "B", "P", "tie"],
+	head: ['total', 'B', 'P', 'tie'],
 	colWidths: [20, 20, 20, 20],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 
 const result: {[key: string]: any} = {
@@ -22,21 +22,21 @@ const result: {[key: string]: any} = {
 }
 
 const testCase = {
-	init() {
+	init(){
 		engine.powerOn()
 	},
-	work() {
+	work(){
 		result.tie = 0
 		result.banco = 0
 		result.punto = 0
-		for (let i = 0; i < shoeAmount; i++) {
+		for (let i = 0; i < shoeAmount; i++){
 			engine.playOneShoe(undefined, (handResult: HandOutcome) => {
 				const bScore = handResult.bancoHand.getPoint()
 				const pScore = handResult.puntoHand.getPoint()
-				if (bScore < 4 && pScore < 4) {
-					if (handResult.result === HandResult.Tie) {
+				if (bScore < 4 && pScore < 4){
+					if (handResult.result === HandResult.Tie){
 						result.tie++
-					} else if (handResult.result === HandResult.BancoWins) {
+					} else if (handResult.result === HandResult.BancoWins){
 						result.banco++
 					} else {
 						result.punto++
@@ -60,34 +60,34 @@ const testCase = {
 		table.push(
 			[totalResult, result.banco, result.punto, result.tie],
 			[
-				`100 %`,
-				util.percentize(result.banco / totalResult) + " %",
-				util.percentize(result.punto / totalResult) + " %",
-				util.percentize(result.tie / totalResult) + " %",
+				'100 %',
+				util.percentize(result.banco / totalResult) + ' %',
+				util.percentize(result.punto / totalResult) + ' %',
+				util.percentize(result.tie / totalResult) + ' %',
 			]
 		)
 		// table.push([100, util.percentize(result.banco / totalResult), util.percentize(result.punto / totalResult), util.percentize(result.tie / totalResult)])
 	},
-	run() {
-		for (let i = 0; i < round; i++) {
+	run(){
+		for (let i = 0; i < round; i++){
 			this.work()
 		}
 		engine.shutdown()
 	},
-	report() {
-		table.print(`低點數（0->3）莊閒分佈：`)
+	report(){
+		table.print('低點數（0->3）莊閒分佈：')
 		const table2 = new CliTable({
-			head: ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"],
+			head: ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'],
 			colWidths: [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
-			style: {compact: false, "padding-left": 0},
+			style: { compact: false, 'padding-left': 0 },
 		})
 		const cardpoint = result.cardPoint
 		const arr = []
-		for (let i = 1; i < 14; i++) {
+		for (let i = 1; i < 14; i++){
 			arr.push(cardpoint.get(i))
 		}
 		table2.push(arr)
-		table2.print("低點數（0->3）牌的分佈：")
+		table2.print('低點數（0->3）牌的分佈：')
 	},
 }
 

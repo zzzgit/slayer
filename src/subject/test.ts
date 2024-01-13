@@ -1,16 +1,16 @@
-import q4 from "../history_data/q1"
+import q4 from '../history_data/q1'
 
 const test1 = (arr: number[]): number[] => {
 	let result = 0
 	let state = 0
-	for (const item of arr) {
+	for (const item of arr){
 		result += item
-		if (item === -1) {
+		if (item === -1){
 			state--
 		} else {
 			state++
 		}
-		if (state === 2) {
+		if (state === 2){
 			state = 0
 		}
 	}

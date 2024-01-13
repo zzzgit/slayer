@@ -1,15 +1,15 @@
-import CounterMap from "./collection/CounterMap"
-import {Engine, SuperSix, HandResult, HandOutcome} from "bac-motor"
-import CliTable from "../report/Table"
-import util from "../tool/util"
+import CounterMap from './collection/CounterMap'
+import { Engine, SuperSix, HandResult, HandOutcome } from 'bac-motor'
+import CliTable from '../report/Table'
+import util from '../tool/util'
 
 const engine = new Engine()
 const shoeAmount = 5000
 const round = 1
 const table = new CliTable({
-	head: ["occurrence / shoe", "shoes", "percentage"],
+	head: ['occurrence / shoe', 'shoes', 'percentage'],
 	colWidths: [20, 10, 10],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 
 const result: {
@@ -29,10 +29,10 @@ const result: {
 }
 
 const testCase = {
-	init() {
+	init(){
 		engine.powerOn()
 	},
-	work() {
+	work(){
 		result.super = new CounterMap<number>()
 		result.prevB = 0
 		result.prevP = 0
@@ -41,18 +41,18 @@ const testCase = {
 		result.allP = 0
 		let two = 0
 		let three = 0
-		for (let i = 0; i < shoeAmount; i++) {
+		for (let i = 0; i < shoeAmount; i++){
 			let super6 = 0
 			engine.playOneShoe(undefined, (outcome: HandOutcome) => {
 				const isSuper6 = outcome.tagArray.some((item) => {
 					return item instanceof SuperSix
 				})
-				if (isSuper6) {
+				if (isSuper6){
 					super6++
 					const tag: SuperSix = outcome.tagArray.find(
 						(item) => item instanceof SuperSix
 					) as SuperSix
-					if (tag.withCards == 3) {
+					if (tag.withCards == 3){
 						three++
 					} else {
 						two++
@@ -60,20 +60,20 @@ const testCase = {
 					// 沒有剔除幸運六本身
 					if (
 						outcome.getPreviousHandOutcome()?.result == HandResult.BancoWins
-					) {
+					){
 						result.prevB++
 					} else if (
 						outcome.getPreviousHandOutcome()?.result == HandResult.PuntoWins
-					) {
+					){
 						result.prevP++
 					} else {
 						// 包括了第一手就是幸運六
 						result.tie++
 					}
 				}
-				if (outcome.result == HandResult.BancoWins) {
+				if (outcome.result == HandResult.BancoWins){
 					result.allB++
-				} else if (outcome.result == HandResult.PuntoWins) {
+				} else if (outcome.result == HandResult.PuntoWins){
 					result.allP++
 				}
 			})
@@ -81,13 +81,13 @@ const testCase = {
 		}
 		console.log(`兩張牌${two}， 三張牌${three}`)
 	},
-	run() {
-		for (let i = 0; i < round; i++) {
+	run(){
+		for (let i = 0; i < round; i++){
 			this.work()
 		}
 		engine.shutdown()
 	},
-	report() {
+	report(){
 		const arr = result.super.getSortedEntities()
 		let total = 0
 		arr.forEach((item) => {
@@ -95,24 +95,24 @@ const testCase = {
 		})
 		arr.forEach((item) => {
 			table.push([
-				item.key + "",
+				item.key + '',
 				item.value,
 				util.percentize(item.value / total),
 			])
 		})
-		table.push(["total", total, "100"])
-		table.print(`幸運6分佈：`)
+		table.push(['total', total, '100'])
+		table.print('幸運6分佈：')
 		const map = new Map()
-		map.set("six after B", result.prevB)
-		map.set("six after P", result.prevP)
-		map.set("six after tie", result.tie)
-		console.log("幸運六前一手：", map)
+		map.set('six after B', result.prevB)
+		map.set('six after P', result.prevP)
+		map.set('six after tie', result.tie)
+		console.log('幸運六前一手：', map)
 		console.log(
-			`幸運六在閒後，百分比：`,
+			'幸運六在閒後，百分比：',
 			(result.prevP / (result.prevP + result.prevB)) * 100
 		)
 		console.log(
-			`所有結果中閒，百分比：`,
+			'所有結果中閒，百分比：',
 			(result.allP / (result.allP + result.allB)) * 100
 		)
 	},

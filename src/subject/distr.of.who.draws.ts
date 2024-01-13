@@ -1,21 +1,21 @@
-import {Engine, HandResult, HandOutcome} from "bac-motor"
-import CliTable from "../report/Table"
-import util from "../tool/util"
-import CounterMap from "./collection/CounterMap"
+import { Engine, HandResult, HandOutcome } from 'bac-motor'
+import CliTable from '../report/Table'
+import util from '../tool/util'
+import CounterMap from './collection/CounterMap'
 
 const engine = new Engine()
 const shoeAmount = 5000
 
 const tableDistributionHoz = new CliTable({
-	head: [" ", "4", "5", "6"],
+	head: [' ', '4', '5', '6'],
 	colWidths: [15, 15, 15, 15],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 
 const tableDistributionVer = new CliTable({
-	head: [" ", "B", "P", "T"],
+	head: [' ', 'B', 'P', 'T'],
 	colWidths: [15, 15, 15, 15],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 
 let result = {
@@ -36,7 +36,7 @@ let result = {
 let streak = 0
 
 const testCase = {
-	init() {
+	init(){
 		// const cards: Card[] = CardMagazine.getCardsWithHighRank()
 		// const config: Config = {
 		// 	customizedShoe: cards,
@@ -49,54 +49,56 @@ const testCase = {
 		// }
 		engine.powerOn()
 	},
-	_statistic() {
-		const {totalMap, tieMap, bMap, pMap} = result
+	_statistic(){
+		const {
+			totalMap, tieMap, bMap, pMap
+		} = result
 		let four = totalMap.get(4) || 0
 		let five = totalMap.get(5) || 0
 		let six = totalMap.get(6) || 0
 		let total = four + five + six
-		tableDistributionHoz.push(["overall", four, five, six])
+		tableDistributionHoz.push(['overall', four, five, six])
 		tableDistributionHoz.push([
-			"100%",
-			util.percentize(four / total) + "%",
-			util.percentize(five / total) + "%",
-			util.percentize(six / total) + "%",
+			'100%',
+			util.percentize(four / total) + '%',
+			util.percentize(five / total) + '%',
+			util.percentize(six / total) + '%',
 		])
 		// tie
 		four = tieMap.get(4) || 0
 		five = tieMap.get(5) || 0
 		six = tieMap.get(6) || 0
 		total = four + five + six
-		tableDistributionHoz.push(["tie", four, five, six])
+		tableDistributionHoz.push(['tie', four, five, six])
 		tableDistributionHoz.push([
-			"T--100%",
-			util.percentize(four / total) + "%",
-			util.percentize(five / total) + "%",
-			util.percentize(six / total) + "%",
+			'T--100%',
+			util.percentize(four / total) + '%',
+			util.percentize(five / total) + '%',
+			util.percentize(six / total) + '%',
 		])
 		// 莊家贏
 		four = bMap.get(4) || 0
 		five = bMap.get(5) || 0
 		six = bMap.get(6) || 0
 		total = four + five + six
-		tableDistributionHoz.push(["B", four, five, six])
+		tableDistributionHoz.push(['B', four, five, six])
 		tableDistributionHoz.push([
-			"B--100%",
-			util.percentize(four / total) + "%",
-			util.percentize(five / total) + "%",
-			util.percentize(six / total) + "%",
+			'B--100%',
+			util.percentize(four / total) + '%',
+			util.percentize(five / total) + '%',
+			util.percentize(six / total) + '%',
 		])
 		// 閒家贏
 		four = pMap.get(4) || 0
 		five = pMap.get(5) || 0
 		six = pMap.get(6) || 0
 		total = four + five + six
-		tableDistributionHoz.push(["P", four, five, six])
+		tableDistributionHoz.push(['P', four, five, six])
 		tableDistributionHoz.push([
-			"P--100%",
-			util.percentize(four / total) + "%",
-			util.percentize(five / total) + "%",
-			util.percentize(six / total) + "%",
+			'P--100%',
+			util.percentize(four / total) + '%',
+			util.percentize(five / total) + '%',
+			util.percentize(six / total) + '%',
 		])
 
 		const {
@@ -111,63 +113,63 @@ const testCase = {
 		let player = fourMap.get(2) || 0
 		let tie = fourMap.get(0) || 0
 		total = banker + player + tie
-		tableDistributionVer.push(["4", banker, player, tie])
+		tableDistributionVer.push(['4', banker, player, tie])
 		tableDistributionVer.push([
-			"4-100%",
-			util.percentize(banker / total) + "%",
-			util.percentize(player / total) + "%",
-			util.percentize(tie / total) + "%",
+			'4-100%',
+			util.percentize(banker / total) + '%',
+			util.percentize(player / total) + '%',
+			util.percentize(tie / total) + '%',
 		])
 		// 五張牌
 		banker = fiveMap.get(1) || 0
 		player = fiveMap.get(2) || 0
 		tie = fiveMap.get(0) || 0
 		total = banker + player + tie
-		tableDistributionVer.push(["5", banker, player, tie])
+		tableDistributionVer.push(['5', banker, player, tie])
 		tableDistributionVer.push([
-			"5-100%",
-			util.percentize(banker / total) + "%",
-			util.percentize(player / total) + "%",
-			util.percentize(tie / total) + "%",
+			'5-100%',
+			util.percentize(banker / total) + '%',
+			util.percentize(player / total) + '%',
+			util.percentize(tie / total) + '%',
 		])
 		// 六張牌
 		banker = sixMap.get(1) || 0
 		player = sixMap.get(2) || 0
 		tie = sixMap.get(0) || 0
 		total = banker + player + tie
-		tableDistributionVer.push(["6", banker, player, tie])
+		tableDistributionVer.push(['6', banker, player, tie])
 		tableDistributionVer.push([
-			"6-100%",
-			util.percentize(banker / total) + "%",
-			util.percentize(player / total) + "%",
-			util.percentize(tie / total) + "%",
+			'6-100%',
+			util.percentize(banker / total) + '%',
+			util.percentize(player / total) + '%',
+			util.percentize(tie / total) + '%',
 		])
 		// 五張牌 莊家
 		banker = fiveforbankerMap.get(1) || 0
 		player = fiveforbankerMap.get(2) || 0
 		tie = fiveforbankerMap.get(0) || 0
 		total = banker + player + tie
-		tableDistributionVer.push(["5b draw", banker, player, tie])
+		tableDistributionVer.push(['5b draw', banker, player, tie])
 		tableDistributionVer.push([
-			"5b-100%",
-			util.percentize(banker / total) + "%",
-			util.percentize(player / total) + "%",
-			util.percentize(tie / total) + "%",
+			'5b-100%',
+			util.percentize(banker / total) + '%',
+			util.percentize(player / total) + '%',
+			util.percentize(tie / total) + '%',
 		])
 		// 五張牌 閒家
 		banker = fiveforplayerMap.get(1) || 0
 		player = fiveforplayerMap.get(2) || 0
 		tie = fiveforplayerMap.get(0) || 0
 		total = banker + player + tie
-		tableDistributionVer.push(["5p draw", banker, player, tie])
+		tableDistributionVer.push(['5p draw', banker, player, tie])
 		tableDistributionVer.push([
-			"5p-100%",
-			util.percentize(banker / total) + "%",
-			util.percentize(player / total) + "%",
-			util.percentize(tie / total) + "%",
+			'5p-100%',
+			util.percentize(banker / total) + '%',
+			util.percentize(player / total) + '%',
+			util.percentize(tie / total) + '%',
 		])
 	},
-	run() {
+	run(){
 		result = {
 			totalMap: new CounterMap<number>(),
 			tieMap: new CounterMap<number>(),
@@ -190,76 +192,76 @@ const testCase = {
 			const cardAmount = bHand.length + pHand.length
 			let numberMap
 			let specilFiveMpa = undefined
-			if (cardAmount === 5) {
-				if (bHand.length === 3) {
+			if (cardAmount === 5){
+				if (bHand.length === 3){
 					specilFiveMpa = result.fiveforbankerdrawMap
 				} else {
 					specilFiveMpa = result.fiveforplayerdrawMap
 				}
 			}
-			if (cardAmount === 4) {
+			if (cardAmount === 4){
 				numberMap = result.fourMap
-			} else if (cardAmount === 5) {
+			} else if (cardAmount === 5){
 				numberMap = result.fiveMap
 			} else {
 				numberMap = result.sixMap
 			}
 			result.totalMap.count(cardAmount)
-			if (handResult.result == HandResult.Tie) {
+			if (handResult.result == HandResult.Tie){
 				result.tieMap.count(cardAmount)
 				numberMap.count(0)
 				specilFiveMpa?.count(0)
-			} else if (handResult.result == HandResult.BancoWins) {
+			} else if (handResult.result == HandResult.BancoWins){
 				result.bMap.count(cardAmount)
 				numberMap.count(1)
 				specilFiveMpa?.count(1)
-			} else if (handResult.result == HandResult.PuntoWins) {
+			} else if (handResult.result == HandResult.PuntoWins){
 				result.pMap.count(cardAmount)
 				numberMap.count(2)
 				specilFiveMpa?.count(2)
 			}
 			//
 			let map
-			if (cardAmount === 4) {
+			if (cardAmount === 4){
 				map = result.fourCardMap
-			} else if (cardAmount === 5) {
+			} else if (cardAmount === 5){
 				map = result.fiveCardMap
 			} else {
 				map = result.sixCardMap
 			}
 
 			// streak，算法很多錯誤，和沒有被排除，沒次洗牌，沒有重新計算 。另外還需要計算strek的平均長度
-			if (cardAmount === 6) {
+			if (cardAmount === 6){
 				streak++
 			} else {
-				if (streak != 0) {
+				if (streak != 0){
 					result.naturalMap.count(streak)
 					streak = 0
 				}
 			}
-			for (const card of [...bHand, ...pHand]) {
+			for (const card of [...bHand, ...pHand]){
 				map.count(card.getPoint())
 			}
 		}
-		for (let i = 0; i < shoeAmount; i++) {
+		for (let i = 0; i < shoeAmount; i++){
 			engine.playOneShoe(undefined, afterPlay)
 		}
 		this._statistic()
 		engine.shutdown()
 	},
-	report() {
+	report(){
 		// result.fourCardMap.printSorted("四張牌：")
 		// result.fiveCardMap.printSorted("五張牌：")
 		// result.sixCardMap.printSorted("六張牌：")
 
-		result.naturalMap.printSorted("連續四張牌(包括叉燒)：")
+		result.naturalMap.printSorted('連續四張牌(包括叉燒)：')
 		const arr: number[] = []
-		for (let i = 0; i < 10; i++) {
+		for (let i = 0; i < 10; i++){
 			arr.push(result.naturalMap.get(i + 1) || 0)
 		}
 
-		tableDistributionHoz.print(`五千shoe，每手牌的張數分佈：`)
-		tableDistributionVer.print(`五千shoe，每手牌的莊閒分佈：`)
+		tableDistributionHoz.print('五千shoe，每手牌的張數分佈：')
+		tableDistributionVer.print('五千shoe，每手牌的莊閒分佈：')
 	},
 }
 

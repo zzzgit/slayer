@@ -1,6 +1,6 @@
-import {Engine, ShoeOutcome} from "bac-motor"
-import {BigEntity, Streak, TieBadge} from "marga"
-import util from "../tool/util"
+import { Engine, ShoeOutcome } from 'bac-motor'
+import { BigEntity, Streak, TieBadge } from 'marga'
+import util from '../tool/util'
 
 const engine = new Engine()
 const shoeAmount = 500
@@ -21,9 +21,9 @@ const statistics = {
 
 const isPure = (streak: Streak): boolean => {
 	let entity = streak.getFirstEntity()
-	while (entity) {
+	while (entity){
 		const badge = entity.getTagArray().some((b) => b instanceof TieBadge) // 未實現，在marga項目中
-		if (badge) {
+		if (badge){
 			return false
 		}
 		entity = entity.getNextEntity() as BigEntity
@@ -32,22 +32,22 @@ const isPure = (streak: Streak): boolean => {
 }
 
 const testCase = {
-	init() {
+	init(){
 		engine.powerOn()
 	},
-	work() {
+	work(){
 		statistics.b = 0
 		statistics.p = 0
-		for (let i = 0; i < shoeAmount; i++) {
+		for (let i = 0; i < shoeAmount; i++){
 			const shoeoutcome: ShoeOutcome = engine.playOneShoe(undefined, undefined)
 			const road = shoeoutcome.getBigRoad()
 			let streak = road.getFirstStreak()
-			while (streak) {
+			while (streak){
 				//  龍
-				if (streak.getFirstEntity()?.isPunto) {
-					if (streak.getLength() > 6 && isPure(streak)) {
+				if (streak.getFirstEntity()?.isPunto){
+					if (streak.getLength() > 6 && isPure(streak)){
 						let nextStreak = streak.getNextStreak()
-						if (nextStreak) {
+						if (nextStreak){
 							// if (nextStreak.getLength() === 2) {
 							// 	statistics.yes++
 							// } else if (nextStreak.getLength() > 2) {
@@ -58,15 +58,15 @@ const testCase = {
 							?.getFirstEntity()
 							?.getNextEntity() as BigEntity // 龍擺尾第二手
 						let counter = 0
-						while (counter < 2) {
-							if (!nextEntity) {
+						while (counter < 2){
+							if (!nextEntity){
 								nextStreak = nextStreak?.getNextStreak()
-								if (!nextStreak) {
+								if (!nextStreak){
 									break
 								}
 								nextEntity = nextStreak.getFirstEntity() as BigEntity
 							}
-							if (nextEntity.isBanco) {
+							if (nextEntity.isBanco){
 								statistics.b++
 							} else {
 								statistics.p++
@@ -80,14 +80,16 @@ const testCase = {
 			}
 		}
 	},
-	run() {
-		for (let i = 0; i < round; i++) {
+	run(){
+		for (let i = 0; i < round; i++){
 			this.work()
 		}
 		engine.shutdown()
 	},
-	report() {
-		const {b, p, yes, no} = statistics
+	report(){
+		const {
+			b, p, yes, no
+		} = statistics
 		const perct = util.percentize(b / p, 3)
 		const percts = util.percentize(yes / no, 3)
 		console.log(b, p, perct)

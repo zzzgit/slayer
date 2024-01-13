@@ -1,13 +1,13 @@
-import {Engine, HandOutcome, HandResult} from "bac-motor"
-import CliTable from "../report/Table"
-import CounterMap from "./collection/CounterMap"
+import { Engine, HandOutcome, HandResult } from 'bac-motor'
+import CliTable from '../report/Table'
+import CounterMap from './collection/CounterMap'
 
 const engine = new Engine()
 const shoeAmount = 9000
 const colWith = 7
 
 const tableDistribution = new CliTable({
-	head: ["last draw/score", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+	head: ['last draw/score', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
 	colWidths: [
 		15,
 		colWith,
@@ -21,7 +21,7 @@ const tableDistribution = new CliTable({
 		colWith,
 		colWith,
 	],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 
 let result = {
@@ -32,10 +32,10 @@ let result = {
 }
 
 const testCase = {
-	init() {
+	init(){
 		engine.powerOn()
 	},
-	run() {
+	run(){
 		result = {
 			tie: new CounterMap<number>(),
 			banker: new CounterMap<number>(),
@@ -44,28 +44,28 @@ const testCase = {
 		}
 		const afterPlay = (handResult: HandOutcome): void => {
 			const prev = handResult.getPreviousHandOutcome()
-			if (!prev) {
+			if (!prev){
 				return undefined
 			}
 			const bHand = prev.bancoHand.getPoint()
 			const pHand = prev.puntoHand.getPoint()
-			if (bHand < 8 && bHand > 5 && pHand < 8 && pHand > 5) {
-				if (handResult.result == HandResult.Tie) {
-					result.allMap.count("tie")
-				} else if (handResult.result == HandResult.BancoWins) {
-					result.allMap.count("banker")
+			if (bHand < 8 && bHand > 5 && pHand < 8 && pHand > 5){
+				if (handResult.result == HandResult.Tie){
+					result.allMap.count('tie')
+				} else if (handResult.result == HandResult.BancoWins){
+					result.allMap.count('banker')
 				} else {
-					result.allMap.count("player")
+					result.allMap.count('player')
 				}
 			}
 		}
-		for (let i = 0; i < shoeAmount; i++) {
+		for (let i = 0; i < shoeAmount; i++){
 			engine.playOneShoe(undefined, afterPlay)
 		}
 		engine.shutdown()
 	},
-	report() {
-		tableDistribution.print(` ：`)
+	report(){
+		tableDistribution.print(' ：')
 		console.log(result.allMap)
 	},
 }

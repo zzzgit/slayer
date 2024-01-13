@@ -1,6 +1,6 @@
-import {Engine, Config} from "bac-motor"
-import CliTable from "../report/Table"
-import util from "../tool/util"
+import { Engine, Config } from 'bac-motor'
+import CliTable from '../report/Table'
+import util from '../tool/util'
 
 const conf: Config = {
 	shouldShuffleWhileCollectBancoHand: false,
@@ -12,9 +12,9 @@ const engine = new Engine()
 const shoeAmount = 4000
 const round = 1
 const table = new CliTable({
-	head: ["total", "B", "P", "tie"],
+	head: ['total', 'B', 'P', 'tie'],
 	colWidths: [20, 20, 20, 20],
-	style: {compact: false, "padding-left": 1},
+	style: { compact: false, 'padding-left': 1 },
 })
 
 const result = {
@@ -24,14 +24,14 @@ const result = {
 }
 
 const testCase = {
-	init() {
+	init(){
 		engine.powerOn()
 	},
-	work() {
+	work(){
 		result.tie = 0
 		result.banker = 0
 		result.player = 0
-		for (let i = 0; i < shoeAmount; i++) {
+		for (let i = 0; i < shoeAmount; i++){
 			const shoeComeout = engine.playOneShoe()
 			const info = shoeComeout.getStatisticInfo()
 			result.banker = result.banker + info.banco
@@ -44,22 +44,22 @@ const testCase = {
 		table.push(
 			[totalResult, result.banker, result.player, result.tie],
 			[
-				`100 %`,
-				util.percentize(result.banker / totalResult) + " %",
-				util.percentize(result.player / totalResult) + " %",
-				util.percentize(result.tie / totalResult) + " %",
+				'100 %',
+				util.percentize(result.banker / totalResult) + ' %',
+				util.percentize(result.player / totalResult) + ' %',
+				util.percentize(result.tie / totalResult) + ' %',
 			]
 		)
 		// table.push([100, util.percentize(result.banco / totalResult), util.percentize(result.punto / totalResult), util.percentize(result.tie / totalResult)])
 	},
-	run() {
-		for (let i = 0; i < round; i++) {
+	run(){
+		for (let i = 0; i < round; i++){
 			this.work()
 		}
 		engine.shutdown()
 	},
-	report() {
-		table.print(`莊閒分佈：`)
+	report(){
+		table.print('莊閒分佈：')
 	},
 }
 

@@ -1,34 +1,34 @@
-import Strategy from "../../model/strategy/Strategy"
-import BetOrUndefined from "../../model/strategy/type/BetOrUndefined"
-import HandOutcomeOrUndefined from "../../model/strategy/type/HandOutcomeOrUndefined"
+import Strategy from '../../model/strategy/Strategy'
+import BetOrUndefined from '../../model/strategy/type/BetOrUndefined'
+import HandOutcomeOrUndefined from '../../model/strategy/type/HandOutcomeOrUndefined'
 import {
 	Bet,
 	BancoMun as Banker,
 	FreeMun as Free,
 	PuntoMun as Player,
 	HandResult,
-} from "bac-motor"
-import tool from "../../tool/tool"
-import * as samael from "samael"
+} from 'bac-motor'
+import tool from '../../tool/tool'
+import * as samael from 'samael'
 
 const date = new Date()
 const path =
-	"/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt"
+	'/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt'
 let prom = samael
 	.writeToFile(path, `${date.toLocaleString()}\n  \n`)
-	.catch((e: Error) => console.log("錯誤", e))
+	.catch((e: Error) => console.log('錯誤', e))
 
-class CardCountingStrategy extends Strategy {
+class CardCountingStrategy extends Strategy{
 	figureOutBet(
 		lastBet: BetOrUndefined,
 		lastOutcome: HandOutcomeOrUndefined
-	): Bet {
-		if (lastBet) {
+	): Bet{
+		if (lastBet){
 			if (
 				!(lastBet.getMun() instanceof Free) &&
 				!lastBet.gotTie() &&
-				"".length === 3
-			) {
+				''.length === 3
+			){
 				const str = `${lastBet.getOutcome()?.getShoeIndex()}	${lastBet.getStr()}`
 				prom = prom.then(() => samael.appendToFile(path, `${str}\n`))
 			}
@@ -37,20 +37,20 @@ class CardCountingStrategy extends Strategy {
 		const freeGame = new Bet(new Free(), 0)
 		// ////////////////////////////////////////////////
 
-		if ("".length == 0) {
+		if (''.length == 0){
 			return freeGame
 		}
 		// /////////////////////////////////////////////
 		const gen = this.getProgressionGenerator()
 		const score = tool.countNextHandScore(lastOutcome)
 
-		if (lastBet?.gotWon()) {
+		if (lastBet?.gotWon()){
 			gen.reset()
 		}
-		if (score < -3 && lastOutcome?.result == HandResult.PuntoWins) {
+		if (score < -3 && lastOutcome?.result == HandResult.PuntoWins){
 			return new Bet(new Banker(), gen.next().value as number)
 		}
-		if (score > 3) {
+		if (score > 3){
 			return new Bet(new Player(), gen.next().value as number)
 		}
 		return freeGame
