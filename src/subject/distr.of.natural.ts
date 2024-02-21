@@ -1,4 +1,4 @@
-import { Engine, HandOutcome, Natural, BancoNatural } from 'bac-motor'
+import { BancoNatural, Engine, HandOutcome, Natural } from 'bac-motor'
 import CliTable from '../report/Table'
 import CounterMap from './collection/CounterMap'
 

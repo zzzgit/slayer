@@ -1,5 +1,5 @@
 /* eslint-disable no-constant-condition */
-import { LosingEntity, Blackhole, WinningEntity } from '@zzznpm/orphan'
+import { Blackhole, LosingEntity, WinningEntity } from '@zzznpm/orphan'
 import massiveTestConfig from '../config/massiveTestConfig'
 import Engine, { HandOutcome, HandResult } from 'bac-motor'
 import CliTable from '../report/Table'

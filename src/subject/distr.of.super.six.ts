@@ -1,5 +1,5 @@
 import CounterMap from './collection/CounterMap'
-import { Engine, SuperSix, HandResult, HandOutcome } from 'bac-motor'
+import { Engine, HandOutcome, HandResult, SuperSix } from 'bac-motor'
 import CliTable from '../report/Table'
 import util from '../tool/util'
 

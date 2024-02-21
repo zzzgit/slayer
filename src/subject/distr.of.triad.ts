@@ -1,4 +1,4 @@
-import { IEntity, BeadRoad, GreenBeadEntity } from 'marga'
+import { BeadRoad, GreenBeadEntity, IEntity } from 'marga'
 import {
 	Engine, HandOutcome, Pair, ShoeOutcome, Tag
 } from 'bac-motor'
@@ -44,9 +44,7 @@ const testCase = {
 		let currentOutcome = houtcome
 		let triadOccurence = 0
 		while (current.getGameId() < 50){
-			const hasPair = currentOutcome?.tagArray.some(
-				(tag: Tag) => tag instanceof Pair
-			)
+			const hasPair = currentOutcome?.hasPair
 			if (current instanceof GreenBeadEntity || hasPair){
 				//
 				const newId = current.getGameId()
@@ -94,4 +92,5 @@ testCase.report()
 /**
  * 1. triad的幾率9.55 + 7.47*2 = 0.245
  * 2. 在間隔比較的情況下，triad在本shoe中出現次數是否真的會比較少？
+ * 3. 計算一下triad 的 ev
  */

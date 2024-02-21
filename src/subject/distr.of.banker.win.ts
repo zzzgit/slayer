@@ -1,4 +1,4 @@
-import { Engine, HandResult, HandOutcome } from 'bac-motor'
+import { Engine, HandOutcome, HandResult } from 'bac-motor'
 import CliTable from '../report/Table'
 import util from '../tool/util'
 

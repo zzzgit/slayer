@@ -1,4 +1,4 @@
-import { Engine, Config } from 'bac-motor'
+import { Config, Engine } from 'bac-motor'
 import CliTable from '../report/Table'
 import util from '../tool/util'
 

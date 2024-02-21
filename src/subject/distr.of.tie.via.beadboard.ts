@@ -1,4 +1,4 @@
-import { IEntity, BlueBeadEntity, RedBeadEntity, BeadRoad } from 'marga'
+import { BeadRoad, BlueBeadEntity, IEntity, RedBeadEntity } from 'marga'
 import { Engine, ShoeOutcome } from 'bac-motor'
 import CliTable from '../report/Table'
 import util from '../tool/util'

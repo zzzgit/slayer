@@ -1,9 +1,9 @@
 import {
-	Engine,
-	HandOutcome,
-	Bet,
-	FreeMun as Free,
 	BancoMun as Banker,
+	Bet,
+	Engine,
+	FreeMun as Free,
+	HandOutcome,
 } from 'bac-motor'
 import HandOutcomeOrUndefined from '../model/strategy/type/HandOutcomeOrUndefined'
 import BetOrUndefined from '../model/strategy/type/BetOrUndefined'
