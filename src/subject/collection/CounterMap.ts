@@ -1,4 +1,5 @@
 class CounterMap<KeyType> extends Map<KeyType, number>{
+
 	count(key: KeyType): void{
 		const number = this.get(key)
 		this.set(key, (number || 0) + 1)
@@ -6,10 +7,10 @@ class CounterMap<KeyType> extends Map<KeyType, number>{
 
 	private _sort(): [KeyType[], number[], {key: KeyType; value: number}[]]{
 		const keys = [...this.keys()]
-		keys.sort((a, b) => +a - +b)
+		keys.sort((a, b)=> +a - +b)
 		const values: number[] = []
 		const entities: {key: KeyType; value: number}[] = []
-		keys.forEach((key) => {
+		keys.forEach((key)=> {
 			const value = this.get(key) || 0
 			values.push(value)
 			entities.push({ key: key, value: value })
@@ -31,10 +32,10 @@ class CounterMap<KeyType> extends Map<KeyType, number>{
 	}
 
 	getSortedEntities(): {key: KeyType; value: number}[]{
-		// eslint-disable-next-line prefer-destructuring
 		const entities = this._sort()[2]
 		return entities
 	}
+
 }
 
 export default CounterMap

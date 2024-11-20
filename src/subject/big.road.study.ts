@@ -27,7 +27,7 @@ let result: {
 	firstBankB: CounterMap<number>
 	afterLongStreak: CounterMap<number>
 	longStreak: number[]
-	firstStreak: any
+	firstStreak: {[key: string]: number[]}
 } = {
 	tie: 0,
 	banker: 0,
@@ -73,11 +73,10 @@ const testCase = {
 			},
 		}
 		const date = new Date()
-		const path =
-			'/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt'
+		const path = '/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt'
 		let prom = samael
 			.writeToFile(path, `${date.toLocaleString()}\n  \n`)
-			.catch((e: Error) => console.log('錯誤', e))
+			.catch((e: Error)=> console.log('錯誤', e))
 		for (let i = 0; i < shoeAmount; i++){
 			const shoeComeout: ShoeOutcome = engine.playOneShoe()
 			const info = shoeComeout.getStatisticInfo()
@@ -85,7 +84,7 @@ const testCase = {
 				info.tie
 			}\n`
 			str = ''
-			prom = prom.then(() => samael.appendToFile(path, str))
+			prom = prom.then(()=> samael.appendToFile(path, str))
 			this.showRoad(shoeComeout)
 
 			result.banker += info.banco
@@ -93,15 +92,12 @@ const testCase = {
 			result.tie += info.tie
 		}
 		const totalResult: number = result.tie + result.banker + result.player
-		table.push(
-			[totalResult, result.banker, result.player, result.tie],
-			[
-				'100 %',
-				util.percentize(result.banker / totalResult) + ' %',
-				util.percentize(result.player / totalResult) + ' %',
-				util.percentize(result.tie / totalResult) + ' %',
-			]
-		)
+		table.push([totalResult, result.banker, result.player, result.tie], [
+			'100 %',
+			util.percentize(result.banker / totalResult) + ' %',
+			util.percentize(result.player / totalResult) + ' %',
+			util.percentize(result.tie / totalResult) + ' %',
+		])
 	},
 	showRoad(shoeComeout: ShoeOutcome){
 		const road: BigRoad = shoeComeout.getBigRoad()
@@ -146,11 +142,11 @@ const testCase = {
 		// 研究第一列
 		const resultFirstStreak = result.firstStreak
 		const length = streak?.getLength()
-		resultFirstStreak.allarray.push(length)
+		resultFirstStreak.allarray.push(length || 0)
 		if (streak?.getFirstEntity()?.isBanco){
-			resultFirstStreak.barray.push(length)
+			resultFirstStreak.barray.push(length || 0)
 		} else {
-			resultFirstStreak.parray.push(length)
+			resultFirstStreak.parray.push(length || 0)
 		}
 
 		while (streak?.getNextStreak()){
@@ -182,35 +178,19 @@ const testCase = {
 	},
 	report(){
 		table.print('莊閒分佈： ')
-		const alltotal = result.allStreakLen.reduce((a, b) => a + b)
-		const btotal = result.bStreakLen.reduce((a, b) => a + b)
-		const ptotal = result.pStreakLen.reduce((a, b) => a + b)
+		const alltotal = result.allStreakLen.reduce((a, b)=> a + b)
+		const btotal = result.bStreakLen.reduce((a, b)=> a + b)
+		const ptotal = result.pStreakLen.reduce((a, b)=> a + b)
 		console.log('平均長度：', alltotal / result.allStreakLen.length)
 		console.log('莊平均長度：', btotal / result.bStreakLen.length)
 		console.log('閒平均長度：', ptotal / result.pStreakLen.length)
 		// result.lastBankB.printSorted("banker龍尾的牌：")
 		// result.firstBankB.printSorted("banker龍頭的牌：")
-		console.log(
-			'龍擺尾長度：',
-			result.longStreak.reduce((a, b) => a + b) / result.longStreak.length,
-			result.longStreak.length
-		)
+		console.log('龍擺尾長度：', result.longStreak.reduce((a, b)=> a + b) / result.longStreak.length, result.longStreak.length)
 		console.log('')
-		console.log(
-			'第一列平均長度：',
-			result.firstStreak.allarray.reduce((a: number, b: number) => a + b) /
-				result.firstStreak.allarray.length
-		)
-		console.log(
-			'第一列莊長度：',
-			result.firstStreak.barray.reduce((a: number, b: number) => a + b) /
-				result.firstStreak.barray.length
-		)
-		console.log(
-			'第一列閒長度：',
-			result.firstStreak.parray.reduce((a: number, b: number) => a + b) /
-				result.firstStreak.parray.length
-		)
+		console.log('第一列平均長度：', result.firstStreak.allarray.reduce((a: number, b: number)=> a + b) / result.firstStreak.allarray.length)
+		console.log('第一列莊長度：', result.firstStreak.barray.reduce((a: number, b: number)=> a + b) / result.firstStreak.barray.length)
+		console.log('第一列閒長度：', result.firstStreak.parray.reduce((a: number, b: number)=> a + b) / result.firstStreak.parray.length)
 	},
 }
 

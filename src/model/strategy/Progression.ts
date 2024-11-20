@@ -4,6 +4,7 @@ import ResetableGenerator from './generator/ResetableGenerator'
 
 // 跟纜相關的東西，輸贏，只有輸贏，但是纜本身不需要知道輸贏，所以還是外界傳入比較合適
 abstract class Progression{
+
 	private readonly _context: Context = { instruct: Instruct.DoNothing }
 
 	private _generator: ResetableGenerator<number, void, boolean> | undefined
@@ -23,7 +24,7 @@ abstract class Progression{
 		return this._context
 	}
 
-	isBalanceHigherThan = (threshold: number): boolean => {
+	isBalanceHigherThan = (threshold: number): boolean=> {
 		if ((this.getContext().balance || 0) > threshold){
 			return true
 		}
@@ -31,6 +32,7 @@ abstract class Progression{
 	}
 
 	abstract _getGen(): Generator<number, void, boolean>
+
 }
 
 export default Progression

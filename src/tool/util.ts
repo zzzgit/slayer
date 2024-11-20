@@ -7,7 +7,7 @@ const util = {
 	},
 	sum(arr: number[]): number{
 		let result = 0
-		arr.forEach((item) => {
+		arr.forEach((item)=> {
 			result += +item
 		})
 		return result
@@ -17,7 +17,7 @@ const util = {
 		const sum = this.sum(arr)
 		const avg = sum / arr.length
 		let deviationSum = 0
-		arr.forEach((item) => {
+		arr.forEach((item)=> {
 			deviationSum += Math.abs(item - avg)
 		})
 		return deviationSum / arr.length
@@ -61,7 +61,7 @@ const util = {
 		if (arr.length == 0){
 			return null
 		}
-		const sorted = arr.sort((a, b) => {
+		const sorted = arr.sort((a, b)=> {
 			return a - b
 		})
 		const mid = Math.floor(sorted.length / 2)
@@ -81,7 +81,7 @@ const util = {
 	},
 	countScore(cards: Card[]): number{
 		let totalScore = 0
-		cards.forEach((card: Card) => {
+		cards.forEach((card: Card)=> {
 			const cardScore = card.getPoint()
 			if (0 < cardScore && cardScore < 3){
 				totalScore += 1
@@ -98,18 +98,16 @@ const util = {
 		return totalScore
 	},
 	getVariance(list: number[] = []): number{
-		const total = list.reduce((a, b) => a + b)
+		const total = list.reduce((a, b)=> a + b)
 		const mean = total / list.length
-		const varianceArr = list.map((value) => (value - mean) ** 2)
-		const result = varianceArr.reduce((a, b) => a + b) / list.length
+		const varianceArr = list.map(value=> (value - mean) ** 2)
+		const result = varianceArr.reduce((a, b)=> a + b) / list.length
 		return result
 	},
-	getOddCal(
-		bancoWins: number,
+	getOddCal(bancoWins: number,
 		puntoWins: number,
 		tie: number,
-		betOnBanco: boolean
-	): OddCalculator{
+		betOnBanco: boolean): OddCalculator{
 		return OddCalculator.from(bancoWins, puntoWins, tie, betOnBanco)
 	},
 }

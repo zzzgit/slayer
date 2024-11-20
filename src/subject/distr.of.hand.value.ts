@@ -42,7 +42,7 @@ const testCase = {
 		}
 		let acd_record = 0
 		let acd_sequence = 0
-		const afterPlay = (handResult: HandOutcome): void => {
+		const afterPlay = (handResult: HandOutcome): void=> {
 			const bHand = handResult.bancoHand
 			const pHand = handResult.puntoHand
 			const bPoint = bHand.getPoint()
@@ -51,8 +51,7 @@ const testCase = {
 			result.hands.count(pPoint)
 			result.totalValue += bPoint + pPoint
 			let condition = bHand.getLength() == 2 && pHand.getLength() == 3
-			condition =
-				condition || (bHand.getLength() == 3 && pHand.getLength() == 2)
+			condition = condition || bHand.getLength() == 3 && pHand.getLength() == 2
 			if (condition){
 				acd_record++
 				acd_sequence++
@@ -92,9 +91,7 @@ const testCase = {
 	report(){
 		tableDistribution.print('occurrence of hand value：')
 		console.log(`每shoe的game數平均值:			${result.totalGames / shoeAmount} games`)
-		console.log(
-			`每個game的hand value 平均值:	${result.totalValue / result.totalGames / 2}`
-		)
+		console.log(`每個game的hand value 平均值:	${result.totalValue / result.totalGames / 2}`)
 		console.log(Math.min(...result.record), Math.max(...result.record))
 		console.log('acd streak:', result.acd_streak)
 	},

@@ -42,7 +42,7 @@ const testCase = {
 			sixMap: new CounterMap<number>(),
 			fourMap: new CounterMap<number>(),
 		}
-		const afterPlay = (handResult: HandOutcome): void => {
+		const afterPlay = (handResult: HandOutcome): void=> {
 			const bHand = handResult.bancoHand.getDuplicatedCardArray()
 			const pHand = handResult.puntoHand.getDuplicatedCardArray()
 			const cardAmount = bHand.length + pHand.length

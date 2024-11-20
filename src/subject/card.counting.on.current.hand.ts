@@ -49,7 +49,7 @@ const testCase = {
 				tie: 0,
 			},
 		}
-		const afterPlay = (handResult: HandOutcome): void => {
+		const afterPlay = (handResult: HandOutcome): void=> {
 			const banco_cards = handResult.bancoHand.getLength()
 			const punto_cards = handResult.puntoHand.getLength()
 			const total_cards = banco_cards + punto_cards
@@ -89,30 +89,23 @@ const testCase = {
 		const pResult = result.player
 		const bTotal = result.banker.win + result.banker.lose + result.banker.tie
 		const pTotal = result.player.win + result.player.lose + result.player.tie
-		tableDistribution.push(
-			['bet on B', bResult.win, bResult.lose, bResult.tie],
-			[
-				'bet on B-%',
-				util.percentize(bResult.win / bTotal),
-				util.percentize(bResult.lose / bTotal),
-				util.percentize(bResult.tie / bTotal),
-			],
-			['bet on P', pResult.win, pResult.lose, pResult.tie],
-			[
-				'bet on P-%',
-				util.percentize(pResult.win / pTotal),
-				util.percentize(pResult.lose / pTotal),
-				util.percentize(pResult.tie / pTotal),
-			],
-			[
-				'total',
-				pResult.win + bResult.win,
-				pResult.lose + bResult.lose,
-				pResult.tie + bResult.tie,
-			]
-			// ["total", util.percentize(pResult.win / pTotal), util.percentize(pResult.lose / pTotal), util.percentize(pResult.tie / pTotal)],
-		)
-
+		tableDistribution.push(['bet on B', bResult.win, bResult.lose, bResult.tie], [
+			'bet on B-%',
+			util.percentize(bResult.win / bTotal),
+			util.percentize(bResult.lose / bTotal),
+			util.percentize(bResult.tie / bTotal),
+		], ['bet on P', pResult.win, pResult.lose, pResult.tie], [
+			'bet on P-%',
+			util.percentize(pResult.win / pTotal),
+			util.percentize(pResult.lose / pTotal),
+			util.percentize(pResult.tie / pTotal),
+		], [
+			'total',
+			pResult.win + bResult.win,
+			pResult.lose + bResult.lose,
+			pResult.tie + bResult.tie,
+		])
+		// ["total", util.percentize(pResult.win / pTotal), util.percentize(pResult.lose / pTotal), util.percentize(pResult.tie / pTotal)],
 		engine.shutdown()
 	},
 	report(){

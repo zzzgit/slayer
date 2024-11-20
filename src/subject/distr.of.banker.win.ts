@@ -23,7 +23,7 @@ const testCase = {
 	work(){
 		result.two = 0
 		result.three = 0
-		const xxxx = (handResult: HandOutcome): void => {
+		const xxxx = (handResult: HandOutcome): void=> {
 			if (handResult.result == HandResult.BancoWins){
 				if (handResult.bancoHand.getLength() === 2){
 					result.two++

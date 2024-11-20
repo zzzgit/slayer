@@ -12,7 +12,7 @@ const table_distribution = new CliTable({
 	style: { compact: false, 'padding-left': 1 },
 })
 
-const result: {[key: string]: any} = {
+const result: {[key: string]: number} = {
 	all: 0,
 	tie: 0,
 	b: 0,

@@ -59,7 +59,7 @@ const testCase = {
 		const { counter } = result
 		for (let i = 0; i < shoeAmount; i++){
 			// const tempMap = new Map<number, HandOutcome>()
-			const shoeoutcome: ShoeOutcome = engine.playOneShoe(undefined, () => {
+			const shoeoutcome: ShoeOutcome = engine.playOneShoe(undefined, ()=> {
 				// tempMap.set(handResult.handIndex, handResult)
 			})
 			const map = shoeoutcome.getOutcomeMap()
@@ -91,7 +91,7 @@ const testCase = {
 		for (let i = 1; i < 14; i++){
 			arrNum.push(counter.get(i) as number)
 		}
-		const total = arrNum.reduce((a, b) => +a + b)
+		const total = arrNum.reduce((a, b)=> +a + b)
 		for (let i = 1; i < 14; i++){
 			arrPer.push(util.percentize(arrNum[i - 1] / total, 3))
 		}

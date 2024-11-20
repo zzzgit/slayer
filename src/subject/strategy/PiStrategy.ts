@@ -1,18 +1,18 @@
 import Strategy from '../../model/strategy/Strategy'
 import BetOrUndefined from '../../model/strategy/type/BetOrUndefined'
 import {
+	BancoMun as Banker,
 	Bet,
 	FreeMun as Free,
-	BancoMun as Banker,
-	PuntoMun as Player,
 	HandOutcome,
+	PuntoMun as Player,
 } from 'bac-motor'
 
-const Pi =
-	'14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214'
+const Pi =	'14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214'
 const { length } = Pi
 
 class PiStrategy extends Strategy{
+
 	private index = 0
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -36,6 +36,7 @@ class PiStrategy extends Strategy{
 		}
 		return +result
 	}
+
 }
 
 export default PiStrategy

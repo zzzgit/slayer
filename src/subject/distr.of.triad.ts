@@ -1,6 +1,6 @@
 import { BeadRoad, GreenBeadEntity, IEntity } from 'marga'
 import {
-	Engine, HandOutcome, Pair, ShoeOutcome, Tag
+	Engine, HandOutcome, Pair, ShoeOutcome, Tag,
 } from 'bac-motor'
 import CliTable from '../report/Table'
 import CounterMap from './collection/CounterMap'
@@ -11,7 +11,7 @@ const round = 1
 const table = new CliTable({
 	head: ['total', 'B', 'P', 'tie'],
 	colWidths: [20, 20, 20, 20],
-	style: { compact: false, 'padding-left': 1 },
+	// style: { compact: false, 'padding-left': 1 },
 })
 
 let result = {
@@ -58,9 +58,7 @@ const testCase = {
 					triadOccurence++
 				}
 				if (hasPair){
-					const found = currentOutcome?.tagArray.filter(
-						(tag: Tag) => tag instanceof Pair
-					)
+					const found = currentOutcome?.tagArray.filter((tag: Tag)=> tag instanceof Pair)
 					if (found){
 						triadOccurence = triadOccurence + found.length
 					}

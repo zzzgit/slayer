@@ -43,15 +43,13 @@ const testCase = {
 		let three = 0
 		for (let i = 0; i < shoeAmount; i++){
 			let super6 = 0
-			engine.playOneShoe(undefined, (outcome: HandOutcome) => {
-				const isSuper6 = outcome.tagArray.some((item) => {
+			engine.playOneShoe(undefined, (outcome: HandOutcome)=> {
+				const isSuper6 = outcome.tagArray.some((item)=> {
 					return item instanceof SuperSix
 				})
 				if (isSuper6){
 					super6++
-					const tag: SuperSix = outcome.tagArray.find(
-						(item) => item instanceof SuperSix
-					) as SuperSix
+					const tag: SuperSix = outcome.tagArray.find(item=> item instanceof SuperSix) as SuperSix
 					if (tag.withCards == 3){
 						three++
 					} else {
@@ -90,10 +88,10 @@ const testCase = {
 	report(){
 		const arr = result.super.getSortedEntities()
 		let total = 0
-		arr.forEach((item) => {
+		arr.forEach((item)=> {
 			total = total + item.value + 0
 		})
-		arr.forEach((item) => {
+		arr.forEach((item)=> {
 			table.push([
 				item.key + '',
 				item.value,
@@ -107,14 +105,8 @@ const testCase = {
 		map.set('six after P', result.prevP)
 		map.set('six after tie', result.tie)
 		console.log('幸運六前一手：', map)
-		console.log(
-			'幸運六在閒後，百分比：',
-			(result.prevP / (result.prevP + result.prevB)) * 100
-		)
-		console.log(
-			'所有結果中閒，百分比：',
-			(result.allP / (result.allP + result.allB)) * 100
-		)
+		console.log('幸運六在閒後，百分比：', result.prevP / (result.prevP + result.prevB) * 100)
+		console.log('所有結果中閒，百分比：', result.allP / (result.allP + result.allB) * 100)
 	},
 }
 

@@ -20,10 +20,10 @@ const tableForProfit = new CliTable({
 
 let result = {
 	banker: {
-		tie: 0, win: 0, lose: 0
+		tie: 0, win: 0, lose: 0,
 	},
 	player: {
-		tie: 0, win: 0, lose: 0
+		tie: 0, win: 0, lose: 0,
 	},
 }
 
@@ -38,13 +38,13 @@ const testCase = {
 	work(){
 		result = {
 			banker: {
-				tie: 0, win: 0, lose: 0
+				tie: 0, win: 0, lose: 0,
 			},
 			player: {
-				tie: 0, win: 0, lose: 0
+				tie: 0, win: 0, lose: 0,
 			},
 		}
-		const afterPlay = (houtcome: HandOutcome): void => {
+		const afterPlay = (houtcome: HandOutcome): void=> {
 			const hresult = houtcome.result
 			const bHand = houtcome.bancoHand
 			const pHand = houtcome.puntoHand
@@ -76,10 +76,8 @@ const testCase = {
 			engine.playOneShoe(undefined, afterPlay)
 			consecutiveBanco = 0
 		}
-		const totalB: number =
-			result.banker.win + result.banker.lose + result.banker.tie
-		const totalP: number =
-			result.player.win + result.player.lose + result.player.tie
+		const totalB: number = result.banker.win + result.banker.lose + result.banker.tie
+		const totalP: number = result.player.win + result.player.lose + result.player.tie
 		const total = totalB + totalP
 
 		const smallTotalB = result.banker.win + result.banker.lose

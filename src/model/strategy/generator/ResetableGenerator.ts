@@ -3,14 +3,13 @@ import Instruct from './Instruct'
 
 // maybe need to extends the interface which Generate extends
 class ResetableGenerator<YieldType, ReturnType, NextType>{
+
 	private _context: Context
 
 	private _gen: Generator<YieldType, ReturnType, NextType>
 
-	constructor(
-		gen: Generator<YieldType, ReturnType, NextType>,
-		context: Context
-	){
+	constructor(gen: Generator<YieldType, ReturnType, NextType>,
+		context: Context){
 		this._context = context
 		this._gen = gen
 	}
@@ -35,6 +34,7 @@ class ResetableGenerator<YieldType, ReturnType, NextType>{
 		}
 		return this._gen.next()
 	}
+
 }
 
 export default ResetableGenerator

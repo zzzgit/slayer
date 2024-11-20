@@ -65,10 +65,8 @@ const testCase = {
 			losingStreak: new CounterMap<number>(),
 		}
 		for (let i = 0; i < shoeAmount; i++){
-			engine.playOneShoe(undefined, (handResult: HandOutcome) => {
-				const expectWinner = samael.flipCoin()
-					? HandResult.PuntoWins
-					: HandResult.BancoWins
+			engine.playOneShoe(undefined, (handResult: HandOutcome)=> {
+				const expectWinner = samael.flipCoin() ? HandResult.PuntoWins : HandResult.BancoWins
 				if (handResult.result == HandResult.Tie){
 					return undefined
 				}
@@ -84,14 +82,11 @@ const testCase = {
 			})
 		}
 		const totalBet: number = result.win + result.loss
-		tableDistribution.push(
-			[totalBet + ' hand', result.win, result.loss],
-			[
-				100 + '%',
-				util.percentize(result.win / totalBet) + '%',
-				util.percentize(result.loss / totalBet) + '%',
-			]
-		)
+		tableDistribution.push([totalBet + ' hand', result.win, result.loss], [
+			100 + '%',
+			util.percentize(result.win / totalBet) + '%',
+			util.percentize(result.loss / totalBet) + '%',
+		])
 
 		const map = result.losingStreak
 		const arr = []

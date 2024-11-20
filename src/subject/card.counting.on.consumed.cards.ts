@@ -1,4 +1,3 @@
-/* eslint-disable no-constant-condition */
 import { Blackhole, LosingEntity, WinningEntity } from '@zzznpm/orphan'
 import massiveTestConfig from '../config/massiveTestConfig'
 import Engine, { HandOutcome, HandResult } from 'bac-motor'
@@ -54,9 +53,8 @@ const testCase = {
 				tie: 0,
 			},
 		}
-		const afterPlay = (hOutcome: HandOutcome): void => {
-			const longWeightedScore =
-				longAccumulatedScore / ((416 - drawCards_int) / 416)
+		const afterPlay = (hOutcome: HandOutcome): void=> {
+			const longWeightedScore = longAccumulatedScore / ((416 - drawCards_int) / 416)
 			const threshold_for_short = 3500
 			if (longWeightedScore > 25000){
 				// 30000，相當於每10手打一手，2000，相當於每5手打一手
@@ -86,10 +84,9 @@ const testCase = {
 			lastHandScore = tool.countHandScore(hOutcome)
 			shorAccumulatedScore = tool.countHandScore(hOutcome, true)
 			longAccumulatedScore += lastHandScore
-			drawCards_int +=
-				hOutcome.bancoHand.getLength() + hOutcome.puntoHand.getLength()
+			drawCards_int += hOutcome.bancoHand.getLength() + hOutcome.puntoHand.getLength()
 		}
-		const beforeShoe = (card: Card | undefined): void => {
+		const beforeShoe = (card: Card | undefined): void=> {
 			card?.getPoint()
 			lastHandScore = 448
 			longAccumulatedScore += lastHandScore
@@ -104,10 +101,8 @@ const testCase = {
 		}
 
 		const { distr } = result
-		tableDistribution.push(
-			['distro', distr.banco, distr.punto, distr.tie]
-			// ["bet on P", bet.punto.win, bet.punto.lose, result.tie.player],
-		)
+		tableDistribution.push(['distro', distr.banco, distr.punto, distr.tie])
+		// ["bet on P", bet.punto.win, bet.punto.lose, result.tie.player],
 
 		engine.shutdown()
 	},
@@ -120,8 +115,8 @@ const testCase = {
 		// console.log(info.strategy)
 
 		const { distr } = result
-		const pRate = (distr.banco / distr.punto) * 100
-		const bRate = (distr.punto / distr.banco) * 100
+		const pRate = distr.banco / distr.punto * 100
+		const bRate = distr.punto / distr.banco * 100
 		console.log('B/P:', pRate.toFixed(4))
 		console.log('P/B:', bRate.toFixed(4))
 	},

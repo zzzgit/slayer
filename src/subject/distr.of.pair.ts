@@ -17,8 +17,8 @@ const table_score = new CliTable({
 	colWidths: [8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
 	style: { compact: false, 'padding-left': 1 },
 })
-
-const result: {[key: string]: any} = {
+type ResultType = {point: number[], indexMap: CounterMap<number>, occurenceMap: CounterMap<number>, pairMap: CounterMap<number>, all: number, pair: number}
+const result: ResultType = {
 	point: [],
 	indexMap: new CounterMap<number>(),
 	occurenceMap: new CounterMap<number>(),
@@ -37,17 +37,18 @@ const testCase = {
 		result.indexMap.clear()
 		result.occurenceMap.clear()
 		result.pairMap.clear()
-		const afterbet = (): ((hcome: HandOutcome) => void) | undefined => {
-			return (handResult: HandOutcome) => {
+		const afterbet = (): ((hcome: HandOutcome) => void) | undefined=> {
+			return (handResult: HandOutcome)=> {
 				result.all++
 				const bhand = handResult.bancoHand.getDuplicatedCardArray()
 				const phand = handResult.puntoHand.getDuplicatedCardArray()
 				bhand.length = 2
 				phand.length = 2
+				// any pair
 				if (Pair.isPair(bhand) || Pair.isPair(phand)){
 					result.pair++
 					const score = handResult.bancoHand.getPoint()
-					result.point[score] = (result.point[score] || 0) + 1
+					result.point[score] = (+result.point[score] || 0) + 1
 					result.indexMap.count(handResult.handIndex)
 					if (Pair.isPair(bhand)){
 						result.pairMap.count(bhand[0].getRank())
@@ -97,7 +98,7 @@ testCase.run()
 testCase.report()
 
 /**
- * 1. 對子出現幾率14.5%()，而tie是9.55%
+ * 1. 任意對子出現幾率14.5%()，而tie是9.55%
  * 1.5 (32-1)/(416-1) = 31/415 = 7.47%
  * 2. 對子出現的牌，8，6，4，9，7，2...
  * 3. 對子本身的點數，應該是平均分佈（A-K），實際上，6好像略低

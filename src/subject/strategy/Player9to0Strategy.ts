@@ -9,19 +9,18 @@ import { Bet, FreeMun as Free, PuntoMun as Player } from 'bac-motor'
 // let prom = samael.writeToFile(path, `${date.toLocaleString()}\n  \n`).catch((e: Error) => console.log("錯誤", e))
 
 class Player9to0Strategy extends Strategy{
-	figureOutBet(
-		_lastBet: BetOrUndefined,
-		lastComeout: HandOutcomeOrUndefined
-	): Bet{
+
+	figureOutBet(_lastBet: BetOrUndefined,
+		lastComeout: HandOutcomeOrUndefined): Bet{
 		if (
-			lastComeout?.puntoHand.getPoint() == 0 &&
-			lastComeout?.bancoHand.getPoint() == 9
+			lastComeout?.puntoHand.getPoint() == 0 && lastComeout?.bancoHand.getPoint() == 9
 		){
 			return new Bet(new Player(), 0)
 		}
 		const freeGame = new Bet(new Free(), 0)
 		return freeGame
 	}
+
 }
 
 export default Player9to0Strategy

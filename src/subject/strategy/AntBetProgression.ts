@@ -1,6 +1,7 @@
 import Progression from '../../model/strategy/Progression'
 
 class AntBetProgression extends Progression{
+
 	private _stepLength: number
 
 	constructor(stepLenth: number = 1){
@@ -65,6 +66,7 @@ class AntBetProgression extends Progression{
 		// }
 		return 1
 	}
+
 }
 
 export default AntBetProgression

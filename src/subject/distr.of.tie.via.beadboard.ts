@@ -31,22 +31,16 @@ const testCase = {
 			player: 0,
 		}
 		const date = new Date()
-		const path =
-			'/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt'
+		const path = '/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt'
 		let prom = samael
 			.writeToFile(path, `${date.toLocaleString()}\n  \n`)
-			.catch((e: Error) => console.log('錯誤', e))
+			.catch((e: Error)=> console.log('錯誤', e))
 		for (let i = 0; i < shoeAmount; i++){
 			const shoeComeout: ShoeOutcome = engine.playOneShoe()
 			const info = shoeComeout.getStatisticInfo()
-			prom = prom.then(() =>
-				samael.appendToFile(
-					path,
-					`${shoeComeout.getShoeIndex()}\t${info.banco}\t${info.punto}\t${
-						info.tie
-					}\n`
-				)
-			)
+			prom = prom.then(()=> samael.appendToFile(path, `${shoeComeout.getShoeIndex()}\t${info.banco}\t${info.punto}\t${
+				info.tie
+			}\n`))
 			this.showRoad(shoeComeout.getBeadRoad())
 
 			result.banker += info.banco
@@ -54,15 +48,12 @@ const testCase = {
 			result.tie += info.tie
 		}
 		const totalResult: number = result.tie + result.banker + result.player
-		table.push(
-			[totalResult, result.banker, result.player, result.tie],
-			[
-				'100 %',
-				util.percentize(result.banker / totalResult) + ' %',
-				util.percentize(result.player / totalResult) + ' %',
-				util.percentize(result.tie / totalResult) + ' %',
-			]
-		)
+		table.push([totalResult, result.banker, result.player, result.tie], [
+			'100 %',
+			util.percentize(result.banker / totalResult) + ' %',
+			util.percentize(result.player / totalResult) + ' %',
+			util.percentize(result.tie / totalResult) + ' %',
+		])
 	},
 	showRoad(road: BeadRoad){
 		let result = ''

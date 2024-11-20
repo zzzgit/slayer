@@ -46,15 +46,13 @@ const testCase = {
 			const seq = new FlatBetProgression(1)
 			const system = new PiStrategy(seq)
 			let bet: Bet
-			const beforePlay = (
-				prevBet: BetOrUndefined,
-				prevComeout: HandOutcomeOrUndefined
-			): Bet => {
+			const beforePlay = (prevBet: BetOrUndefined,
+				prevComeout: HandOutcomeOrUndefined): Bet=> {
 				bet = system.figureOutBet(prevBet, prevComeout as HandOutcome)
 				isFree = bet.getMun() instanceof Free ? true : false
 				return bet
 			}
-			const afterPlay = (hOutcome: HandOutcome): void => {
+			const afterPlay = (hOutcome: HandOutcome): void=> {
 				if (isFree){
 					return undefined
 				}

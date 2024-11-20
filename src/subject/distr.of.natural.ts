@@ -35,14 +35,14 @@ const testCase = {
 			p: new CounterMap<number>(),
 			b: new CounterMap<number>(),
 		}
-		const afterShoe = (handComeout: HandOutcome): void => {
-			const tags: Natural[] = handComeout.tagArray.filter((item) => {
+		const afterShoe = (handComeout: HandOutcome): void=> {
+			const tags: Natural[] = handComeout.tagArray.filter((item)=> {
 				return item instanceof Natural
-			}) as Natural[]
+			})
 			if (!tags.length){
 				return undefined
 			}
-			tags.forEach((tag) => {
+			tags.forEach((tag)=> {
 				const bHand = handComeout.bancoHand.getDuplicatedCardArray()
 				const pHand = handComeout.puntoHand.getDuplicatedCardArray()
 				let first
@@ -72,10 +72,7 @@ const testCase = {
 		for (let i = 0; i < shoeAmount; i++){
 			engine.playOneShoe(undefined, afterShoe)
 		}
-		table.push(
-			['B', result.banker8, result.banker9],
-			['P', result.player8, result.player9]
-		)
+		table.push(['B', result.banker8, result.banker9], ['P', result.player8, result.player9])
 	},
 	run(){
 		for (let i = 0; i < round; i++){

@@ -42,7 +42,7 @@ const testCase = {
 			player: new CounterMap<number>(),
 			allMap: new CounterMap<string>(),
 		}
-		const afterPlay = (handResult: HandOutcome): void => {
+		const afterPlay = (handResult: HandOutcome): void=> {
 			const prev = handResult.getPreviousHandOutcome()
 			if (!prev){
 				return undefined

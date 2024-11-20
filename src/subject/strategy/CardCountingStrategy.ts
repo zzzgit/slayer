@@ -2,35 +2,31 @@ import Strategy from '../../model/strategy/Strategy'
 import BetOrUndefined from '../../model/strategy/type/BetOrUndefined'
 import HandOutcomeOrUndefined from '../../model/strategy/type/HandOutcomeOrUndefined'
 import {
-	Bet,
 	BancoMun as Banker,
+	Bet,
 	FreeMun as Free,
-	PuntoMun as Player,
 	HandResult,
+	PuntoMun as Player,
 } from 'bac-motor'
 import tool from '../../tool/tool'
 import * as samael from 'samael'
 
 const date = new Date()
-const path =
-	'/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt'
+const path =	'/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt'
 let prom = samael
 	.writeToFile(path, `${date.toLocaleString()}\n  \n`)
-	.catch((e: Error) => console.log('錯誤', e))
+	.catch((e: Error)=> console.log('錯誤', e))
 
 class CardCountingStrategy extends Strategy{
-	figureOutBet(
-		lastBet: BetOrUndefined,
-		lastOutcome: HandOutcomeOrUndefined
-	): Bet{
+
+	figureOutBet(lastBet: BetOrUndefined,
+		lastOutcome: HandOutcomeOrUndefined): Bet{
 		if (lastBet){
 			if (
-				!(lastBet.getMun() instanceof Free) &&
-				!lastBet.gotTie() &&
-				''.length === 3
+				!(lastBet.getMun() instanceof Free) && !lastBet.gotTie() && ''.length === 3
 			){
 				const str = `${lastBet.getOutcome()?.getShoeIndex()}	${lastBet.getStr()}`
-				prom = prom.then(() => samael.appendToFile(path, `${str}\n`))
+				prom = prom.then(()=> samael.appendToFile(path, `${str}\n`))
 			}
 		}
 
@@ -55,6 +51,7 @@ class CardCountingStrategy extends Strategy{
 		}
 		return freeGame
 	}
+
 }
 
 export default CardCountingStrategy

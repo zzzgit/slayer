@@ -51,7 +51,7 @@ const testCase = {
 	},
 	_statistic(){
 		const {
-			totalMap, tieMap, bMap, pMap
+			totalMap, tieMap, bMap, pMap,
 		} = result
 		let four = totalMap.get(4) || 0
 		let five = totalMap.get(5) || 0
@@ -186,7 +186,7 @@ const testCase = {
 			sixMap: new CounterMap<number>(),
 		}
 		streak = 0
-		const afterPlay = (handResult: HandOutcome): void => {
+		const afterPlay = (handResult: HandOutcome): void=> {
 			const bHand = handResult.bancoHand.getDuplicatedCardArray()
 			const pHand = handResult.puntoHand.getDuplicatedCardArray()
 			const cardAmount = bHand.length + pHand.length

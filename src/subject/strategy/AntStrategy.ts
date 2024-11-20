@@ -1,16 +1,17 @@
 import Strategy from '../../model/strategy/Strategy'
 import BetOrUndefined from '../../model/strategy/type/BetOrUndefined'
 import {
+	BancoMun as Banker,
 	Bet,
 	FreeMun as Free,
-	BancoMun as Banker,
-	PuntoMun as Player,
 	HandOutcome,
+	PuntoMun as Player,
 } from 'bac-motor'
 import * as samael from 'samael'
 
 let counter = 0
 class AntStrategy extends Strategy{
+
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	figureOutBet(lastBet: BetOrUndefined, _lastOutcome: HandOutcome): Bet{
 		counter++
@@ -36,6 +37,7 @@ class AntStrategy extends Strategy{
 	setBalance(b: number): void{
 		this.getProgressionGenerator().setBalance(b)
 	}
+
 }
 
 export default AntStrategy

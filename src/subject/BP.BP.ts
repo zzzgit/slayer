@@ -4,7 +4,7 @@ import { Engine, ShoeOutcome } from 'bac-motor'
 import CliTable from '../report/Table'
 import util from '../tool/util'
 import * as samael from 'samael'
-import { LosingEntity, Blackhole, WinningEntity } from '@zzznpm/orphan'
+import { Blackhole, LosingEntity, WinningEntity } from '@zzznpm/orphan'
 
 const engine = new Engine()
 const shoeAmount = 4000
@@ -38,11 +38,10 @@ const testCase = {
 			player: 0,
 		}
 		const date = new Date()
-		const path =
-			'/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt'
+		const path = '/Users/luochao/Desktop/projects/slayer/src/baccaratology/reportCache/mm.txt'
 		let prom = samael
 			.writeToFile(path, `${date.toLocaleString()}\n  \n`)
-			.catch((e: Error) => console.log('錯誤', e))
+			.catch((e: Error)=> console.log('錯誤', e))
 		for (let i = 0; i < shoeAmount; i++){
 			const shoeOutcome: ShoeOutcome = engine.playOneShoe()
 			const info = shoeOutcome.getStatisticInfo()
@@ -50,7 +49,7 @@ const testCase = {
 				info.tie
 			}\n`
 			str = ''
-			prom = prom.then(() => samael.appendToFile(path, str))
+			prom = prom.then(()=> samael.appendToFile(path, str))
 			const bigroad: BigRoad = shoeOutcome.getBigRoad()
 			// 分析遇莊打莊
 			let streak = bigroad.getFirstStreak()
@@ -100,15 +99,12 @@ const testCase = {
 			result.tie += info.tie
 		}
 		const totalResult: number = result.tie + result.banker + result.player
-		table.push(
-			[totalResult, result.banker, result.player, result.tie],
-			[
-				'100 %',
-				util.percentize(result.banker / totalResult) + ' %',
-				util.percentize(result.player / totalResult) + ' %',
-				util.percentize(result.tie / totalResult) + ' %',
-			]
-		)
+		table.push([totalResult, result.banker, result.player, result.tie], [
+			'100 %',
+			util.percentize(result.banker / totalResult) + ' %',
+			util.percentize(result.player / totalResult) + ' %',
+			util.percentize(result.tie / totalResult) + ' %',
+		])
 	},
 	run(){
 		for (let i = 0; i < round; i++){

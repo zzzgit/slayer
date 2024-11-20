@@ -1,5 +1,5 @@
-describe('game', () => {
-	test('index', () => {
+describe('game', ()=> {
+	test('index', ()=> {
 		// demo.run()
 		return expect(Promise.resolve([2])).resolves.toHaveLength(1)
 	})

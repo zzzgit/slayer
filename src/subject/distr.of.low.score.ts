@@ -14,10 +14,10 @@ const table = new CliTable({
 	style: { compact: false, 'padding-left': 1 },
 })
 
-const result: {[key: string]: any} = {
+const result = {
 	tie: 0,
-	banker: 0,
-	player: 0,
+	banco: 0,
+	punto: 0,
 	cardPoint: new CounterMap<number>(),
 }
 
@@ -30,7 +30,7 @@ const testCase = {
 		result.banco = 0
 		result.punto = 0
 		for (let i = 0; i < shoeAmount; i++){
-			engine.playOneShoe(undefined, (handResult: HandOutcome) => {
+			engine.playOneShoe(undefined, (handResult: HandOutcome)=> {
 				const bScore = handResult.bancoHand.getPoint()
 				const pScore = handResult.puntoHand.getPoint()
 				if (bScore < 4 && pScore < 4){
@@ -43,13 +43,13 @@ const testCase = {
 					}
 					handResult.bancoHand
 						.getDuplicatedCardArray()
-						.forEach((card: Card) => {
+						.forEach((card: Card)=> {
 							const point = card.getRank()
 							result.cardPoint.count(point)
 						})
 					handResult.puntoHand
 						.getDuplicatedCardArray()
-						.forEach((card: Card) => {
+						.forEach((card: Card)=> {
 							const point = card.getRank()
 							result.cardPoint.count(point)
 						})
@@ -57,15 +57,12 @@ const testCase = {
 			})
 		}
 		const totalResult: number = result.tie + result.banco + result.punto
-		table.push(
-			[totalResult, result.banco, result.punto, result.tie],
-			[
-				'100 %',
-				util.percentize(result.banco / totalResult) + ' %',
-				util.percentize(result.punto / totalResult) + ' %',
-				util.percentize(result.tie / totalResult) + ' %',
-			]
-		)
+		table.push([totalResult, result.banco, result.punto, result.tie], [
+			'100 %',
+			util.percentize(result.banco / totalResult) + ' %',
+			util.percentize(result.punto / totalResult) + ' %',
+			util.percentize(result.tie / totalResult) + ' %',
+		])
 		// table.push([100, util.percentize(result.banco / totalResult), util.percentize(result.punto / totalResult), util.percentize(result.tie / totalResult)])
 	},
 	run(){
@@ -86,7 +83,7 @@ const testCase = {
 		for (let i = 1; i < 14; i++){
 			arr.push(cardpoint.get(i))
 		}
-		table2.push(arr)
+		table2.push(arr as number[])
 		table2.print('低點數（0->3）牌的分佈：')
 	},
 }

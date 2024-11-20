@@ -2,6 +2,7 @@ import Progression from '../../model/strategy/Progression'
 import Instruct from '../../model/strategy/generator/Instruct'
 
 class LiaokoBetProgression extends Progression{
+
 	private _seed: number[]
 
 	constructor(seed: number[]){
@@ -27,6 +28,7 @@ class LiaokoBetProgression extends Progression{
 			}
 		}
 	}
+
 }
 
 export default LiaokoBetProgression

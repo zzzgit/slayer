@@ -39,7 +39,7 @@ const testCase = {
 				tie: 0,
 			},
 		}
-		const afterPlay = (handResult: HandOutcome): void => {
+		const afterPlay = (handResult: HandOutcome): void=> {
 			const banco_cards = handResult.bancoHand.getLength()
 			const punto_cards = handResult.puntoHand.getLength()
 			const testScheme = 5
@@ -59,30 +59,21 @@ const testCase = {
 			engine.playOneShoe(undefined, afterPlay)
 		}
 		const { counter } = result
-		result.total =
-			result.counter.bancowins + result.counter.puntowins + result.counter.tie
+		result.total = result.counter.bancowins + result.counter.puntowins + result.counter.tie
 		const { total } = result
-		tableDistribution.push(
-			['bet times', counter.bancowins, counter.puntowins, counter.tie],
-			[
-				'bet perct',
-				util.percentize(counter.bancowins / total),
-				util.percentize(counter.puntowins / total),
-				util.percentize(counter.tie / total),
-			]
-		)
+		tableDistribution.push(['bet times', counter.bancowins, counter.puntowins, counter.tie], [
+			'bet perct',
+			util.percentize(counter.bancowins / total),
+			util.percentize(counter.puntowins / total),
+			util.percentize(counter.tie / total),
+		])
 
 		engine.shutdown()
 	},
 	report(){
 		tableDistribution.print('六千靴牌，大小牌算牌法，輸贏：')
 		const count = result.counter
-		const cal = util.getOddCal(
-			count.bancowins,
-			count.puntowins,
-			count.tie,
-			isBetOnBanco
-		)
+		const cal = util.getOddCal(count.bancowins, count.puntowins, count.tie, isBetOnBanco)
 		console.log(`W/L:			${cal.getw2l()}`)
 		console.log(`EV(已減佣金)算和:	${cal.getReward(true)}`)
 		console.log(`EV(已減佣金)不算:	${cal.getReward(false)}`)

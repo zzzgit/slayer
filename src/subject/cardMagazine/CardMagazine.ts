@@ -9,12 +9,13 @@ import {
 } from 'cardation'
 
 class CardMagazine{
+
 	static getCardsFromArbitraryNum(): Card[]{
 		const cards: Card[] = []
 		const club = new Club()
 		const remainCount = [0, 7, 8, 14, 24, 5, 2, 3, 3, 4]
 
-		remainCount.forEach((count, index) => {
+		remainCount.forEach((count, index)=> {
 			if (index === 0){
 				for (let i = 0; i < count; i++){
 					cards.push(CardFactory.createFaceCard(club, 11, 0))
@@ -36,8 +37,7 @@ class CardMagazine{
 
 	static getCardsFromPie(): Card[]{
 		const cards: Card[] = []
-		const pie =
-			'314157926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679'
+		const pie = '314157926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679'
 		for (const element of pie){
 			cards.push(creatCard(+element))
 		}
@@ -104,7 +104,7 @@ class CardMagazine{
 
 	static getCardsWithNo5(): Card[]{
 		const cards: Card[] = this.getPerfectShoe()
-		return cards.filter((item) => item.getPoint() !== 5)
+		return cards.filter(item=> item.getPoint() !== 5)
 	}
 
 	static getCardsWithNo6(): Card[]{
@@ -112,7 +112,7 @@ class CardMagazine{
 		for (let i = 0; i < 8 * 4; i++){
 			cards.push(creatCard(4))
 		}
-		return cards.filter((item) => item.getPoint() !== 6)
+		return cards.filter(item=> item.getPoint() !== 6)
 	}
 
 	static getCardsWithHighRank(): Card[]{
@@ -135,9 +135,10 @@ class CardMagazine{
 		}
 		return cards
 	}
+
 }
 
-const creatCard = (score: number): Card => {
+const creatCard = (score: number): Card=> {
 	if (score == 1){
 		return new AceCard(new Heart())
 	}

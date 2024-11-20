@@ -1,4 +1,5 @@
 class OddCalculator{
+
 	private perfect_banber: number = 0.458597
 
 	private perfect_player: number = 0.446247
@@ -17,21 +18,17 @@ class OddCalculator{
 
 	private _totalBig: number
 
-	static from(
-		bancoWins: number,
+	static from(bancoWins: number,
 		puntoWins: number,
 		tie: number,
-		betOnBanco: boolean
-	): OddCalculator{
+		betOnBanco: boolean): OddCalculator{
 		return new OddCalculator(bancoWins, puntoWins, tie, betOnBanco)
 	}
 
-	constructor(
-		bancoWins: number,
+	constructor(bancoWins: number,
 		puntoWins: number,
 		tie: number,
-		betOnBanco: boolean
-	){
+		betOnBanco: boolean){
 		this._banber = bancoWins
 		this._player = puntoWins
 		this._tie = tie
@@ -88,6 +85,7 @@ class OddCalculator{
 		}
 		return (this.perfect_player - this.perfect_banber) / total
 	}
+
 }
 
 export default OddCalculator

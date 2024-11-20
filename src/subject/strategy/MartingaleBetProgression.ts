@@ -2,6 +2,7 @@ import Progression from '../../model/strategy/Progression'
 import Instruct from '../../model/strategy/generator/Instruct'
 
 class MartingaleBetProgression extends Progression{
+
 	private _seed: number
 
 	private _steps: number
@@ -29,6 +30,7 @@ class MartingaleBetProgression extends Progression{
 			}
 		}
 	}
+
 }
 
 export default MartingaleBetProgression

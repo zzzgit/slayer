@@ -1,8 +1,0 @@
-extends: ["janus/ts" ]
-# plugins: []
-ignorePatterns: ["built/**/*"]
-parserOptions:
-  ecmaVersion: latest
-  project: ./tsconfig.json
-  sourceType: module
-# rules:

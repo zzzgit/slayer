@@ -73,13 +73,13 @@ const testCase = {
 				streak = streak.getNextStreak()
 			}
 		}
-		const arrB: any[] = []
-		const arrP: any[] = []
+		const arrB = []
+		const arrP = []
 		for (let i = 11; i < 23; i++){
 			arrB.push(mapB.get(i))
 			arrP.push(mapP.get(i))
 		}
-		table.push(['B', ...arrB], ['P', ...arrP])
+		table.push(['B', ...arrB as number[]], ['P', ...arrP])
 	},
 	run(){
 		for (let i = 0; i < round; i++){

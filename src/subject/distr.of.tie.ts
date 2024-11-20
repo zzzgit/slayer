@@ -16,8 +16,8 @@ const table_score = new CliTable({
 	colWidths: [8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
 	style: { compact: false, 'padding-left': 1 },
 })
-
-const result: {[key: string]: any} = {
+type ResultType = {point: number[], indexMap: CounterMap<number>, occurenceMap: CounterMap<number>, all: number, tie: number}
+const result: ResultType = {
 	point: [],
 	indexMap: new CounterMap<number>(),
 	occurenceMap: new CounterMap<number>(),
@@ -33,13 +33,13 @@ const testCase = {
 		result.all = 0
 		result.tie = 0
 		result.indexMap.clear()
-		const afterbet = (): ((hcome: HandOutcome) => void) | undefined => {
-			return (handResult: HandOutcome) => {
+		const afterbet = (): ((hcome: HandOutcome) => void) | undefined=> {
+			return (handResult: HandOutcome)=> {
 				result.all++
 				if (handResult.result === HandResult.Tie){
 					result.tie++
 					const score = handResult.bancoHand.getPoint()
-					result.point[score] = (result.point[score] || 0) + 1
+					result.point[score] = +(result.point[score] || 0) + 1
 					result.indexMap.count(handResult.handIndex)
 				}
 			}

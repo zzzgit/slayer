@@ -58,10 +58,8 @@ const testCase = {
 			const seq = new AntBetProgression()
 			const system = new AntStrategy(seq)
 			let bet: Bet
-			const beforePlay = (
-				prevBet: BetOrUndefined,
-				prevComeout: HandOutcomeOrUndefined
-			): Bet => {
+			const beforePlay = (prevBet: BetOrUndefined,
+				prevComeout: HandOutcomeOrUndefined): Bet=> {
 				// / https://github.com/zzzgit/bac-motor/blob/7cbe9b35a4f0e32515dc58c6c364b514d60f215c/src/Engine.ts#L123
 				// 上面一行被comment, 所以prevBet永遠為空
 				system.setBalance(balance)
@@ -75,7 +73,7 @@ const testCase = {
 				}
 				return bet
 			}
-			const afterPlay = (handResult: HandOutcome): void => {
+			const afterPlay = (handResult: HandOutcome): void=> {
 				if (isFree){
 					return undefined
 				}
@@ -109,7 +107,7 @@ const testCase = {
 			try {
 				engine.playOneShoe(beforePlay, afterPlay)
 			} catch (e){
-				console.log('shutdown:', 2 || e)
+				console.log('shutdown:', e)
 				break
 			}
 		}

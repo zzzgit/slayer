@@ -1,6 +1,7 @@
 import Progression from '../../model/strategy/Progression'
 
 class FlatBetProgression extends Progression{
+
 	private _wager: number
 
 	constructor(wager: number){
@@ -16,6 +17,7 @@ class FlatBetProgression extends Progression{
 			yield this._wager
 		}
 	}
+
 }
 
 export default FlatBetProgression

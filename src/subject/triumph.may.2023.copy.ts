@@ -26,10 +26,10 @@ const tableForProfit = new CliTable({
 
 let result = {
 	banker: {
-		tie: 0, win: 0, lose: 0
+		tie: 0, win: 0, lose: 0,
 	},
 	player: {
-		tie: 0, win: 0, lose: 0
+		tie: 0, win: 0, lose: 0,
 	},
 }
 
@@ -44,19 +44,19 @@ const testCase = {
 	work(){
 		result = {
 			banker: {
-				tie: 0, win: 0, lose: 0
+				tie: 0, win: 0, lose: 0,
 			},
 			player: {
-				tie: 0, win: 0, lose: 0
+				tie: 0, win: 0, lose: 0,
 			},
 		}
 
-		const afterPlay = (houtcome: HandOutcome): void => {
+		const afterPlay = (houtcome: HandOutcome): void=> {
 			const hresult = houtcome.result
 			const bHand = houtcome.bancoHand
 			const pHand = houtcome.puntoHand
 			const num = bHand.getLength() + pHand.getLength()
-			const betOnPlayer = (hresult: HandResult): void => {
+			const betOnPlayer = (hresult: HandResult): void=> {
 				if (hresult == HandResult.BancoWins){
 					result.player.lose++
 					consecutiveLose++
@@ -75,7 +75,7 @@ const testCase = {
 					result.player.tie++
 				}
 			}
-			const betOnBanker = (hresult: HandResult): void => {
+			const betOnBanker = (hresult: HandResult): void=> {
 				if (hresult == HandResult.BancoWins){
 					result.banker.win++
 					consecutiveWin++
@@ -126,10 +126,8 @@ const testCase = {
 			previousConsecutiveSingle = 0
 			previousConsecutiveDouble = 0
 		}
-		const totalB: number =
-			result.banker.win + result.banker.lose + result.banker.tie
-		const totalP: number =
-			result.player.win + result.player.lose + result.player.tie
+		const totalB: number = result.banker.win + result.banker.lose + result.banker.tie
+		const totalP: number = result.player.win + result.player.lose + result.player.tie
 		const total = totalB + totalP
 
 		const smallTotalB = result.banker.win + result.banker.lose

@@ -41,15 +41,12 @@ const testCase = {
 		}
 
 		const totalResult: number = result.tie + result.banker + result.player
-		table.push(
-			[totalResult, result.banker, result.player, result.tie],
-			[
-				'100 %',
-				util.percentize(result.banker / totalResult) + ' %',
-				util.percentize(result.player / totalResult) + ' %',
-				util.percentize(result.tie / totalResult) + ' %',
-			]
-		)
+		table.push([totalResult, result.banker, result.player, result.tie], [
+			'100 %',
+			util.percentize(result.banker / totalResult) + ' %',
+			util.percentize(result.player / totalResult) + ' %',
+			util.percentize(result.tie / totalResult) + ' %',
+		])
 		// table.push([100, util.percentize(result.banco / totalResult), util.percentize(result.punto / totalResult), util.percentize(result.tie / totalResult)])
 	},
 	run(){

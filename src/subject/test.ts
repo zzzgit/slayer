@@ -1,6 +1,6 @@
 import q4 from '../history_data/q1'
 
-const test1 = (arr: number[]): number[] => {
+const test1 = (arr: number[]): number[]=> {
 	let result = 0
 	let state = 0
 	for (const item of arr){

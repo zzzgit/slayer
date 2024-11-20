@@ -5,6 +5,7 @@ import BetOrUndefined from './type/BetOrUndefined'
 import HandOutcomeOrUndefined from './type/HandOutcomeOrUndefined'
 
 abstract class Strategy{
+
 	private readonly _sequence: Progression
 
 	abstract figureOutBet(
@@ -19,6 +20,7 @@ abstract class Strategy{
 	getProgressionGenerator(): ResetableGenerator<number, void, boolean>{
 		return this._sequence.getGenerator()
 	}
+
 }
 
 export default Strategy
