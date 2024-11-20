@@ -11,7 +11,7 @@ const round = 1
 const table = new CliTable({
 	head: ['total', 'B', 'P', 'tie'],
 	colWidths: [20, 20, 20, 20],
-	// style: { compact: false, 'padding-left': 1 },
+	style: { compact: false, 'padding-left': 1 },
 })
 
 let result = {
