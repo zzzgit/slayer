@@ -5,12 +5,12 @@ import util from '../tool/util'
 const conf: Config = {
 	shouldShuffleWhileCollectBancoHand: false,
 	shouldCutShoe: false,
-	shouldBurnCard: false,
+	shouldBurnCard: true,
 }
-console.log(conf)
+
 const engine = new Engine()
-const shoeAmount = 4000
-const round = 1
+const shoeAmount = 10000
+const round = 6
 const table = new CliTable({
 	head: ['total', 'B', 'P', 'tie'],
 	colWidths: [20, 20, 20, 20],
@@ -25,7 +25,7 @@ const result = {
 
 const testCase = {
 	init(){
-		engine.powerOn()
+		engine.powerOn(conf)
 	},
 	work(){
 		result.tie = 0
@@ -69,4 +69,5 @@ testCase.report()
  * 2. 莊家贏比閒家贏略高
  * 3. 1000 shoe 足以反映理論比例
  * 4. 40000 sheo的數據足以穩定
+ * 5. 莊閒的概率，波動幅度是千分之一以上（tie involved)
  */
